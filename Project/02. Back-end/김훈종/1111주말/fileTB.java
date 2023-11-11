@@ -32,7 +32,7 @@ public class fileTB {
 	private Long fileSize;
 	
 	// 업로드 날짜
-	private LocalDateTime uploadDate;
+	private LocalDateTime fileDate;
 	
 	// 해달 파일이 속한 게시굴
 	@ManyToOne
