@@ -20,8 +20,13 @@ public class fileTB {
 	// 파일의 이름
 	private String fileName;
 	
+	// 파일 카데고리 
+	private String fileCate;
+	
 	// 파일이 저장된 경로
 	private String filePath;
+	
+	
 	
 	// 파일 크기
 	// 기본적으로 바이트 단위
