@@ -1,5 +1,5 @@
 package com.soon.slt.controller;
 
-public class BoardController {
+public class TbCommentController {
 
 }
