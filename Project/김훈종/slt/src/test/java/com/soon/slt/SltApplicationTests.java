@@ -9,6 +9,7 @@ class SltApplicationTests {
 	@Test
 	void contextLoads() {
 		String test;
+		String test2;
 	}
 
 }
