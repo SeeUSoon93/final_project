@@ -28,5 +28,6 @@ public class TbUser {
 
 	@OneToMany(mappedBy = "tbUser", cascade = CascadeType.REMOVE)
 	public List<TbLikes> tbLikesList;
+
 	
 }
