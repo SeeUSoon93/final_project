@@ -1,0 +1,32 @@
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="container my-3">
+	<h2 class="border-bottom py-2" th:text="${board.boardTitle}"></h2>
+	<div class="card my-3">
+		<div class="card-body">
+			<div class="card-text" style="white-space: pre-line;" th:text="${board.boardCon}"></div>
+	
+	<h5 class="border-bottom my-3 py-2">댓글 : <span th:text="|${#lists.size(board.repleList)}|">개</span></h5>
+	<div class="card my-3" th:each="reple : ${board.repleList}">
+		<a th:id="|reple_${reple.repleNum}|"></a>
+		<div class="card-body">
+			<div class="card-text" style="white-space: pre-line;" th:text="${reple.repleCon}"></div>
+			<div class="d-flex justify-content-end">
+				<div class="badge bg-light text-dark p-2 text-start">
+					<div th:text="${#temporals.format(reple.repleDate, 'yyyy-MM-dd HH:mm')}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 댓글 다는 폼 -->
+	<form th:action="@{|/reple/create/${board.boardNum}|}" th:object="${repleForm}" method="post">
+		<div th:if="${#fields.hasAnyErrors()}">
+			<div th:each="err:${#fields.allErrors()}" th:text="${err}"></div>
+		</div> 
+		<textarea class="form-control" th:field="*{repleCon}" rows="5"></textarea>
+		<input type="submit" value="댓글달기" class="btn btn-primary my-2">
+	</form>
+	<a class="btn btn-danger my-2" th:href="@{/board/main}">목록</a>
+	</div>
+	</div>
+</div>
+</html>
