@@ -1,9 +1,15 @@
 package com.soon.slt.form;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TbUserForm {
 	
 	@NotEmpty(message = "이메일을 입력해주세요")

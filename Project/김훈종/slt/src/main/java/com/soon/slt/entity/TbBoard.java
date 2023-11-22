@@ -11,9 +11,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class TbBoard {
 
@@ -25,8 +31,7 @@ public class TbBoard {
 	// DB에서 이미 길이제한을 설정했으면, @Column 어노테이션의 legth속성은 실제 DB에 영향을 미치지 않음
 	public String bdCategory, bdTitle, bdFile;
 
-	@Lob // 데이터베이스의 TEXT, CLOB (Character Large Object) 또는 해당 데이터베이스의 대응되는 큰 텍스트 데이터 타입으로
-			// 매핑
+	@Lob // 데이터베이스의 TEXT, CLOB (Character Large Object) 또는 해당 데이터베이스의 대응되는 큰 텍스트 데이터 타입으로 매핑
 	public String bdContent;
 
 	public Integer bdViews, bdLikes;
@@ -34,7 +39,7 @@ public class TbBoard {
 	public LocalDateTime createdAt;
 
 	@ManyToOne
-	public TbUser tbUser;
+	public String tbUser;
 
 	@OneToMany(mappedBy = "tbBoard", cascade = CascadeType.REMOVE)
 	public List<TbComment> tbCommentList;
