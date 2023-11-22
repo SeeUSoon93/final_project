@@ -1,0 +1,29 @@
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-sm bg-light navbar-light border-bottom">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/board/main">SOON</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/board/main}">게시판</a>
+				</li>
+			</ul>
+			<form class="d-flex">
+				
+					<!-- 
+						sec:authorize - 사용자의 보안 권한(role)을 검사하고 권한에 따라 HTML요소를 숨기거나 표시하는데 사용
+										isAnonymous() : 로그인 되지 않은 경우
+										isAuthenticated() : 로그인 된 경우
+					-->
+					<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+					<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+
+					<a class="nav-link" th:href="@{/member/join}">회원가입</a>
+				
+			</form>
+		</div>
+	</div>
+</nav>
