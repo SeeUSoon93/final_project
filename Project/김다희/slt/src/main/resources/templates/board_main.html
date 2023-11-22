@@ -1,0 +1,74 @@
+<!-- layout을 상속받음-->
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="container mt-3">
+	    <div class="row my-3">
+    	    <div class="col-6">
+        	    <a th:href="@{/board/create}" class="btn btn-primary">글쓰기</a>
+        	</div>
+        	<div class="col-6">
+           		<div class="input-group">
+                	<input type="text" id="search_kw" class="form-control" th:value="${kw}">
+                	<button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
+            	</div>
+        	</div>
+    	</div>
+    
+		<table class="table">
+		    <thead class="table-dark">
+		        <tr>
+					<th style="text-align: center;">번호</th>
+		            <th style="text-align: center;">제목</th>
+		            <th style="text-align: center;">작성일시</th>
+		            <th style="text-align: center;">조회수</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+			<!-- th:~ 타임리프 문법
+				each - 포이치문
+				text - 해당 내용을 태그안에 출력
+				href - 링크삽입(링크를 넣을때는 @{}를 사용한다.)
+				     - ||넣는 이유 : 문자열과 표현식을 함께 사용할때 에러가 나지 않도록 함			
+			 -->
+			<tr th:each="board,loop:${boardList}">
+				<td style="text-align: center;" th:text="${loop.count}"></td>
+				<td><a th:href="@{|/board/detail/${board.boardNum}|}" th:text="${board.boardTitle}"></a></td>
+				<td style="text-align: center;" th:text="${board.boardDate}"></td>
+				<td style="text-align: center;" th:text="${board.boardView}"></td>
+			</tr>
+		</tbody>
+	</table>	
+	
+	<!-- 페이징 처리 하기 -->
+	<!-- Page 객체가 가진 속성
+		.isEmpty - 페이지가 null인지 판단(null이면 true, notNull이면 false)
+		.totalElements - 전체 게시글 개수
+		.totalPages - 전체 페이지 수
+		.size - 페이지당 보여줄 게시글 수
+		.number - 현재 페이지 번호
+		.hasPrevious - 이전 페이지가 있는지 판단
+		.hasNext - 다음 페이지가 있는지 판단 
+	-->
+	<div th:if="${!boardList.isEmpty}">
+		<ul class="pagination justify-content-center">
+			<!-- 삼항연산자 - a ? b : c -->
+			<li class="page-item" th:style="${!boardList.hasPrevious} ? 'display:none;' : '' ">
+				<a class="page-link" th:href="@{|?page=${boardList.number-1}|}">
+					<span>이전</span>
+				</a>
+			</li>
+			
+			<li th:each="page: ${#numbers.sequence(0, boardList.totalPages-1)}"
+				th:if="${page >= boardList.number-3 and page <= boardList.number+3}"
+				th:classappend="${page == boardList.number} ? 'active'" class="page-item">
+				<a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}"></a>
+			</li>
+			
+			<li class="page-item" th:style="${!boardList.hasNext} ? 'display:none;' : '' ">
+				<a class="page-link" th:href="@{|?page=${boardList.number+1}|}">
+					<span>다음</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+	</div>
+</html>
