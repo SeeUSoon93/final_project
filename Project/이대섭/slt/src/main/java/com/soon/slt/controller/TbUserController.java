@@ -46,5 +46,5 @@ public class TbUserController {
 	public String login() {
 		return "로그인 폼";
 	}
-	
+
 }
