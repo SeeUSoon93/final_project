@@ -3,7 +3,7 @@
 }
 
 .que:first-child {
-    border-top: 1px solid black;
+    border-top: 2px solid #477486;
 }
 
 .que {
@@ -21,11 +21,6 @@
     font-size: 14px;
     color: #006633;
     margin: 0 5px;
-}
-
-.que.on>span {
-    font-weight: bold;
-    color: #006633;
 }
 
 .anw {
@@ -72,3 +67,5 @@
     position: relative;
     height: 30rem;
 }
+
+.
