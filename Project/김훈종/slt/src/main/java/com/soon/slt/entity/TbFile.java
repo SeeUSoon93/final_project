@@ -23,7 +23,7 @@ public class TbFile {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	public String fileIdx;
 
-	public String fileName, fileOriName, fileThumbName, fileExt;
+	public String fileName, fileOriName, fileThumbName, fileExt, fileCategory;
 
 	public Integer fileSize;
 

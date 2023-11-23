@@ -1,8 +1,8 @@
 package com.soon.slt.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import com.soon.slt.DataNotFound;
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbFile;
 import com.soon.slt.entity.TbUser;
-import com.soon.slt.repository.TbBoardReposiory;
+import com.soon.slt.repository.TbBoardRepository;
 import com.soon.slt.repository.TbFileRepository;
 import com.soon.slt.repository.TbUserRepository;
 
@@ -31,97 +31,95 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TbBoardService {
-	
-	private final TbBoardReposiory tbBoardReposiory;
+
+	private final TbBoardRepository tbBoardRepository;
 	private final TbFileRepository tbFileRepository;
-	// 파일 업로드 시 파일이 저장될 디렉토리를 지정하는 변수
-	// private static final String UPLOAD_DIR = "uploads/";
-	
+	private final TbUserRepository tbUserRepository;
+
 	// 게시판 리스트 조회
-	public Page<TbBoard> selectList(int page){
+	public Page<TbBoard> selectList(int page) {
 		List<Sort.Order> sort = new ArrayList<>();
-		sort.add(Sort.Order.desc("boardDate"));
+		sort.add(Sort.Order.desc("createdAt"));
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sort));
-		return this.tbBoardReposiory.findAll(pageable);
+		return this.tbBoardRepository.findAll(pageable);
 	}
-	
-	// 게시글 작성
+
+	// 게시글 생성
 	@Transactional
-	public void boardCreate(String bdTitle,String bdCategory, String bdContent, String user, List<MultipartFile> files) throws IOException{
+	public void boardCreate(String bdTitle, String bdCategory, String bdContent, TbUser tbUser,
+			List<MultipartFile> files) throws IOException {
 		TbBoard b = new TbBoard();
 		b.setBdTitle(bdTitle);
 		b.setBdCategory(bdCategory);
 		b.setBdContent(bdContent);
-		b.setTbUser(user);
+		b.setTbUser(tbUser);
 		b.setCreatedAt(LocalDateTime.now());
-		this.tbBoardReposiory.save(b);
-		
+		TbBoard saveBoard = this.tbBoardRepository.save(b);
+		String idx = saveBoard.getBdIdx();
+		TbBoard board = tbBoardRepository.findById(idx).get();
+
 		// 파일이 있을 시 저장
-		if(!files.isEmpty()) {
-			// 업로드 디렉토리의 Path를 생성
+		if (!files.isEmpty()) {
+			UUID uuid = UUID.randomUUID();
 			TbFile f = new TbFile();
-			/*
-			 * Path uploadPath = Paths.get(UPLOAD_DIR); if (!Files.exists(uploadPath)) { //
-			 * 업로드 디렉토리가 존재하지 않으면 디렉토리를 생성 Files.createDirectories(uploadPath); }
-			 */
-			
+
 			for (MultipartFile file : files) {
-				// 파일의 내용을 바이트 배열로 읽어옴
-				byte[] bytes = file.getBytes();
-				// 업로드 디렉토리와 업로드된 파일의 원래 이름을 이용하여 저장될 파일의 Path를 생성
 				// MultipartFile 인터페이스에서 getOriginalFilename 메서드는 업로드된 파일의 원래 이름을 반환하는 메서드
-				/*
-				 * try { // 만들어준 경로를 이용하여 해당경로에 바이트파일을 저장 Files.write(filePath, bytes); }catch
-				 * (Exception e) { e.printStackTrace(); }
-				 */
-				
 				// 파일 이름에서 확장자 추출
-	            int idx = file.getOriginalFilename().lastIndexOf(".");
-	            String ext = file.getOriginalFilename().substring(idx);
-				
-				UUID uuid = UUID.randomUUID();
-				
+				int extension = file.getOriginalFilename().lastIndexOf(".");
+				String ext = file.getOriginalFilename().substring(extension);
+
 				// 파일 정보를 데이터베이스에 저장
 				f.setFileName(file.getOriginalFilename());
-				f.setFileOriName(file.getOriginalFilename()+"_"+uuid.toString());
-				f.setFileThumbName("thumb_"+file.getOriginalFilename()+"_"+uuid.toString());
+				f.setFileOriName(file.getOriginalFilename() + "_" + uuid.toString());
+				f.setFileThumbName("thumb_" + file.getOriginalFilename() + "_" + uuid.toString());
 				f.setFileExt(ext);
 				f.setFileSize((int) file.getSize());
 				f.setUploadedAt(LocalDateTime.now());
-				f.setTbBoard(b);
-				
+				f.setTbBoard(board);
+
+				// 파일을 저장할 경로 지정
+				String uploadDirectory = "/src/main/resources/boardFile";
+				file.transferTo(new File(uploadDirectory));
+
+				// 업로드할 파일의 실제 경로 생성
+				String filePath = Paths.get(uploadDirectory, f.getFileOriName()).toString();
+
+				// 파일을 지정된 경로에 복사
+				try (FileOutputStream fos = new FileOutputStream(filePath)) {
+					fos.write(file.getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+					// 예외 처리 로직 추가
+				}
 			}
 			this.tbFileRepository.save(f);
 		}
 	}
-	
-	
+
 	// 게시글 상세 조회
 	public TbBoard boardDetail(String dbIdx) {
-		Optional<TbBoard> b = this.tbBoardReposiory.findById(dbIdx);
-		if(b.isPresent()) {
+		Optional<TbBoard> b = this.tbBoardRepository.findById(dbIdx);
+		if (b.isPresent()) {
 			return b.get();
-		}else {
+		} else {
 			throw new DataNotFound("없는 게시글입니다.");
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 	// 게시글 삭제
 	public void boardDelete(String bdIdx) {
-		this.tbBoardReposiory.deleteById(bdIdx); 
-		
-		
+		this.tbBoardRepository.deleteById(bdIdx);
+
 	}
-
 	
-
-	
-	
+	// 게시글 수정
+	public void boardUpdate(TbBoard tbBoard, String bdTitle, String bdCategory, String bdContent) {
+		tbBoard.setBdTitle(bdTitle);
+		tbBoard.setBdCategory(bdCategory);
+		tbBoard.setBdContent(bdContent);
+		this.tbBoardRepository.save(tbBoard);
+	}
 	
 	
 }

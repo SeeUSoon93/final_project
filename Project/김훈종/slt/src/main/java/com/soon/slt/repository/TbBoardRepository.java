@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.soon.slt.entity.TbBoard;
 
-public interface TbBoardReposiory extends JpaRepository<TbBoard, String>{
-	
+public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
+
 	Page<TbBoard> findAll(Pageable pageable);
 	
 	
-	
+
 }
