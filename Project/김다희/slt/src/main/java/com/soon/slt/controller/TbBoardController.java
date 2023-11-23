@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,6 +45,7 @@ public class TbBoardController {
 	}
 
 	// 게시글 생성
+	// @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@PostMapping("/create")
 	public String boardCreate(@Valid TbBoardForm tbBoardForm, BindingResult bindingResult, Principal principal,
 			@RequestPart("files") List<MultipartFile> files, RedirectAttributes redirectAttributes) {
@@ -51,7 +53,7 @@ public class TbBoardController {
 			// return "board_form";
 			return "index";
 		}
-		TbUser user = (TbUser) this.tbUserServiceSecurityService.loadUserByUsername(principal.getName());
+		TbUser user = (TbUser)this.tbUserServiceSecurityService.loadUserByUsername(principal.getName());
 		try {
 			this.tbBoardService.boardCreate(tbBoardForm.getBdTitle(), tbBoardForm.getBdCategory(),
 					tbBoardForm.getBdContent(), user, files);
