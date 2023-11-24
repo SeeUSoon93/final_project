@@ -1,8 +1,11 @@
 package com.soon.slt.service;
 
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.soon.slt.exception;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.repository.TbUserRepository;
 
@@ -22,6 +25,15 @@ public class TbUserService {
 		TbUser.setUserNick(userNick);		
 		this.tbUserRepository.save(TbUser);
 		return TbUser;
+	}
+	
+	public TbUser getUser(String userEmail) {
+		Optional<TbUser> user = this.tbUserRepository.findByUserEmail(userEmail);
+		if(user.isPresent()) {
+			return user.get();
+		} else {
+			throw new exception("user not found");
+		}
 	}
 
 }

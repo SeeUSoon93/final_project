@@ -5,6 +5,9 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +45,18 @@ public class TbBoardController {
 		model.addAttribute("boardList", boardList);
 		// return "board_main";
 		return "index";
+	}
+	
+	// 게시글 검색 조회
+	@GetMapping("/search")
+	public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
+							@RequestParam(value="searchingWord", defaultValue="") String searchingWord,
+							@RequestParam(value="category")String category){
+	Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
+	model.addAttribute("paging", paging);
+	model.addAttribute("searchingWord", searchingWord);
+	//return "main";
+	return "index";
 	}
 
 	// 게시글 생성
