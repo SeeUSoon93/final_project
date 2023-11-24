@@ -1,8 +1,12 @@
 package com.soon.slt.service;
 
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.soon.slt.DataNotFound;
+import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.repository.TbUserRepository;
 
@@ -15,6 +19,7 @@ public class TbUserService {
 	private final TbUserRepository tbUserRepository;
 	private final PasswordEncoder passwordEncoder;
 	
+	
 	public TbUser create(String userEmail, String userPw, String userNick) {
 		TbUser TbUser = new TbUser();
 		TbUser.setUserEmail(userEmail);		
@@ -23,5 +28,14 @@ public class TbUserService {
 		this.tbUserRepository.save(TbUser);
 		return TbUser;
 	}
+	
+
+	
+	
+	
+	
+	
+	
+	
 
 }

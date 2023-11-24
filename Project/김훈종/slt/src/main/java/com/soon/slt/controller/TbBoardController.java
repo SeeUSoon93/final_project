@@ -82,7 +82,7 @@ public class TbBoardController {
 	@GetMapping("/detail/{bdIdx}")
 	public String boardDetail(Model model, @PathVariable("bdIdx") String bdIdx) {
 		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
-		model.addAttribute(tbBoard);
+		model.addAttribute("tbBoard", tbBoard);
 		return "board_datail";
 	}
 

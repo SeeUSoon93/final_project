@@ -1,11 +1,16 @@
 package com.soon.slt.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.soon.slt.entity.TbUser;
 import com.soon.slt.form.TbUserForm;
 import com.soon.slt.service.TbUserService;
 
@@ -46,5 +51,11 @@ public class TbUserController {
 	public String login() {
 		return "로그인 폼";
 	}
+	
+
+	
+	
+	
+	
 
 }
