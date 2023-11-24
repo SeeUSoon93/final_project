@@ -1,0 +1,282 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+main {
+    font-family: 'Pretendard-Regular';
+}
+
+.signLangCom {
+    overflow: hidden;
+}
+
+.signLangCom .contents-container {
+    position: relative;
+    height: 30rem;
+}
+
+.signLangCom .contents-visual {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.signLangCom .contents-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 100%;
+    padding: 0 1.6rem;
+    text-align: center;
+}
+
+.signLangCom .textset.textset-visual {
+    color: var(--text-color6);
+}
+
+.signLangCom .textset.textset-visual .textset-tit {
+    font-size: var(--fs-h2);
+}
+
+@media (max-width: 992px) {
+    .signLangCom.contents-container {
+        height: 40rem;
+    }
+}
+
+/* view.html */
+.contents-inner {
+    padding-top: 3rem;
+}
+
+.board_view {
+    width: 100%;
+    border-top: 2px solid #477489;
+}
+
+.board_view .title {
+    padding: 20px 15px;
+    border-bottom: 1px dashed #ddd;
+    font-size: 2rem;
+}
+
+.board_view .info {
+    padding: 15px;
+    border-bottom: 1px solid #999;
+    font-size: 0;
+}
+
+.board_view .info dl {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+
+}
+
+.board_view .info dl:first-child {
+    padding-left: 0;
+}
+
+.board_view .info dl::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: block;
+    width: 1px;
+    height: 13px;
+    background-color: #ddd;
+}
+
+.board_view .info dl:first-child::before {
+    display: none;
+}
+
+.board_view .info dl dt,
+.board_view .info dl dd {
+    display: inline-block;
+    font-size: 1.4rem;
+}
+
+.board_view .info dl dd {
+    margin-left: 10px;
+    color: #777;
+}
+
+.board_view .cont {
+    padding: 15px;
+    border-bottom: 1px solid #477489;
+    line-height: 160%;
+    font-size: 1.4rem;
+}
+
+.bt_wrap {
+    margin-top: 30px;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 0;
+}
+
+.bt_wrap button {
+    display: inline-block;
+    min-width: 80px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #477489;
+    border-radius: 2px;
+    font-size: 2rem;
+    background: #477489;
+    color: #fff;
+}
+
+.board_write {
+    border-top: 2px solid #477489;
+}
+
+.board_write .title,
+.board_write .info {
+    padding: 15px;
+}
+
+.board_write .info {
+    border-top: 1px dashed #7d888d;
+    border-bottom: 1px solid #477489;
+    font-size: 0;
+}
+
+.board_write .title dl {
+    font-size: 0;
+}
+
+.board_write .info dl {
+    display: inline-block;
+    width: 50%;
+    vertical-align: middle;
+}
+
+.board_write .title dt,
+.board_write .title dd,
+.board_write .info dt,
+.board_write .info dd {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.4rem;
+}
+
+.board_write .title dt,
+.board_write .info dt {
+    width: 100px;
+}
+
+.board_write .title dd {
+    width: calc(100% - 100px);
+}
+
+.board_write .title input[type="text"],
+.board_write .info input[type="text"],
+.board_write .info input[type="password"] {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.board_write .title input[type="text"] {
+    width: 80%;
+}
+
+.board_write .cont {
+    border-bottom: 1px solid #477489;
+}
+
+.board_write .cont textarea {
+    display: block;
+    width: 100%;
+    height: 300px;
+    padding: 15px;
+    box-sizing: border-box;
+    border: 0;
+    resize: vertical;
+}
+
+.page-write {
+    float: right;
+    padding-top: 10px;
+}
+
+.page-write button {
+    display: inline-block;
+    min-width: 20px;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #477489;
+    border-radius: 2px;
+    font-size: 1.2rem;
+    background: #477489;
+    color: #fff;
+}
+
+
+.radio-inputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 300px;
+    font-size: 14px;
+}
+
+.radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.radio-inputs .radio input {
+    display: none;
+}
+
+.radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: .5rem 0;
+    font-size: 1.5rem;
+    color: #477489;
+    transition: all .15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked+.name {
+    background-color: #477489;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.pagination li {
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #eee;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.pagination li.active {
+    background-color: #ddd;
+}

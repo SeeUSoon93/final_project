@@ -1,15 +1,13 @@
-package com.soon.slt;
+package com.soon.slt.worksapce;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SltApplicationTests {
+class WorksapceApplicationTests {
 
 	@Test
 	void contextLoads() {
-		
-		
 	}
 
 }
