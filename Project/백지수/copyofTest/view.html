@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수어랑말해랑</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/commnunity/list.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="header-container"></div>
+    <main class="th-layout-main">
+        <div class="main-2">
+            <div class="contents-inner">
+                <div class="contents-container container-md">
+                    <div class="textset textset-sub">
+                        <h2 class="textset-tit">글 상세보기</h2>
+                    </div>
+                    <form id="viewForm">
+                        <table class="tableset tableset-fract">
+                            <div class="board_view_wrap">
+                                <div class="board_view">
+                                    <div class="title" id="subject">
+                                        <h3></h3>
+                                    </div>
+                                    <div class="info">
+                                        <dl>
+                                            <dd id="writer"></dd>
+                                        </dl>
+                                        <dl>
+                                            <dd id="date"></dd>
+                                        </dl>
+                                        <dl>
+                                            <dd id="views"><i class="fa-regular fa-eye"></i></dd>
+                                        </dl>
+                                        <dl>
+                                            <dd id="like"><i class="fa-solid fa-heart"></i></dd>
+                                        </dl>
+                                    </div>
+                                    <div class="cont">
+                                        <dd id="content"></dd>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bt_wrap">
+                                <button id="list" type="button" onclick="location.href='./list.html'">목록</button>
+                                <button id="modify">수정</button>
+                                <button id="delete">삭제</button>
+                            </div>
+                        </table>
+                    </form>
+                    <!-- 댓글 시스템 시작 -->
+                    <div class="comments">
+                        <form id="comment-form">
+                            <textarea id="comment-text" placeholder="댓글을 입력하세요..."></textarea>
+                            <button type="submit">댓글 작성</button>
+                        </form>
+                        <div id="comments-container"></div>
+                    </div>
+                    <!-- 댓글 시스템 끝 -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- footer -->
+    <div id="footer-container"></div>
+    <!-- js -->
+    <script src="./js/view.js"></script>
+    <script src="./js/template.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/headFoot.js"></script>
+    <!-- 추가된 댓글 시스템 스크립트 -->
+    <script src="./js/comments.js"></script>
+</body>
+
+</html>

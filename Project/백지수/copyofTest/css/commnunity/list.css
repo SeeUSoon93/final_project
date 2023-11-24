@@ -1,0 +1,329 @@
+.signLangCom { overflow: hidden; }
+.signLangCom .contents-container { position: relative; height: 30rem; }
+.signLangCom .contents-visual { width: 100%; height: 100%; object-fit: cover; }
+.signLangCom .contents-body { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; width: 100%; padding: 0 1.6rem; text-align: center; }
+.signLangCom .textset.textset-visual { color: var(--text-color6); }
+.signLangCom .textset.textset-visual .textset-tit { font-size: var(--fs-h2); }
+@media (max-width: 992px) {
+ .signLangCom.contents-container { height: 40rem; }
+}
+
+.board_write input, textarea{
+    /* margin-left: 10px; */
+    padding: 10px;
+    border: 1px solid #999;
+}
+
+.board_write .title input[type="text"]{
+    width: 100%;
+}
+
+.board_write .title input[type="radio"]{
+    margin-right: 10px;
+}
+
+.board_write .title{
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.board_write .cont textarea{
+    width: 100%;
+    height: 300px;
+    padding: 1rem 0 0 1.5rem;
+    box-sizing: border-box;
+    border: 0;
+    resize: vertical;
+    vertical-align: top;
+    border-bottom: 1px solid #e6e6e6;
+    
+}
+
+.board_write input[type="file"]{
+    border: none;
+    box-shadow: none;
+    margin: 10px 0;
+}
+
+/* write.html */
+.board_write .info {
+    padding: 15px;
+    border-top: 1px dashed #7d888d;
+    border-bottom: 1px solid #477489;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board_write .info input[type="text"] {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 48%;
+}
+
+.board_write .info input[type="radio"] {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.board_write .info label {
+    display: flex;
+    align-items: center;
+}
+
+/* 조절 필요시 아래 마진 값 조절 */
+.board_write .info input[type="text"] {
+    margin-right: 5px; /* 조절 필요한 값 */
+}
+
+.board_write {
+    border-top: 2px solid #477489;
+}
+
+.board_write .title,
+.board_write .info {
+    padding: 15px;
+}
+
+.board_write .info {
+    border-top: 1px dashed #7d888d;
+    border-bottom: 1px solid #477489;
+    /* font-size: 0; */
+}
+
+.board_write .title input[type="text"],
+.board_write .info input[type="text"]{
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.board_write .cont {
+    border-bottom: 1px solid #477489;
+}
+
+.page-write{
+    margin-top: 0.7rem;
+    float: right;
+    background-color: antiquewhite;
+}
+
+.page-write button{
+    display: inline-block;
+    min-width: 20px;
+    width: 100%;
+    background-color: aqua;
+    padding: 3px;
+    border: 1px solid #477489;
+    border-radius: 2px;
+    font-size: 1.2rem;
+    background: #477489;
+    color: #fff;
+}
+
+.board_write .info input[type="checkbox"]{
+    justify-content: space-around;
+}
+
+/* .board_write .info .category{
+    display: flex;
+    align-items: baseline;
+    justify-content: right;
+    width: 30%;
+    margin-right: 5rem;
+}
+
+.board_write .info .category{
+    justify-content: space-evenly;
+    font-size: 1.5rem;
+}
+
+.cate_select{
+    background-color: red;
+} */
+
+
+.board_write .info dd #free{
+    text-align: left;
+}
+
+.board_write .info dl{
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+
+}
+
+.board_write .info dd:first-child(){
+    padding-left: 0;
+}
+
+.board_write .info dd ::after{
+    content:"";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: block;
+    width: 1px;
+    height: 20px;
+    background-color: #ddd;
+}
+
+/* .board_write .info dl:first-child::after{
+    display: none;
+} */
+
+.board_write .info dl dt,
+.board_write .info dl dd{
+    display: inline-block;
+    font-size: 1.4rem;
+}
+
+.board_write .info dl dd{
+    margin-left: auto 10px;
+    color: #777;
+}
+
+
+
+
+/* view.html */
+.contents-inner{
+    padding-top: 3rem;
+}
+
+.board_view{
+    width: 100%;
+    border-top: 2px solid #477489;
+}
+
+.board_view .title{
+    padding: 20px 15px;
+    border-bottom: 1px dashed #ddd;
+    font-size: 2rem;
+}
+
+.board_view .info{
+    padding: 15px;
+    border-bottom: 1px solid #999;
+    font-size: 0;
+}
+
+.board_view .info dd #writer{
+    text-align: left;
+}
+
+.board_view .info dl{
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+
+}
+
+.board_view .info dl:first-child{
+    padding-left: 0;
+}
+
+.board_view .info dl::before{
+    content:"";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: block;
+    width: 1px;
+    height: 20px;
+    background-color: #ddd;
+}
+
+.board_view .info dl:first-child::before{
+    display: none;
+}
+
+.board_view .info dl dt,
+.board_view .info dl dd{
+    display: inline-block;
+    font-size: 1.4rem;
+}
+
+.board_view .info dl dd{
+    margin-left: auto 10px;
+    color: #777;
+}
+
+.board_view .cont{
+    width: 100%;
+    height: 290px;
+    padding: 1rem 0 0 1.5rem;
+    box-sizing: border-box;
+    border: 0;
+    resize: vertical;
+    vertical-align: top;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+/* 버튼 */
+.bt_wrap{
+    margin-top: 20px;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 0;
+}
+
+.bt_wrap button{
+    display: inline-block;
+    min-width: 10px;
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #477489;
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    background: #477489;
+    color: #fff;
+}
+
+/* 댓글 */
+#comment-form {
+    display: flex;
+    align-items: center;
+}
+
+#comment-text {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+button[type="submit"] {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#file-input {
+    display: none;
+}
+
+.comment {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.comments{
+    padding-top: 30px;
+}
+
+#comment-form{
+    padding-bottom: 10px;
+}
+
+#comment-form button[type="submit"]{
+    background-color: #477489;
+    padding: 21px;
+    border: none;
+    font-size: 1.5rem;
+    border-radius: 0.3rem;
+    color: #fff;
+}
+
+#comment-form button:active{
+    box-shadow: 2px 2px 2px #999;
+}
+
