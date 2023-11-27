@@ -1,0 +1,22 @@
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="container">
+		<h5 class="my-3 border-bottom pb-2">글쓰기</h5>
+	<!-- th:object="${boardForm}" - 이 form태그의 속성들은 boardForm의 속성들로 이루어졌다고 알려줌-->
+	<form th:action="@{/board/create}" method="post" th:object="${boardForm}">
+		<div th:if="${#fields.hasAnyErrors()}">
+			<div th:each="err:${#fields.allErrors()}" th:text="${err}"></div>
+		</div>
+		<!-- th:field - 해당 태그의 id,name,value 속성이 자동으로 생성
+					    타임리프가 value속성에 기존값을 채워넣음 -->
+		<div class="mb-3">
+			<label for="boardTitle" class="form-label">제목</label>
+			<input type="text" th:field="*{boardTitle}" class="form-control">
+		</div>
+		<div>
+			<label for="boardCon" class="form-label">내용</label>
+			<textarea th:field="*{boardCon}" class="form-control" rows="10"></textarea>
+		<input type="submit" value="게시글 등록" class="btn btn-primary my-2">
+		</div>
+	</form>
+</div>
+</html>
