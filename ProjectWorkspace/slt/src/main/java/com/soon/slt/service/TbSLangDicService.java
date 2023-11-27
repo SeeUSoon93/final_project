@@ -21,13 +21,28 @@ import lombok.RequiredArgsConstructor;
 public class TbSLangDicService {
 	
 	private final TbSignlangRepository tbSignlangRepository;
-	
-	// 수어 게시글 리스트 조회
-	public Page<TbSignlang> langList(int page){
-		List<Sort.Order> sort = new ArrayList<>();
-		sort.add(Sort.Order.desc("slangText"));
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sort));
-		return this.tbSignlangRepository.findAll(pageable);
+
+	// 수어사전 검색 조회
+	public Page<TbSignlang> getSignlang(int page, String kw) {
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("slangIdx"));
+
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		return this.tbSignlangRepository.findAllByKeyword(kw, pageable);
+	}
+
+	// 수어사전 검색 기능
+	private Specification<TbSignlang> searchSignlang(String kw){
+		return new Specification<TbSignlang>() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Predicate toPredicate(Root<TbSignlang> b, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				query.distinct(true);
+
+				return cb.or(cb.like(b.get("slangText"), "%" + kw + "%"));
+			}
+		};
 	}
 	
 	// 수어 게시글 상세 조회
