@@ -5,15 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./notice-write.css">
+    <link rel="stylesheet" href="../static/css/css_notice/notice-write.css">
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="contents-inner">
-        <div class="contents-container container-md ">
+    <div id="header-container"></div>
+
+    <div class="banner">
+        <div class="banner-font">
+            <h2>공지사항</h2>
+            <P>공지사항 글 작성하기</P>
+        </div>
+    </div>
+    <div class="nw-contents">
+        <div class="notice-write">
             <form class="notice-form">
-                <h1>글 작성하기</h1>
                 <div class="board-write-wrap">
                     <div class="board-write">
                         <div class="notice-title">
@@ -36,6 +43,8 @@
             </form>
         </div>
     </div>
+    <div id="footer-container"></div>
+
     <script>
         // textarea 내의 글자수가 고정값보다 넘어갔을떄 늘리게하기  
         function resize(obj) {
@@ -43,6 +52,7 @@
             obj.style.height = (0.75 + obj.scrollHeight / 16) + "rem";
         }
     </script>
+    <script src="../static/js/js_headfoot/headFoot.js"></script>
 </body>
 
 </html>
