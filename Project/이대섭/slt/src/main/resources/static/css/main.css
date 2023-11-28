@@ -15,7 +15,7 @@
 body {
     margin: 0;
     font-family: 'Pretendard-Regular';
-    letter-spacing: 0.15rem;
+    height: auto;
 }
 
 ul {
@@ -28,20 +28,18 @@ a {
     text-decoration: none;
 }
 
-/* Layout */
-.container-sm {
+.contents-box {
+    position: relative;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .contents-inner {
     padding: 5.5rem 1.6rem;
-    background-color: seagreen;
 }
 
-.contents-container{
-    position: relative;
-    background-color: red;
+#wrap {
+    min-height: 100%;
 }
 
 .main-form {
@@ -51,8 +49,6 @@ a {
 .contents-left {
     position: relative;
     width: 50%;
-    min-height: 56.3rem;
-    background-color: gold;
 }
 
 .imageset-img {
@@ -60,37 +56,38 @@ a {
     top: 0;
     left: 0;
     width: 100%;
+    margin-top: 1.6rem;
 }
 
 .contents-right {
     width: 50%;
+    font-size: 2rem;
+}
+
+.contents-group {
+    padding: 1rem;
 }
 
 .contents-group+.contents-group {
-    margin-top: 2.8rem;
     padding-top: 2.8rem;
+    margin-left: 1rem;
     border-top: 1px solid #eee;
 }
 
 .contents-subtit {
-    font-size: 1rem;
-    line-height: 1rem;
-    font-weight: 500;
+    font-weight: 700;
+    
 }
 
 .contents-subtit2 {
-    font-size: 1rem;
-    line-height: 11rem;
-    font-weight: 500;
-    margin-left: 35rem;
+    line-height: 1rem;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: 1.6rem;
 }
 
 .contents-item-price2 {
     text-align: right;
-}
-
-.contents-list {
-    margin-top: 1.6rem;
 }
 
 .contents-item {
@@ -98,7 +95,11 @@ a {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    font-size: 1rem;
+    font-size: 1.13rem;
+}
+
+.contents-item-name {
+    padding-bottom: 2.8rem;
 }
 
 .contents-item span {
@@ -147,6 +148,13 @@ a {
 }
 
 b {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
 }
 
+
+/* footer 하단 고정 */
+#footer-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

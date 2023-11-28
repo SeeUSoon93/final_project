@@ -5,15 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./notice-list.css">
+    <link rel="stylesheet" href="../static/css/css_notice/notice-list.css">
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div class="contents-inner">
-        <div class="contents-container container-md ">
-            <h1>공지사항</h1>
+    <div id="header-container"></div>
+    
+    <div class="banner">
+        <div class="banner-font">
+            <h2>공지사항</h2>
+            <P>공지사항 전체목록</P>
+        </div>
+    </div>
+    <div class="notice-box">
+        <div class="notice-contents">
             <div id="Accordion_wrap">
                 <div class="que">
                     <span class="nt-group">
@@ -103,7 +110,10 @@
         </div>
     </div>
 
-    <script src="./notice-list.js"></script>
+    <div id="footer-container"></div>
+
+    <script src="../static/js/js_notice/notice-list.js"></script>
+    <script src="../static/js/js_headfoot/headFoot.js"></script>
 </body>
 
 </html>
