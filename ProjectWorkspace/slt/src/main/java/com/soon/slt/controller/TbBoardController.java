@@ -1,10 +1,11 @@
-package com.soon.slt.controller;
+package com.soon.slt.service.controller;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.server.ResponseStatusException;
+
 
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbUser;
@@ -34,12 +37,15 @@ public class TbBoardController {
 	private final TbBoardService tbBoardService;
 	private final TbUserSecurityService tbUserServiceSecurityService;
 
-	// 게시글 리스트 조회
-	@GetMapping("/main")
-	public String goBoardMain(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-		Page<TbBoard> boardList = this.tbBoardService.selectList(page);
-		model.addAttribute("boardList", boardList);
-		// return "board_main";
+	// 게시글 검색 조회
+	@GetMapping("/search")
+	public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
+							  @RequestParam(value="searchingWord", defaultValue="") String searchingWord,
+							  @RequestParam(value="category")String category){
+		Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
+		model.addAttribute("paging", paging);
+		model.addAttribute("searchingWord", searchingWord);
+		//return "main";
 		return "index";
 	}
 
@@ -66,34 +72,49 @@ public class TbBoardController {
 	}
 
 	// 게시글 삭제
-	@PostMapping("/delete")
-	public String boardDelete(String bdIdx) {
+	@PostMapping("/delete/{bdIdx}")
+	public String boardDelete(@PathVariable("bdIdx") String bdIdx, Principal principal) {
+		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
+		if(!tbBoard.getTbUser().getUserNick().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
+		}
 		this.tbBoardService.boardDelete(bdIdx);
 		return "redirect:/board/main";
 	}
 
 	// 게시글 상세보기
-	@GetMapping("/post/{bdIdx}")
+	@GetMapping("/detail/{bdIdx}")
 	public String boardDetail(Model model, @PathVariable("bdIdx") String bdIdx) {
 		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
-		model.addAttribute(tbBoard);
+		model.addAttribute("tbBoard", tbBoard);
 		return "board_datail";
 	}
 
 	// 게시글 수정 페이지로 이동
-	@GetMapping("/post/update/{bdIdx}")
-	public String boardUpdate(@PathVariable("bdIdx") String bdIdx, Model model) {
+	@GetMapping("/update/{bdIdx}")
+	public String boardUpdate(TbBoardForm tbBoardForm, @PathVariable("bdIdx") String bdIdx, Principal principal) {
 		TbBoard tbBoard = tbBoardService.boardDetail(bdIdx);
-		model.addAttribute(tbBoard);
-		return "board_update";
+		if(!tbBoard.getTbUser().getUserNick().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+		}
+		tbBoardForm.setBdCategory(tbBoard.getBdCategory());
+		tbBoardForm.setBdTitle(tbBoard.getBdTitle());
+		tbBoardForm.setBdContent(tbBoard.getBdContent());
+		return "board_form";
 	}
 
 	// 게시글 수정
-	@PostMapping("/post/update/{bdIdx}")
-	public String boardUpdate(String bdTitle, String bdCategory, String bdContent, String user,
-			List<MultipartFile> files) throws IOException {
-		this.tbBoardService.boardCreate(bdTitle, bdCategory, bdContent, null, files);
-		return "redirect:/main";
+	@PostMapping("/update/{bdIdx}")
+	public String boardUpdate(@Valid TbBoardForm tbBoardForm, BindingResult bindingResult, Principal principal, @PathVariable("bdIdx") String bdIdx ){
+		if(bindingResult.hasErrors()) {
+			return "board_form";
+		}
+		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
+		if(!tbBoard.getTbUser().getUserNick().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+		}
+		this.tbBoardService.boardUpdate(tbBoard, tbBoardForm.getBdTitle(), tbBoardForm.getBdCategory(), tbBoardForm.getBdContent());
+		return String.format("redirect:/board/detail/%s", bdIdx);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.soon.slt.controller;
+package com.soon.slt.service.controller;
 
 public class TbLikesController {
 

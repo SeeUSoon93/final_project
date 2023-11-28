@@ -14,17 +14,25 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.soon.slt.DataNotFound;
 import com.soon.slt.entity.TbBoard;
+import com.soon.slt.entity.TbComment;
 import com.soon.slt.entity.TbFile;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.repository.TbBoardRepository;
 import com.soon.slt.repository.TbFileRepository;
 import com.soon.slt.repository.TbUserRepository;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -34,16 +42,16 @@ public class TbBoardService {
 
 	private final TbBoardRepository tbBoardRepository;
 	private final TbFileRepository tbFileRepository;
-	private final TbUserRepository tbUserRepository;
 
-	// 검색 목록 리스트 조회
-	public Page<TbBoard> searchList(int page, String kw, String category){
-		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.desc("createdAt"));
-
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.tbBoardRepository.findAllByKeyword(kw, category, pageable);
+	
+	// 게시판 리스트 조회
+	public Page<TbBoard> selectList(int page) {
+		List<Sort.Order> sort = new ArrayList<>();
+		sort.add(Sort.Order.desc("createdAt"));
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sort));
+		return this.tbBoardRepository.findAll(pageable);
 	}
+	
 
 	// 게시글 생성
 	@Transactional
@@ -111,15 +119,34 @@ public class TbBoardService {
 	// 게시글 삭제
 	public void boardDelete(String bdIdx) {
 		this.tbBoardRepository.deleteById(bdIdx);
-
 	}
+	
+	// 게시글 검색
+	private Specification<TbBoard> searchBoard(String kw, String category) {
+        return new Specification<>() {
+            private static final long serialVersionUID = 1L;
+            
+            @Override
+            public Predicate toPredicate(Root<TbBoard> b, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true);  // 중복을 제거 
+                Join<TbBoard, TbUser> boardWriterJoin = b.join("tbUser", JoinType.LEFT);
+                Predicate result=null;
+                if(category.equals("제목")) {
+                	result = cb.or(cb.like(b.get("boardTitle"), "%" + kw + "%")); // 제목 
+                }else if(category.equals("작성자")) {
+                	result = cb.or(cb.like(b.get("tbUser"), "%" + kw + "%"));      // 내용                 	
+                }
+				return result;
+            }
+        };
+    }
 
-	// 게시글 수정
-	public void boardUpdate(TbBoard tbBoard, String bdTitle, String bdCategory, String bdContent) {
-		tbBoard.setBdTitle(bdTitle);
-		tbBoard.setBdCategory(bdCategory);
-		tbBoard.setBdContent(bdContent);
-		this.tbBoardRepository.save(tbBoard);
+	// 검색 목록 리스트 조회
+	public Page<TbBoard> searchList(int page, String kw, String category){
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createdAt"));
+		
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		return this.tbBoardRepository.findAllByKeyword(kw, category, pageable);
 	}
-
 }

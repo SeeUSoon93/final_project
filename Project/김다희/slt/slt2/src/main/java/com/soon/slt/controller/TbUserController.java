@@ -1,4 +1,4 @@
-package com.soon.slt.service.controller;
+package com.soon.slt.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
