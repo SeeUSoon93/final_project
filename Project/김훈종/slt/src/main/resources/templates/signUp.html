@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/template.css">
+    <link rel="stylesheet" href="./css/login_signUp.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="header-container"></div>
+    <!-- main -->
+    <main class="th-layout-main">
+        <div class="signLangCom" id=""></div>
+        <div class="signup-form">
+            <div class="contents-inner">
+                <div class="contents-container container-md">
+                    <div class="textset textset-sub">
+                        <h2 class="textset-tit">회원가입</h2>
+                    </div>
+                    <form th:action="@{/tbUser/signup}" th:object="${tbUserForm}" method="post">
+                        <div class="in-line">
+                            <div id="info_id">
+                                <input type="email" th:field="*{userEmail}" name="userEmail" class="text-Field" id="" placeholder="이메일을 입력해주세요.">
+                                <button id="checkEmail">중복확인</button>
+                                <input type="text" th:field="*{userNick}" name="userNick" class="text-Field" id="" placeholder="닉네임을 입력해주세요.">
+                                <button id="checkNick">중복확인</button>
+                                <input type="password" th:field="*{userPw1}" name="userPw1" class="text-Field" id="password"
+                                    placeholder="비밀번호를 입력해주세요.">
+                                <input type="password" th:field="*{userPw2}" name="userPw2" class="text-Field" id="password2"
+                                    placeholder="비밀번호를 확인해주세요.">
+                                <input type="submit" class="submit-btn" value="회원가입">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- footer -->
+    <div id="footer-container"></div>
+    <!-- js -->
+    <script src="/js/js_headfoot/headFoot.js"></script>
+</body>
+
+</html>

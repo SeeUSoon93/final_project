@@ -36,12 +36,13 @@ public class TbBoardService {
 	private final TbFileRepository tbFileRepository;
 	private final TbUserRepository tbUserRepository;
 
-	// 게시판 리스트 조회
-	public Page<TbBoard> selectList(int page) {
-		List<Sort.Order> sort = new ArrayList<>();
-		sort.add(Sort.Order.desc("createdAt"));
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sort));
-		return this.tbBoardRepository.findAll(pageable);
+	// 검색 목록 리스트 조회
+	public Page<TbBoard> searchList(int page, String kw, String category){
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createdAt"));
+
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		return this.tbBoardRepository.findAllByKeyword(kw, category, pageable);
 	}
 
 	// 게시글 생성
@@ -112,7 +113,7 @@ public class TbBoardService {
 		this.tbBoardRepository.deleteById(bdIdx);
 
 	}
-	
+
 	// 게시글 수정
 	public void boardUpdate(TbBoard tbBoard, String bdTitle, String bdCategory, String bdContent) {
 		tbBoard.setBdTitle(bdTitle);
@@ -120,6 +121,5 @@ public class TbBoardService {
 		tbBoard.setBdContent(bdContent);
 		this.tbBoardRepository.save(tbBoard);
 	}
-	
-	
+
 }
