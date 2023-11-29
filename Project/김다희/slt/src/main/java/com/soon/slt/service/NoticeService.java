@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.soon.slt.DataNotFound;
@@ -25,11 +26,14 @@ import com.soon.slt.repository.TbBoardRepository;
 import com.soon.slt.repository.TbFileRepository;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
+@Service
+@RequiredArgsConstructor
 public class NoticeService {
 
-	private final TbBoardRepository tbBoardRepository = null;
-	private final TbFileRepository tbFileRepository = null;
+	private final TbBoardRepository tbBoardRepository;
+	private final TbFileRepository tbFileRepository;
 
 	public Page<TbBoard> searchList(int page, String kw) {
 		List<Sort.Order> sorts = new ArrayList<>();
