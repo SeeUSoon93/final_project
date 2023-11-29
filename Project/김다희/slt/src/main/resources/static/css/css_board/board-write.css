@@ -1,0 +1,205 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard-Regular';
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.board-contents {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.board-write {
+    border-top: 0.1rem solid #000;
+}
+
+.board-title {
+    padding: 15px;
+}
+
+input[type="text"] {
+    font-size: 1rem;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.board-title input[type="text"] {
+    width: 100%;
+}
+
+.board-nick input[type="text"] {
+    width: 50%;
+}
+
+.board-nick {
+    padding: 15px;
+    border-top: 1px dashed #b6b6b6;
+    border-bottom: 1px solid #000;
+}
+
+.category {
+    width: 50%;
+    height: 2.6rem;
+    float: right;
+    font-size: 1.2rem;
+}
+
+/* radio 버튼 */
+.radio-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    float: left;
+}
+
+h4 {
+    float: left;
+    margin: 0.6rem 3rem 0 3rem;
+    color: #8a8a8a;
+}
+
+.radio-button input[type="radio"] {
+    display: none;
+}
+
+.radio-button {
+    width: 7rem;
+    margin-top: 0.7rem;
+}
+
+.radio-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 0.1rem solid #447486;
+    position: relative;
+}
+
+.radio-circle::before {
+    content: "";
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #447486;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.2s ease-in-out;
+}
+
+.radio-button input[type="radio"]:checked+.radio-circle::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.radio-button:nth-of-type(1) input[type="radio"]:checked+.radio-circle::before {
+    background-color: #447486;
+}
+
+.radio-button:nth-of-type(2) input[type="radio"]:checked+.radio-circle::before {
+    background-color: #447486;
+}
+
+.radio-label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    color: #4e4e4e;
+}
+
+.board-content {
+    padding: 1rem;
+    border-bottom: 1px solid #000;
+}
+
+.board-content textarea {
+    width: 100%;
+    min-height: 300px;
+    padding: 1rem;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    box-sizing: border-box;
+    resize: none;
+    overflow-y: hidden;
+}
+
+.board-content input[type="file"] {
+    box-shadow: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.bw_button {
+    float: right;
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
+.bw_write {
+    width: 4rem;
+    padding: 0.6rem 1rem;
+    background-color: #477489;
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.bw_clean {
+    width: 4rem;
+    padding: 0.6rem;
+    background-color: #477489;
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+}
+
+
+/* footer 하단 고정 */
+#footer-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* banner */
+.banner {
+    width: 100%;
+    height: 12rem;
+    background-color: #F1E5FD;
+    background-image: url(../../image/image2.jpg);
+    background-repeat: no-repeat;
+    background-position: 80rem;
+    margin-bottom: 3rem;
+
+}
+
+.banner-font {
+    margin-top: 4rem;
+    margin-left: 28rem;
+    float: left;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+.banner p {
+    font-size: 1.2rem;
+}
