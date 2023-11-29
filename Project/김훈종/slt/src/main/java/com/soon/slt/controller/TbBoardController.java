@@ -44,6 +44,7 @@ public class TbBoardController {
 		Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
 		model.addAttribute("paging", paging);
 		model.addAttribute("searchingWord", searchingWord);
+		model.addAttribute("category", category);
 		return "board-list";
 	}
 	
@@ -59,7 +60,7 @@ public class TbBoardController {
 			@RequestPart("files") List<MultipartFile> files, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			
-			return "board-list2";
+			return "board-list";
 		}
 		TbUser user = (TbUser) this.tbUserServiceSecurityService.loadUserByUsername(principal.getName());
 		
@@ -72,7 +73,6 @@ public class TbBoardController {
 		}
 
 		return "redirect:/board/main";
-		// return "board-list2";
 	}
 
 	// 게시글 삭제

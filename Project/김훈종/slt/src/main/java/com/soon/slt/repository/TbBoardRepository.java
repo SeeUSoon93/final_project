@@ -17,27 +17,28 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 	Page<TbBoard> findAll(Specification<TbBoard> specification, Pageable pageable);
 
 	@Query("select distinct b "
-			+ "from TbBoard b left outer join b.tbUser = u "
-			+ "where b.bdCategory IN('b0001','b0002') AND" // b0001 - 커뮤니티, b0002- 건의사항, b0003-공지사항
-			+ "   ((:option = 'writer' and b.bdTitle like %:kw%)) "
-			+ "   or (:option = 'title' and u.userNick like %:kw%)))")
+			+ "from TbBoard b left outer join TbUser u "
+			+ "where b.bdCategory IN('Category 1','Category 2') AND " // Category1 - 커뮤니티, Category2- 건의사항, Category3-공지사항
+			+ "   ((:option = 'writer' and b.bdTitle like %:kw%) "
+			+ "   or (:option = 'title' and u.userNick like %:kw%))")
 	Page<TbBoard> findAllByKeyword(@Param("kw") String kw, @Param("option") String option, Pageable pageable);
 
 	@Query("select "
 			+ "distinct b "
-			+ "from TbBoard b left outer join TbUser u "
-			+ "where b.tbUser = TbUser")
+			+ "from TbBoard b "
+			+ "where b.tbUser = :tbUser")
 	Page<TbBoard> findAllByUser(TbUser tbUser, Pageable pageable);
 
-	@Query("select              distinct b "
+	@Query("select "
+			+ "distinct b "
 			+ "from TbBoard b left outer join TbLikes l "
-			+ "where l.tbUser = TbUser")
+			+ "where l.tbUser = :tbUser")
 	Page<TbBoard> findAllByLike(TbUser tbUser, Pageable pageable);
-	
+
 	@Query("select b "
-	         + "from TbBoard b "
-	         + "where b.bdCategory = 'notice' and b.bdTitle like %:kw%")
-	   Page<TbBoard> findNoticeByKeyword(String kw, Pageable pageable);
+			+ "from TbBoard b "
+			+ "where b.bdCategory = 'notice' and b.bdTitle like %:kw%")
+	Page<TbBoard> findNoticeByKeyword(String kw, Pageable pageable);
 
 
 }

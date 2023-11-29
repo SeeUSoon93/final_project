@@ -14,10 +14,10 @@ public class MainController {
 	public String goMain() {
 		return "main";
 	}
-
+	
 	@GetMapping("/board")
 	public String goBoard() {
-		return "board-list2";
+		return "board-list";
 	}
 
 
