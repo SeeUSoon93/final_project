@@ -57,45 +57,55 @@
                 <button id="write" onclick="location.href='./board-write.html'">글쓰기</button>
             </div>
 
-            <nav class="pagiset pagiset-circ pagiset-border">
-                <div class="pagiset-group">
-                    <div class="pagiset-ctrl">
-                        <a href="" class="pagiset-link pagiset-first">
-                            <span class="visually-hidden">
-                                <i class="fa-solid fa-angles-left"></i>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="pagiset-ctrl">
-                        <a href="" class="pagiset-link pagiset-prev">
-                            <span class="visually-hidden">
-                                <i class="fa-solid fa-angle-left"></i>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="pagiset-list">
-                        <a href="" class="pagiset-link active-fill">1</a>
-                        <a href="" class="pagiset-link active-fill">2</a>
-                        <a href="" class="pagiset-link active-fill">3</a>
-                        <a href="" class="pagiset-link active-fill">4</a>
-                        <a href="" class="pagiset-link active-fill">5</a>
-                    </div>
-                    <div class="pagiset-ctrl">
-                        <a href="" class="pagiset-link pagiset-next">
-                            <span class="visually-hidden">
-                                <i class="fa-solid fa-angle-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="pagiset-ctrl">
-                        <a href="" class="pagiset-link pagiset-last">
-                            <span class="visually-hidden">
-                                <i class="fa-solid fa-angles-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </nav>
+            <div th:if="${!boardList.isEmpty}" class="pagiset pagiset-circ pagiset-border">
+                <ul class="pagination" id="pagination">
+                    <!-- 페이지 번호가 자동으로 추가될 부분 -->
+                    <nav class="pagiset-group">
+                        <!--처음-->
+                        <li class="pagiset-ctrl" th:style="${!boardList.hasPrevious} ? 'display:none;' : '' ">
+                            <a th:href="@{|?page=1|}" class="pagiset-link pagiset-first">
+                                <span class="visually-hidden">
+                                    <i class="fa-solid fa-angles-left"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <!--이전-->
+                        <li class="pagiset-ctrl" th:style="${!boardList.hasPrevious} ? 'display:none;' : '' ">
+                            <a th:href="@{|?page=${boardList.number-1}|}" class="pagiset-link pagiset-prev">
+                                <span class="visually-hidden">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <!--페이지 숫자-->
+                        <li class="pagiset-list" th:each="page: ${#numbers.sequence(0, boardList.totalPages-1)}"
+                            th:if="${page >= boardList.number-3 and page <= boardList.number+3}"
+                            th:classappend="${page == boardList.number} ? 'active'" class="page-item">
+                            <a href="" class="pagiset-link active-fill" th:text="${page}" th:href="@{|?page=${page}|}"></a>
+                        </li>
+                        <!--다음-->
+                        <li class="pagiset-ctrl" th:style="${!boardList.hasNext} ? 'display:none;' : '' ">
+                            <a href="" class="pagiset-link pagiset-next" th:href="@{|?page=${boardList.number+1}|}">
+                                <span class="visually-hidden">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <!--마지막-->
+                        <li class="pagiset-ctrl" th:style="${!boardList.hasNext} ? 'display:none;' : '' ">
+                            <!--<a th:href="@{|?page=int(boardList/10)|}" class="pagiset-link pagiset-last">
+                                <span class="visually-hidden">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </span>
+                            </a>-->
+                        </li>
+                    </nav>
+                </ul>
+            </div>
+
+
+
+
         </div>
     </div>
 

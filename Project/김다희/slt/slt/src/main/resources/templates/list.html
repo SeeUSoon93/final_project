@@ -109,7 +109,7 @@
 									<a href="" class="pagiset-link active-fill" th:text="${page}" th:href="@{|?page=${page}|}"></a>
 								</li>
 								<!--다음-->
-								<li class="pagiset-ctrl" th:style="${${!boardList.hasNext} ? 'display:none;' : '' ">
+								<li class="pagiset-ctrl" th:style="${!boardList.hasNext} ? 'display:none;' : '' ">
 									<a href="" class="pagiset-link pagiset-next" th:href="@{|?page=${boardList.number+1}|}">
 										<span class="visually-hidden">다음</span>
 									</a>
