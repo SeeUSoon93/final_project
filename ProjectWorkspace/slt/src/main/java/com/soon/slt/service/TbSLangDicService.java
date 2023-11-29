@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.soon.slt.DataNotFound;
@@ -21,6 +22,10 @@ import lombok.RequiredArgsConstructor;
 public class TbSLangDicService {
 	
 	private final TbSignlangRepository tbSignlangRepository;
+	
+	
+	
+	
 
 	// 수어사전 검색 조회
 	public Page<TbSignlang> getSignlang(int page, String kw) {
@@ -31,19 +36,6 @@ public class TbSLangDicService {
 		return this.tbSignlangRepository.findAllByKeyword(kw, pageable);
 	}
 
-	// 수어사전 검색 기능
-	private Specification<TbSignlang> searchSignlang(String kw){
-		return new Specification<TbSignlang>() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Predicate toPredicate(Root<TbSignlang> b, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				query.distinct(true);
-
-				return cb.or(cb.like(b.get("slangText"), "%" + kw + "%"));
-			}
-		};
-	}
 	
 	// 수어 게시글 상세 조회
 	public TbSignlang langDetail(String slangIdx) {

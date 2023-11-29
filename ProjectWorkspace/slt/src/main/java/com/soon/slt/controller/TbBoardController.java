@@ -1,4 +1,4 @@
-package com.soon.slt.service.controller;
+package com.soon.slt.controller;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
-
 
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbUser;
@@ -41,12 +40,17 @@ public class TbBoardController {
 	@GetMapping("/search")
 	public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
 							  @RequestParam(value="searchingWord", defaultValue="") String searchingWord,
-							  @RequestParam(value="category")String category){
+							  @RequestParam(value="category", defaultValue="")String category){
 		Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
 		model.addAttribute("paging", paging);
 		model.addAttribute("searchingWord", searchingWord);
-		//return "main";
-		return "index";
+		return "board-list";
+	}
+	
+	// 게시글 생성하는 페이지로 이동
+	@GetMapping("/create")
+	public String boardCreate(TbBoardForm tbBoardForm) {
+		return "board-write";
 	}
 
 	// 게시글 생성
@@ -54,21 +58,21 @@ public class TbBoardController {
 	public String boardCreate(@Valid TbBoardForm tbBoardForm, BindingResult bindingResult, Principal principal,
 			@RequestPart("files") List<MultipartFile> files, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
-			// return "board_form";
-			return "index";
+			
+			return "board-list2";
 		}
 		TbUser user = (TbUser) this.tbUserServiceSecurityService.loadUserByUsername(principal.getName());
+		
 		try {
 			this.tbBoardService.boardCreate(tbBoardForm.getBdTitle(), tbBoardForm.getBdCategory(),
 					tbBoardForm.getBdContent(), user, files);
 		} catch (IOException e) {
 			redirectAttributes.addFlashAttribute("message", "파일업로드에 실패하셨습니다.");
-			// return "board_form";
-			return "index";
+			return "board-write";
 		}
 
-		// return "redirect:/board/main";
-		return "index";
+		return "redirect:/board/main";
+		// return "board-list2";
 	}
 
 	// 게시글 삭제
@@ -87,7 +91,7 @@ public class TbBoardController {
 	public String boardDetail(Model model, @PathVariable("bdIdx") String bdIdx) {
 		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
 		model.addAttribute("tbBoard", tbBoard);
-		return "board_datail";
+		return "board-view";
 	}
 
 	// 게시글 수정 페이지로 이동
@@ -100,7 +104,7 @@ public class TbBoardController {
 		tbBoardForm.setBdCategory(tbBoard.getBdCategory());
 		tbBoardForm.setBdTitle(tbBoard.getBdTitle());
 		tbBoardForm.setBdContent(tbBoard.getBdContent());
-		return "board_form";
+		return "board-update";
 	}
 
 	// 게시글 수정
@@ -118,3 +122,10 @@ public class TbBoardController {
 	}
 
 }
+
+
+
+
+
+
+

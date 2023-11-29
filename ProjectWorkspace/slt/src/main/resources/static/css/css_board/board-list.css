@@ -1,0 +1,171 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard-Regular';
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+
+.board-contents {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tableset-table {
+    width: 100%;
+    height: 3.5rem;
+    border-top: solid 1px black;
+    border-bottom: solid 1px #dddddd;
+    background-color: #f7f7fb;
+}
+
+thead tr {
+    text-align: center;
+}
+
+.th1, .th4, .th6 {
+    width: 7rem;
+    padding: 1rem 0;
+}
+
+.board-contents {
+    min-height: 30rem;
+}
+
+#title {
+    width:38rem;
+}
+
+.page-write {
+    float: right;
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
+#write {
+    padding: 0.6rem 1rem;
+    background-color: #477489;
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.pagiset {
+    width: 100%;
+    height: 2rem;
+    margin-top: 4rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.pagiset-group {
+    display: flex;
+    justify-content: center;
+}
+
+.pagiset-ctrl {
+    width: 2rem;
+    height: 2rem;
+    padding: auto;
+    float: left;
+}
+
+.pagiset-list {
+    width: 15%;
+    height: 2rem;
+    float: left;
+}
+
+.pagiset-link {
+    padding: 0 0.5rem;
+}
+
+/* 카테고리 버튼 클릭시 카테고리별로 목록 보이게 */
+.radio-inputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 200px;
+    margin-bottom: 1rem;
+}
+
+.radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.radio-inputs .radio input {
+    display: none;
+}
+
+.radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: #477489;
+    transition: all .15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked+.name {
+    background-color: #477489;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+
+/* footer 하단 고정 */
+#footer-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* banner */
+.banner {
+    width: 100%;
+    height: 12rem;
+    background-color: #F1E5FD;
+    background-image: url(../../image/image2.jpg);
+    background-repeat: no-repeat;
+    background-position: 80rem;
+    margin-bottom: 3rem;
+
+}
+
+.banner-font {
+    margin-top: 4rem;
+    margin-left: 28rem;
+    float: left;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+.banner p {
+    font-size: 1.2rem;
+}

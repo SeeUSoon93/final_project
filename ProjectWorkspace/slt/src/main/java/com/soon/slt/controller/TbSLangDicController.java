@@ -1,4 +1,4 @@
-package com.soon.slt.service.controller;
+package com.soon.slt.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,12 +19,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TbSLangDicController {
 	
-	private final TbSLangDicService tbSLangDicService
+	private final TbSLangDicService tbSLangDicService;
 	
 	// 수어 게시글 리스트 조회
 	@GetMapping("/main")
-	public String langMain(Model model, @RequestParam(value = "page", defaultValue = "0")int page) {
-		Page<TbSignlang> langList = this.tbSLangDicService.langList(page);
+	public String langMain(Model model, @RequestParam(value = "page", defaultValue = "0")int page,
+			@RequestParam(value="searchingWord", defaultValue="") String searchingWord) {
+		Page<TbSignlang> langList = this.tbSLangDicService.getSignlang(page, searchingWord);
 		model.addAttribute("langList", langList);
 		return "lang_main";
 	}
