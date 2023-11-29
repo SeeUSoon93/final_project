@@ -35,11 +35,7 @@ public class TbBoardController {
 
 	private final TbBoardService tbBoardService;
 	private final TbUserSecurityService tbUserServiceSecurityService;
-	
 
-	
-	
-	
 	// 게시글 검색 조회
 	@GetMapping("/search")
 	public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
@@ -48,9 +44,8 @@ public class TbBoardController {
 		Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
 		model.addAttribute("paging", paging);
 		model.addAttribute("searchingWord", searchingWord);
-		return "board-list2";
+		return "board-list";
 	}
-	
 	
 	// 게시글 생성하는 페이지로 이동
 	@GetMapping("/create")

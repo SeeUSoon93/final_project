@@ -32,8 +32,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NoticeService {
 
-	private final TbBoardRepository tbBoardRepository = null;
-	private final TbFileRepository tbFileRepository = null;
+	private final TbBoardRepository tbBoardRepository;
+	private final TbFileRepository tbFileRepository;
 
 	public Page<TbBoard> searchList(int page, String kw) {
 		List<Sort.Order> sorts = new ArrayList<>();
