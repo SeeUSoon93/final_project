@@ -93,6 +93,49 @@ thead tr {
     padding: 0 0.5rem;
 }
 
+/* 카테고리 버튼 클릭시 카테고리별로 목록 보이게 */
+.radio-inputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 200px;
+    margin-bottom: 1rem;
+}
+
+.radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.radio-inputs .radio input {
+    display: none;
+}
+
+.radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: #477489;
+    transition: all .15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked+.name {
+    background-color: #477489;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
 
 /* footer 하단 고정 */
 #footer-container {

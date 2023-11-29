@@ -21,8 +21,8 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 			+ "from TbBoard b "
 			+ "left outer join TbUser u on b.tbUser = u "
 			+ "where "
-			+ "   :category = '제목' and (b.bdTitle like %:kw%) "
-			+ "   or :category = '작성자' and (u.userNick like %:kw%) ")
+			+ "   (:category = '제목' and (b.bdTitle like %:kw%)) "
+			+ "   or (:category = '작성자' and (u.userNick like %:kw%)) ")
 	Page<TbBoard> findAllByKeyword(@Param("kw") String kw, @Param("category") String category, Pageable pageable);
 
 	@Query("select "
@@ -37,6 +37,11 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 			+ "from TbBoard b left outer join TbLikes l "
 			+ "where l.tbUser = TbUser")
 	Page<TbBoard> findAllByLike(TbUser tbUser, Pageable pageable);
+	
+	@Query("select * "
+			+ "from TbBoard "
+			+ "where bdCategory = 'notice' and bdTitle like %:kw%")
+	Page<TbBoard> findNoticeByKeyword(String kw, Pageable pageable);
 
 
 }

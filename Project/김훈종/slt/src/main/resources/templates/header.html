@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     <li class="header-gnbitem">
-                        <a class="header-gnblink" th:href="@{/board/search}">
+                        <a class="header-gnblink" th:href="@{board/search}">
                             <span class="menu-icon">
                                 <p>커뮤니티</p>
                             </span>
@@ -51,18 +51,28 @@
                     </li>
                 </ul>
             </div>
-            <div class="header-right">
+           <div class="header-right">
 			    <div class="header-utils">
-			        <a th:href="@{/tbUser/signup}" class="btn-profile header-utils-btn"> 
+			        <!-- 로그인 되지 않았을 때 -->
+			        <a th:href="@{/tbUser/signup}" class="btn-profile header-utils-btn" id="btnProfile" th:if="${not #authorization.expression('isAuthenticated')}">
 			            <i class="fa-regular fa-user fa-2x" alt="JOIN"></i>
 			        </a>
-			        <a th:href="@{/tbUser/login}" class="btn-profile header-utils-btn"> 
+			        <a th:href="@{/tbUser/login}" class="btn-profile header-utils-btn" id="btnLogin" th:if="${not #authorization.expression('isAuthenticated')}">
 			            <i class="fa-solid fa-right-to-bracket fa-2x" alt="LOGIN"></i>
+			        </a>
+			
+			        <!-- 로그인 되었을 때 -->
+			        <a th:href="@{/main}" class="btn-profile header-utils-btn" id="btnLogout" th:if="${#authorization.expression('isAuthenticated')}">
+			            <i class="fa-solid fa-sign-out-alt fa-2x" alt="LOGOUT"></i>
+			        </a>
+			        <a href="#" class="btn-profile header-utils-btn" id="btnMyPage" th:if="${#authorization.expression('isAuthenticated')}">
+			            <i class="fa-regular fa-user-circle fa-2x" alt="MY PAGE"></i>
 			        </a>
 			    </div>
 			</div>
         </div>
     </div>
-</body>
 
+    <script src="/js/js_headfoot/header.js"></script>
+</body>
 </html>

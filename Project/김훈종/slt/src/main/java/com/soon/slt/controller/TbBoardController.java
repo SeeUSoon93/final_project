@@ -37,7 +37,9 @@ public class TbBoardController {
 	private final TbUserSecurityService tbUserServiceSecurityService;
 	
 
-
+	
+	
+	
 	// 게시글 검색 조회
 	@GetMapping("/search")
 	public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
@@ -46,7 +48,14 @@ public class TbBoardController {
 		Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
 		model.addAttribute("paging", paging);
 		model.addAttribute("searchingWord", searchingWord);
-		return "board-list";
+		return "board-list2";
+	}
+	
+	
+	// 게시글 생성하는 페이지로 이동
+	@GetMapping("/create")
+	public String boardCreate(TbBoardForm tbBoardForm) {
+		return "board-write";
 	}
 
 	// 게시글 생성
@@ -55,7 +64,7 @@ public class TbBoardController {
 			@RequestPart("files") List<MultipartFile> files, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			
-			return "board-list";
+			return "board-list2";
 		}
 		TbUser user = (TbUser) this.tbUserServiceSecurityService.loadUserByUsername(principal.getName());
 		
@@ -67,8 +76,8 @@ public class TbBoardController {
 			return "board-write";
 		}
 
-		// return "redirect:/board/main";
-		return "board-list";
+		return "redirect:/board/main";
+		// return "board-list2";
 	}
 
 	// 게시글 삭제
