@@ -79,8 +79,7 @@
                         </li>
                         <!--페이지 숫자-->
                         <li class="pagiset-list" th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-                            th:if="${page >= paging.number-3 and page <= paging.number+3}"
-                            th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                            th:if="${page >= paging.number-3 and page <= paging.number+3}">
                             <a href="" class="pagiset-link active-fill" th:text="${page}" th:href="@{|?page=${page}|}"></a>
                         </li>
                         <!--다음-->
