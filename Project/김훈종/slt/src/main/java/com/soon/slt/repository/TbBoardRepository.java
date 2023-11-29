@@ -38,10 +38,10 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 			+ "where l.tbUser = TbUser")
 	Page<TbBoard> findAllByLike(TbUser tbUser, Pageable pageable);
 	
-	@Query("select * "
-			+ "from TbBoard "
-			+ "where bdCategory = 'notice' and bdTitle like %:kw%")
-	Page<TbBoard> findNoticeByKeyword(String kw, Pageable pageable);
+	@Query("select b "
+	         + "from TbBoard b "
+	         + "where b.bdCategory = 'notice' and b.bdTitle like %:kw%")
+	   Page<TbBoard> findNoticeByKeyword(String kw, Pageable pageable);
 
 
 }
