@@ -22,6 +22,22 @@
     <div class="board-list">
         <div class="board-contents">
             <div class="tableset">
+                <div class="textset textset-sub">
+                    <div class="radio-inputs">
+                        <label class="radio" onclick="filterPosts('all')">
+                            <input type="radio" name="radio" checked="">
+                            <span class="name">전 체</span>
+                        </label>
+                        <label class="radio" onclick="filterPosts('free')">
+                            <input type="radio" name="radio">
+                            <span class="name">자 유</span>
+                        </label>
+                        <label class="radio" onclick="filterPosts('suggestion')">
+                            <input type="radio" name="radio">
+                            <span class="name">건 의</span>
+                        </label>
+                    </div>
+                </div>
                 <table class="tableset-table">
                     <thead>
                         <tr>
