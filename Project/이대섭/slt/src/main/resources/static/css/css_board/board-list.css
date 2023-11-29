@@ -27,6 +27,10 @@ a {
     height: 3.5rem;
     border-top: solid 1px black;
     border-bottom: solid 1px #dddddd;
+    border-spacing: 0;
+}
+
+.headgroup {
     background-color: #f7f7fb;
 }
 
@@ -35,11 +39,24 @@ thead tr {
 }
 
 .th1,
-.th4,
-.th6 {
+.th4 {
     width: 7rem;
     padding: 1rem 0;
 }
+
+.th6 {
+    width: 9rem;
+}
+
+tbody {
+    height: 40px;
+    text-align: center;
+}
+
+
+
+
+
 
 .board-contents {
     min-height: 30rem;
