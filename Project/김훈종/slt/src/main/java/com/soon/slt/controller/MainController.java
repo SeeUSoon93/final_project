@@ -14,7 +14,7 @@ public class MainController {
 	public String goMain() {
 		return "main";
 	}
-	
+
 	// Footer 와 Header 활성화
 	@GetMapping("footer")
 	public String footer() {

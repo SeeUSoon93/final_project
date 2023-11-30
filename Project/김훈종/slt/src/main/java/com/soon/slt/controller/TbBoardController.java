@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,6 @@ public class TbBoardController {
 		Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
 		model.addAttribute("paging", paging);
 		model.addAttribute("searchingWord", searchingWord);
-		model.addAttribute("category", category);
 		return "board-list";
 	}
 	
@@ -60,7 +60,7 @@ public class TbBoardController {
 			@RequestPart("files") List<MultipartFile> files, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			
-			return "board-list";
+			return "board-list2";
 		}
 		TbUser user = (TbUser) this.tbUserServiceSecurityService.loadUserByUsername(principal.getName());
 		
@@ -73,6 +73,7 @@ public class TbBoardController {
 		}
 
 		return "redirect:/board/main";
+		// return "board-list2";
 	}
 
 	// 게시글 삭제
