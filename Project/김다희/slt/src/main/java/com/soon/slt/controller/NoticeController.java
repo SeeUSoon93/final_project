@@ -38,12 +38,10 @@ public class NoticeController {
 	private final TbUserSecurityService tbUserServiceSecurityService;
 	
 	// 공지사항 리스트 출력
-	@GetMapping("/search")
-	public String noticeSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
-			  @RequestParam(value="searchingWord", defaultValue="") String searchingWord) {
-		Page<TbBoard> paging = this.noticeService.searchList(page, searchingWord);
-		model.addAttribute("paging", paging);
-		model.addAttribute("searchingWord", searchingWord);
+	@GetMapping("/main")
+	public String noticeList(Model model) {
+		List<TbBoard> boardList = this.noticeService.selectList();
+		model.addAttribute(boardList);
 		return "notice-list";
 	}
 	
