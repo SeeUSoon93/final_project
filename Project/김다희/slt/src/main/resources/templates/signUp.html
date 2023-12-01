@@ -2,109 +2,132 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>회원가입</title>
-	<link rel="stylesheet" href="./css/main.css">
-	<link rel="stylesheet" href="./css/template.css">
-	<link rel="stylesheet" href="./css/login_signUp.css">
-	<script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>회원가입</title>
+   <link rel="stylesheet" href="./css/main.css">
+   <link rel="stylesheet" href="./css/template.css">
+   <link rel="stylesheet" href="./css/login_signUp.css">
+   <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body>
-	<div id="header-container"></div>
-	<!-- main -->
-	<main class="th-layout-main">
-		<div class="signLangCom" id=""></div>
-		<div class="signup-form">
-			<div class="contents-inner">
-				<div class="contents-container container-md">
-					<div class="textset textset-sub">
-						<h2 class="textset-tit">회원가입</h2>
-					</div>
-					<form th:action="@{/tbUser/signup}" th:object="${tbUserForm}" method="post" onsubmit="return false;">
-						<div class="in-line">
-							<div id="info_id">
-								<input type="email" th:field="*{userEmail}" name="userEmail" class="text-Field" id="userEmail"
-									placeholder="이메일을 입력해주세요.">
-								<button type="button" id="checkEmail">중복확인</button>
-								<input type="text" th:field="*{userNick}" name="userNick" class="text-Field" id="userNick"
-									placeholder="닉네임을 입력해주세요.">
-								<button type="button" id="checkNick">중복확인</button>
-								<input type="password" th:field="*{userPw1}" name="userPw1" class="text-Field"
-									id="password" placeholder="비밀번호를 입력해주세요.">
-								<input type="password" th:field="*{userPw2}" name="userPw2" class="text-Field"
-									id="password2" placeholder="비밀번호를 확인해주세요.">
-								<input type="submit" class="submit-btn" value="회원가입">
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</main>
-	<!-- footer -->
-	<div id="footer-container"></div>
-	<!-- js -->
-	<script src="/js/js_headfoot/headFoot.js"></script>
-	<script>
-		//이메일 중복 처리
-		$(document).ready(function () {
-			$("#checkEmail").click(function (event) {
-				event.preventDefault();
-				var email = $("#userEmail").val();
+   <div id="header-container"></div>
+   <!-- main -->
+   <main class="th-layout-main">
+      <div class="signLangCom" id=""></div>
+      <div class="signup-form">
+         <div class="contents-inner">
+            <div class="contents-container container-md">
+               <div class="textset textset-sub">
+                  <h2 class="textset-tit">회원가입</h2>
+               </div>
+               <form th:action="@{/tbUser/signup}" th:object="${tbUserForm}" method="post">
+                  <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+                  <div class="in-line">
+                     <div id="info_id">
+                        <input type="email" th:field="*{userEmail}" name="userEmail" class="text-Field" id="userEmail"
+                           placeholder="이메일을 입력해주세요.">
+                        <button type="button" id="checkEmail">중복확인</button>
+                        <input type="text" th:field="*{userNick}" name="userNick" class="text-Field" id="userNick"
+                           placeholder="닉네임을 입력해주세요.">
+                        <button type="button" id="checkNick">중복확인</button>
+                        <input type="password" th:field="*{userPw1}" name="userPw1" class="text-Field"
+                           id="password" placeholder="비밀번호를 입력해주세요.">
+                        <input type="password" th:field="*{userPw2}" name="userPw2" class="text-Field"
+                           id="password2" placeholder="비밀번호를 확인해주세요.">
+                        <input type="submit" class="submit-btn" value="회원가입">
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </main>
+   <!-- footer -->
+   <div id="footer-container"></div>
+   <!-- js -->
+   <script src="/js/js_headfoot/headFoot.js"></script>
+   <script>
+	   var isEmailAvailable = false;
+	   var isNickAvailable = false;
+      //이메일 중복 처리
+      $(document).ready(function () {
+         $("#checkEmail").click(function (event) {
+            event.preventDefault();
+            var email = $("#userEmail").val();
 
-				if (email === "") {
-					alert("이메일을 입력해주세요.");
-					return;
-				}
+            if (email === "") {
+               alert("이메일을 입력해주세요.");
+               return;
+            }
 
-				$.ajax({
-					url: "/tbUser/user_email/" + email,
-					type: "GET",
-					success: function (response) {
-						if (response==false) {
-							alert("사용 가능한 이메일입니다.");
-						} else {
-							alert("이미 사용 중인 이메일입니다.");
-						}
-					},
-					error: function () {
-						alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
-					}
-				});
-			});
-		});
-		//닉네임 중복 처리
-		$(document).ready(function () {
-			// 이메일 중복 확인 버튼 클릭 시
-			$("#checkNick").click(function (event) {
-				event.preventDefault();
-				var nick = $("#userNick").val();
+            $.ajax({
+               url: "/tbUser/user_email/" + email,
+               type: "GET",
+               success: function (response) {
+                  if (response==false) {
+                     alert("사용 가능한 이메일입니다.");
+                     isEmailAvailable = true;
+                  } else {
+                     alert("이미 사용 중인 이메일입니다.");
+                     isEmailAvailable = false;
+                  }
+               },
+               error: function () {
+                  alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+                  isEmailAvailable = false;
+               }
+            });
+         });
+      });
+      //닉네임 중복 처리
+      $(document).ready(function () {
+         // 이메일 중복 확인 버튼 클릭 시
+         $("#checkNick").click(function (event) {
+            event.preventDefault();
+            var nick = $("#userNick").val();
 
-				if (nick === "") {
-					alert("닉네임을 입력해주세요.");
-					return;
-				}
+            if (nick === "") {
+               alert("닉네임을 입력해주세요.");
+               return;
+            }
 
-				$.ajax({
-					url: "/tbUser/user_nick/" + nick,
-					type: "GET",
-					success: function (response) {
-						if (response==false) {
-							alert("사용 가능한 닉네임입니다.");
-						} else {
-							alert("이미 사용 중인 닉네임입니다.");
-						}
-					},
-					error: function () {
-						alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
-					}
-				});
-			});
-		});
-	</script>
+            $.ajax({
+               url: "/tbUser/user_nick/" + nick,
+               type: "GET",
+               success: function (response) {
+                  if (response==false) {
+                     alert("사용 가능한 닉네임입니다.");
+                     isNickAvailable = true;
+                  } else {
+                     alert("이미 사용 중인 닉네임입니다.");
+                     isNickAvailable = false;
+                  }
+               },
+               error: function () {
+                  alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+                  isNickAvailable = false;
+               }
+            });
+         });
+      });
+      
+      // 회원가입 제출 전 중복 확인 상태 확인 및 처리
+      $(document).ready(function(){
+		  $("form").submit(function(event){
+			  if(!isEmailAvailable){
+				  alert("이메일 중복 확인을 해주세요.");
+				  event.preventDefault(); // 폼 제출 중단
+			  }
+			  if(!isNickAvailable){
+				  alert("닉네임 중복 확인을 해주세요.");
+				  event.preventDefault();
+			  }
+		  })
+	  })
+   </script>
 </body>
 
 </html>

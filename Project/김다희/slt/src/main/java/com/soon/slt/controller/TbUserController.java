@@ -43,8 +43,7 @@ public class TbUserController {
 	}
 
 	@GetMapping("/signup")
-	public String signup(Model model, TbUserForm tbUserForm) {
-		model.addAttribute("tbUserForm", tbUserForm);
+	public String signup(TbUserForm tbUserForm) {
 		return "signUp";
 	}
 
@@ -54,13 +53,14 @@ public class TbUserController {
 			return "signUp";
 		}
 		if (!tbUserForm.getUserPw1().equals(tbUserForm.getUserPw2())) {
-			bindingResult.rejectValue("userPw2", "passwordIncorrect", "비밀번호를 확인해주세요!");
+			bindingResult.rejectValue("userPw2", "PwNotSame", "비밀번호를 확인해주세요!");
 			return "signUp";
 		}
 		try {
 			tbUserForm.setJoinedAt(LocalDateTime.now());
 			this.tbUserService.create(tbUserForm.getUserEmail(), tbUserForm.getUserPw1(), tbUserForm.getUserNick(), tbUserForm.getJoinedAt());
 		} catch (Exception e) {
+			e.printStackTrace();
 			bindingResult.reject("signupfail", "이미 등록된 유저입니다.");
 			return "signUp";
 		}
