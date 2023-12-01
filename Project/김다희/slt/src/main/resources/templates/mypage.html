@@ -53,8 +53,8 @@
                                 <img src="../mypage7tab/6번포켓몬.jpg" alt="profile">
                             </td>
                             <td class="my-info">
-                                <p id="user">admin</p>
-                                <p id="email">admin@smhrd.com</p>
+                                <p id="user" th:text="${tbUser.userNick}"></p>
+                                <p id="email" th:text="${tbUser.userEmail}"></p>
                             </td>
                         </tr>
                         <tr class="my-views">
@@ -65,8 +65,8 @@
                                 <p>작성 댓글</p>
                             </td>
                         <tr class="my-number">
-                            <td class="my-num">55</td>
-                            <td class="my-num">23</td>
+                            <td class="my-num" th:text="${tbUser.tbBoardList != null ? #lists.size(tbUser.tbBoardList) : 0}"></td>
+                            <td class="my-num" th:text="${tbUser.tbCommentList != null ? #lists.size(tbUser.tbCommentList) : 0}"></td>
                         </tr>
                         </tr>
                     </tbody>
@@ -79,12 +79,12 @@
                         <h2>게시글 관리</h2>
                     </thead>
                     <tbody class="info-tbody">
-                        <tr class="info-detail">
+                        <tr class="info-detail" th:each="tbBoard,loop : ${paging}">
                             <td id="info-icon">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </td>
                             <td class="info-title">
-                                <p>게시글 제목 테스트</p>
+                                <p th:text="${tbBoard.bdTitle}"></p>
                             </td>
                         </tr>
                         <tr class="info-views">

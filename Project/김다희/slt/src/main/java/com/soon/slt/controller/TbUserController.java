@@ -2,6 +2,7 @@ package com.soon.slt.controller;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soon.slt.entity.TbBoard;
+import com.soon.slt.entity.TbLikes;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.form.TbUserForm;
 import com.soon.slt.service.TbUserService;
@@ -74,16 +76,15 @@ public class TbUserController {
 
 	// 마이페이지 조회
 	@GetMapping("/mypage")
-	public String goMyPage(Model model, Principal principal, HttpServletRequest request,
-			@RequestParam(value="page", defaultValue="0") int page) {
+	public String goMyPage(Model model, Principal principal) {
 		TbUser tbUser = this.tbUserService.getUser(principal.getName());
 		model.addAttribute("tbUser", tbUser);
 		
-		Page<TbBoard> tbBoard = this.tbUserService.myBoardList(page, tbUser);
-		model.addAttribute("tbBoard", tbBoard);
-		Page<TbBoard> tbLike = this.tbUserService.myLikeList(page, tbUser);
-		model.addAttribute("tbLike", tbLike);
-		return "index";
+		List<TbBoard> boardList = this.tbUserService.myBoardList(tbUser);
+		model.addAttribute("boardList", boardList);
+		List<TbLikes> likeList = this.tbUserService.myLikeList(tbUser);
+		model.addAttribute("likeList", likeList);
+		return "mypage";
 	}
 	
 	@GetMapping("/user_email/{email}")

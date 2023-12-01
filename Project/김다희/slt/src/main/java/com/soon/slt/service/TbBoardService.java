@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.soon.slt.DataNotFound;
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbFile;
+import com.soon.slt.entity.TbLikes;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.repository.TbBoardRepository;
 import com.soon.slt.repository.TbFileRepository;
@@ -54,7 +55,6 @@ public class TbBoardService {
 		b.setBdCategory(bdCategory);
 		b.setBdContent(bdContent);
 		b.setTbUser(tbUser);
-		b.setBdLikes(0);
 		b.setCreatedAt(LocalDateTime.now());
 		TbBoard saveBoard = this.tbBoardRepository.save(b);
 		String idx = saveBoard.getBdIdx();
@@ -125,7 +125,8 @@ public class TbBoardService {
 
 	// 게시글 추천
 	public void boardLikes(TbBoard tbBoard, TbUser tbUser) {
-		//tbBoard.getBdLikes().add(tbUser);
+		tbBoard.getBdLikes().add(tbUser);
+		
 		this.tbBoardRepository.save(tbBoard);
 	}
 }

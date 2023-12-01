@@ -63,7 +63,7 @@ public class TbBoardController {
 			@RequestPart("files") List<MultipartFile> files, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			
-			return "board-list2";
+			return "board-list";
 		}
 		TbUser user = (TbUser) this.tbUserServiceSecurityService.loadUserByUsername(principal.getName());
 		
