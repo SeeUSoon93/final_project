@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수어랑말해랑-커뮤니티</title>
+    <link rel="stylesheet" href="/css/css_board/board-list.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="header-container"></div>
+
+    <div class="banner">
+        <div class="banner-font">
+            <h2>커뮤니티</h2>
+            <P>커뮤니티 전체목록</P>
+        </div>
+    </div>
+
+    <div class="board-list">
+        <div class="board-contents">
+            <div class="tableset">
+                <table class="tableset-table">
+                    <thead>
+                        <tr>
+                            <th class="th1">번 호</th>
+                            <th class="th2">분 류</th>
+                            <th id="title" class="th3">제 목</th>
+                            <th class="th4">글쓴이</th>
+                            <th class="th5">조회수</th>
+                            <th class="th6">등록일</th>
+                            <th class="th7">추천수</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="page-write">
+                <button id="write" th:onclick="|location.href='/board/create'|">글쓰기</button>
+            </div>
+
+            <nav class="pagiset pagiset-circ pagiset-border">
+                <div class="pagiset-group">
+                    <div class="pagiset-ctrl">
+                        <a href="" class="pagiset-link pagiset-first">
+                            <span class="visually-hidden">
+                                <i class="fa-solid fa-angles-left"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="pagiset-ctrl">
+                        <a href="" class="pagiset-link pagiset-prev">
+                            <span class="visually-hidden">
+                                <i class="fa-solid fa-angle-left"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="pagiset-list">
+                        <a href="" class="pagiset-link active-fill">1</a>
+                        <a href="" class="pagiset-link active-fill">2</a>
+                        <a href="" class="pagiset-link active-fill">3</a>
+                        <a href="" class="pagiset-link active-fill">4</a>
+                        
+                    </div>
+                    <div class="pagiset-ctrl">
+                        <a href="" class="pagiset-link pagiset-next">
+                            <span class="visually-hidden">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="pagiset-ctrl">
+                        <a href="" class="pagiset-link pagiset-last">
+                            <span class="visually-hidden">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="/js/js_headfoot/headFoot.js"></script>
+    <script src="/js/js_board/board-list.js"></script>
+</body>
+
+</html>

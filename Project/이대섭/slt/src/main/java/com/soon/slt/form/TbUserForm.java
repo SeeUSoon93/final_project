@@ -1,5 +1,7 @@
 package com.soon.slt.form;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +25,8 @@ public class TbUserForm {
 	
 	@NotEmpty(message = "닉네임을 입력해주세요")
 	private String userNick;
+	
+	private LocalDateTime joinedAt;
 	
 	
 	

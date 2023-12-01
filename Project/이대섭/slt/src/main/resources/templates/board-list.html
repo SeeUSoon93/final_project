@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>수어랑말해랑-커뮤니티</title>
-    <link rel="stylesheet" href="../static/css/css_board/board-list.css">
+    <link rel="stylesheet" href="/css/css_board/board-list.css">
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
@@ -67,14 +67,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
+                        <tr th:each="TbBoard,loop">
+							<td></td>							
+							
+							
+							
+							
+							
+                            <!--<td>1</td>
                             <td>자 유</td>
                             <td>제목제목제목제목제목제목</td>
                             <td>오시오</td>
                             <td>12</td>
                             <td>2023. 11. 29</td>
-                            <td>12</td>
+                            <td>12</td>-->
                         </tr>
                     </tbody>
                 </table>
@@ -83,12 +89,12 @@
                 <button id="write" onclick="location.href='./board-write.html'">글쓰기</button>
             </div>
 
-            <div th:if="${!boardList.isEmpty}" class="pagiset pagiset-circ pagiset-border">
+            <div th:if="${!paging.isEmpty()}" class="pagiset pagiset-circ pagiset-border">
                 <ul class="pagination" id="pagination">
                     <!-- 페이지 번호가 자동으로 추가될 부분 -->
                     <nav class="pagiset-group">
                         <!--처음-->
-                        <li class="pagiset-ctrl" th:style="${!boardList.hasPrevious} ? 'display:none;' : '' ">
+                        <li class="pagiset-ctrl" th:style="${!paging.hasPrevious} ? 'display:none;' : '' ">
                             <a th:href="@{|?page=1|}" class="pagiset-link pagiset-first">
                                 <span class="visually-hidden">
                                     <i class="fa-solid fa-angles-left"></i>
@@ -96,31 +102,29 @@
                             </a>
                         </li>
                         <!--이전-->
-                        <li class="pagiset-ctrl" th:style="${!boardList.hasPrevious} ? 'display:none;' : '' ">
-                            <a th:href="@{|?page=${boardList.number-1}|}" class="pagiset-link pagiset-prev">
+                        <li class="pagiset-ctrl" th:style="${!paging.hasPrevious} ? 'display:none;' : '' ">
+                            <a th:href="@{|?page=${paging.number-1}|}" class="pagiset-link pagiset-prev">
                                 <span class="visually-hidden">
                                     <i class="fa-solid fa-angle-left"></i>
                                 </span>
                             </a>
                         </li>
                         <!--페이지 숫자-->
-                        <li class="pagiset-list" th:each="page: ${#numbers.sequence(0, boardList.totalPages-1)}"
-                            th:if="${page >= boardList.number-3 and page <= boardList.number+3}"
-                            th:classappend="${page == boardList.number} ? 'active'" class="page-item">
-                            <a href="" class="pagiset-link active-fill" th:text="${page}"
-                                th:href="@{|?page=${page}|}"></a>
+                        <li class="pagiset-list" th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                            th:if="${page >= paging.number-3 and page <= paging.number+3}" >
+                            <a class="pagiset-link active-fill" th:text="${page}" th:href="@{|?page=${page}|}"></a>
                         </li>
                         <!--다음-->
-                        <li class="pagiset-ctrl" th:style="${!boardList.hasNext} ? 'display:none;' : '' ">
-                            <a href="" class="pagiset-link pagiset-next" th:href="@{|?page=${boardList.number+1}|}">
+                        <li class="pagiset-ctrl" th:style="${!paging.hasNext} ? 'display:none;' : '' ">
+                            <a class="pagiset-link pagiset-next" th:href="@{|?page=${paging.number+1}|}">
                                 <span class="visually-hidden">
                                     <i class="fa-solid fa-angle-right"></i>
                                 </span>
                             </a>
                         </li>
                         <!--마지막-->
-                        <li class="pagiset-ctrl" th:style="${!boardList.hasNext} ? 'display:none;' : '' ">
-                            <!--<a th:href="@{|?page=int(boardList/10)|}" class="pagiset-link pagiset-last">
+                        <li class="pagiset-ctrl" th:style="${!paging.hasNext} ? 'display:none;' : '' ">
+                            <!--<a th:href="@{|?page=int(paging/10)|}" class="pagiset-link pagiset-last">
                                 <span class="visually-hidden">
                                     <i class="fa-solid fa-angles-right"></i>
                                 </span>
@@ -138,8 +142,8 @@
 
     <div id="footer-container"></div>
 
-    <script src="../static/js/js_headfoot/headFoot.js"></script>
-    <!-- <script src="../static/js/js_board/board-list.js"></script> -->
+    <script src="/js/js_headfoot/headFoot.js"></script>
+    <!-- <script src="/js/js_board/board-list.js"></script> -->
 </body>
 
 </html>
