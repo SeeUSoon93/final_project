@@ -38,7 +38,7 @@ public class TbBoardController {
 	private final TbUserSecurityService tbUserServiceSecurityService;
 
 	// 게시글 검색 조회
-	@GetMapping("/search")
+	@GetMapping("/main")
 	public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
 							  @RequestParam(value="searchingWord", defaultValue="") String searchingWord,
 							  @RequestParam(value="category", defaultValue="")String category){
