@@ -7,6 +7,7 @@ import java.util.List;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +21,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.soon.myhome.entity.Board;
+import com.soon.myhome.entity.Member;
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.form.TbBoardForm;
 import com.soon.slt.service.TbBoardService;
 import com.soon.slt.service.TbUserSecurityService;
+import com.soon.slt.service.TbUserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +39,7 @@ import lombok.RequiredArgsConstructor;
 public class TbBoardController {
 
 	private final TbBoardService tbBoardService;
+	private final TbUserService tbUserService;
 	private final TbUserSecurityService tbUserServiceSecurityService;
 
 	// 게시글 검색 조회
@@ -122,6 +127,18 @@ public class TbBoardController {
 		return String.format("redirect:/board/detail/%s", bdIdx);
 	}
 
+	/*
+	 * // 게시글 좋아요
+	 * 
+	 * @PreAuthorize("isAuthenticated()")
+	 * 
+	 * @GetMapping("/good/{bdIdx}") public String boardGood(Principal
+	 * principal, @PathVariable("bdIdx") String bdIdx) { TbBoard tbBoard =
+	 * this.tbBoardService.boardDetail(bdIdx); TbUser tbUser =
+	 * this.tbUserService.getUSer(principal.getName());
+	 * this.tbBoardService.boardGood(tbBoard, tbUser); return
+	 * String.format("redirect:/board/detail/%s", boardNum); }
+	 */
 }
 
 
