@@ -67,15 +67,15 @@ public class TbUserService {
 		return this.tbBoardRepository.findAllByLike(tbUser, pageable);
 	}
 
+	// 이메일 중복 확인
 	public boolean checkEmailDuplicate(String email) {
 		return tbUserRepository.existsByUserEmail(email);
 	}
 
+	// 닉네임 중복 확인
 	public boolean checkNickDuplicate(String nick) {
 		return tbUserRepository.existsByUserNick(nick);
 	}
-	
-	
 	
 	
 	

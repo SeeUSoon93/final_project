@@ -123,4 +123,9 @@ public class TbBoardService {
 		this.tbBoardRepository.save(tbBoard);
 	}
 
+	// 게시글 추천
+	public void boardLikes(TbBoard tbBoard, TbUser tbUser) {
+		//tbBoard.getBdLikes().add(tbUser);
+		this.tbBoardRepository.save(tbBoard);
+	}
 }

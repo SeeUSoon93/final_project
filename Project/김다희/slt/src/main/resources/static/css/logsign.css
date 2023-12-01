@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+    letter-spacing: 1px;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -28,7 +40,7 @@ a {
     width: 500px;
     padding: 40px;
     /* border: 1px solid red; */
-    box-shadow: 3px 1px 5px #ddd;
+    box-shadow: 0 0 10px #ddd;
 }
 
 .log-title {
@@ -36,9 +48,40 @@ a {
     margin: 24px 0 12px 0;
 }
 
-input[type=email],
-input[type=text],
-input[type=password] {
+.logemail, .logpass {
+	width: 89.5%;
+    padding: 14px 20px;
+    margin-top: 7px;
+    margin-left: 6px;
+    font-size: 1rem;
+    background-color: #fff;
+    border: none;
+    outline: none;
+}
+
+.signemail, .signnick {
+	width: 73%;
+    padding: 14px 20px;
+    margin-top: 7px;
+    margin-left: 6px;
+    font-size: 1rem;
+    background-color: #fff;
+    border: none;
+    outline: none;
+}
+
+ .signpass {
+	 width: 89.5%;
+    padding: 14px 20px;
+    margin-top: 7px;
+    margin-left: 6px;
+    font-size: 1rem;
+    background-color: #fff;
+    border: none;
+    outline: none;
+ }
+
+input[type=text] {
     width: 73%;
     padding: 14px 20px;
     margin-top: 7px;
@@ -81,7 +124,8 @@ button[type=submit]{
 }
 
 .login-signup > span > a:hover{
-    color: rgb(0, 132, 255);
+    color: #0084ff;
+    cursor: pointer;
 }
 
 .log-box {
@@ -100,4 +144,27 @@ button[type=submit]{
     margin-bottom: 12px;
     background-color: #fff;
     border: 1px solid #ccc;
+}
+
+.log-content:nth-child(2) {
+    margin-bottom: 0;
+}
+
+.log-content2 {
+    width: 498px;
+    height: 60px;
+    margin-bottom: 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.alert {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5px;
+    color: red;
+}
+
+h2 {
+    font-size: 2rem;
 }

@@ -21,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.soon.myhome.entity.Board;
-import com.soon.myhome.entity.Member;
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.form.TbBoardForm;
@@ -127,18 +125,15 @@ public class TbBoardController {
 		return String.format("redirect:/board/detail/%s", bdIdx);
 	}
 
-	/*
-	 * // 게시글 좋아요
-	 * 
-	 * @PreAuthorize("isAuthenticated()")
-	 * 
-	 * @GetMapping("/good/{bdIdx}") public String boardGood(Principal
-	 * principal, @PathVariable("bdIdx") String bdIdx) { TbBoard tbBoard =
-	 * this.tbBoardService.boardDetail(bdIdx); TbUser tbUser =
-	 * this.tbUserService.getUSer(principal.getName());
-	 * this.tbBoardService.boardGood(tbBoard, tbUser); return
-	 * String.format("redirect:/board/detail/%s", boardNum); }
-	 */
+	// 게시글 좋아요
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/good/{bdIdx}")
+    public String boardGood(Principal principal, @PathVariable("bdIdx") String bdIdx) {
+        TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
+        TbUser tbUser = this.tbUserService.getUser(principal.getName());
+        this.tbBoardService.boardLikes(tbBoard, tbUser);
+        return String.format("redirect:/board/detail/%s", bdIdx);
+    }
 }
 
 
