@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <form class="signform">
+    <form th:action="@{/tbUser/signup}" th:object="${tbUserForm}" method="post" class="signform">
         <div class="logo">
             <img src="./image/logo1.png" alt="logo">
         </div>
@@ -18,26 +18,26 @@
             <div class="log-title">
                 <h2>회원가입</h2>
             </div>
-
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="sign-box">
                 <div class="log-content">
-                    <input type="email" placeholder="이메일을 입력하세요." name="email" required>
-                    <button id="check" class="checkBtn">중복확인</button>
+                    <input type="email" placeholder="이메일을 입력하세요." th:field="*{userEmail}" name="userEmail" id="userEmail" required>
+                    <button type="button" id="checkEmail" class="checkBtn">중복확인</button>
                 </div>
                 <div class="log-content">
-                    <input type="text" placeholder="닉네임을 입력하세요." name="nick" required>
-                    <button id="check" class="checkBtn">중복확인</button>
+                    <input type="text" placeholder="닉네임을 입력하세요." th:field="*{userNick}" name="userNick" id="userNick" required>
+                    <button type="button" id="checkNick" class="checkBtn">중복확인</button>
                 </div>
                 <div class="log-content">
-                    <input type="password" placeholder="비밀번호를 입력하세요." name="password" required>
+                    <input type="password" id="password" placeholder="비밀번호를 입력하세요." th:field="*{userPw1}" name="userPw1" required>
                 </div>
                 <div class="log-content">
-                    <input type="password" placeholder="비밀번호를 확인하세요." name="password" required>
+                    <input type="password" id="password2" placeholder="비밀번호를 확인하세요." th:field="*{userPw2}" name="userPw2" required>
                 </div>
 
                 <button type="submit">회원가입</button>
                 <div class="login-signup">
-                    <span><a href="#">로그인</a></span>
+                    <span><a th:href="@{/tbUser/login}">로그인</a></span>
                 </div>
             </div>
         </div>
