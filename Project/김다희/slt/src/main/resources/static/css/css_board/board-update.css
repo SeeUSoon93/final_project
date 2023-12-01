@@ -75,6 +75,17 @@ input[type="text"] {
     margin-right: 1rem;
 }
 
+.bu_list {
+    width: 4rem;
+    padding: 0.6rem 1rem;
+    background-color: #477489;
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
 .bu_write {
     width: 4rem;
     padding: 0.6rem 1rem;

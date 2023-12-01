@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="mypage.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- header -->
+    <div id="header-container"></div>
+    <!-- banner -->
+    <div class="banner">
+        <div class="banner-font">
+            <h2>마이페이지</h2>
+        </div>
+    </div>
+    <!-- main -->
+    <div class="mypage-box">
+        <div class="mypage-contents">
+            <!-- tab -->
+            <div class="tab">
+                <button class="tablink" onclick="openCity(event, 'my')">
+                    <i class="fa-solid fa-circle-info" id="menu__info"></i>
+                    <span>내정보</span>
+                </button>
+                <button class="tablink" onclick="openCity(event, 'info')">
+                    <i class="fa-solid fa-pencil" id="menu__text"></i>
+                    <span>내게시글 관리</span>
+                </button>
+                <button class="tablink" onclick="openCity(event, 'comnt')">
+                    <i class="fa-solid fa-comment" id="menu__comt"></i>
+                    <span>내댓글 관리</span>
+                </button>
+                <button class="tablink" onclick="openCity(event, 'like')">
+                    <i class="fa-solid fa-heart" id="menu__like"></i>
+                    <span>추천 게시글</span>
+                </button>
+            </div>
+
+            <!-- content -->
+            <div id="my" class="tabcontent">
+                <table class="my-container">
+                    <thead class="my-thead">
+                        <h2>내정보</h2>
+                    </thead>
+                    <tbody class="my-tbody">
+                        <tr class="my-detail">
+                            <td id="my-img">
+                                <img src="../mypage7tab/6번포켓몬.jpg" alt="profile">
+                            </td>
+                            <td class="my-info">
+                                <p id="user">admin</p>
+                                <p id="email">admin@smhrd.com</p>
+                            </td>
+                        </tr>
+                        <tr class="my-views">
+                            <td id="my-list">
+                                <p>작성 글</p>
+                            </td>
+                            <td class="my-list">
+                                <p>작성 댓글</p>
+                            </td>
+                        <tr class="my-number">
+                            <td class="my-num">55</td>
+                            <td class="my-num">23</td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="info" class="tabcontent">
+                <table class="info-container">
+                    <thead class="info-thead">
+                        <h2>게시글 관리</h2>
+                    </thead>
+                    <tbody class="info-tbody">
+                        <tr class="info-detail">
+                            <td id="info-icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
+                            <td class="info-title">
+                                <p>게시글 제목 테스트</p>
+                            </td>
+                        </tr>
+                        <tr class="info-views">
+                            <td id="info-icon2"><i class="fa-regular fa-eye"></i></td>
+                            <td id="info-view">55</td>
+                            <td id="info-icon2"><i class="fa-solid fa-heart"></i></td>
+                            <td id="info-like">23</td>
+                        </tr>
+                        <tr class="info-datetime">
+                            <td id="info-date">
+                                <p>2023. 11. 29&nbsp&nbsp|&nbsp&nbsp</p>
+                            </td>
+                            <td id="info-time">
+                                <p>10:23:43</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="comnt" class="tabcontent">
+                <table class="comnt-container">
+                    <thead class="comnt-thead">
+                        <h2>댓글 관리</h2>
+                    </thead>
+                    <tbody class="comnt-tbody">
+                        <tr class="comnt-detail">
+                            <td id="comnt-icon"><i class="fa-solid fa-comment"></i></td>
+                            <td id="comnt-num">
+                                <a href="#">
+                                    <p>1번&nbsp&nbsp</p>
+                                </a>
+                            </td>
+                            <td id="info-title">
+                                <p>게시글에 댓글을 작성했습니다.</p>
+                            </td>
+                        </tr>
+                        <tr class="comnt-views">
+                            <td id="comnt-view">테스트입니다.</td>
+                        </tr>
+                        <tr class="info-datetime">
+                            <td id="info-date">
+                                <p>2023. 11. 29&nbsp&nbsp|&nbsp&nbsp</p>
+                            </td>
+                            <td id="info-time">
+                                <p>10:23:43</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="like" class="tabcontent">
+                <table class="like-container">
+                    <thead class="comnt-thead">
+                        <h2>추천 게시글</h2>
+                    </thead>
+                    <tbody class="like-tbody">
+                        <tr class="info-detail">
+                            <td id="info-icon"><i class="fa-solid fa-heart"></i></td>
+                            <td id="comnt-num">
+                                <a href="#">
+                                    <p>1번&nbsp&nbsp</p>
+                                </a>
+                            </td>
+                            <td id="info-title">
+                                <p>게시글에 좋아요를 눌렀습니다.</p>
+                            </td>
+                        </tr>
+                        <!-- <tr class="info-views">
+                            <td id="info-icon2"><i class="fa-regular fa-eye"></i></td>
+                            <td id="info-view">55</td>
+                            <td id="info-icon2"><i class="fa-solid fa-heart"></i></td>
+                            <td id="info-like">23</td>
+                        </tr> -->
+                        <tr class="like-datetime">
+                            <td id="info-date">
+                                <p>2023. 11. 29&nbsp&nbsp|&nbsp&nbsp</p>
+                            </td>
+                            <td id="info-time">
+                                <p>10:23:43</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- footer -->
+        <div id="footer-container"></div>
+        <!-- js -->
+        <script src="mypage.js"></script>
+</body>
+
+</html>

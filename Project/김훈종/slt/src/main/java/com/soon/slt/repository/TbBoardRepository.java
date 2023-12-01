@@ -1,6 +1,9 @@
 package com.soon.slt.repository;
 
 import com.soon.slt.entity.TbUser;
+
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -38,8 +41,8 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 
 	@Query("select b "
 			+ "from TbBoard b "
-			+ "where b.bdCategory = 'notice' and b.bdTitle like %:kw%")
-	Page<TbBoard> findNoticeByKeyword(String kw, Pageable pageable);
+			+ "where b.bdCategory = 'notice'")
+	List<TbBoard>findNoticeByKeyword();
 
-
+	
 }

@@ -1,4 +1,4 @@
-// 예제: 로그인 상태를 나타내는 변수
+/*// 예제: 로그인 상태를 나타내는 변수
 var isLoggedIn = true; // 또는 false로 설정
 
 // 문서가 로드될 때 실행
@@ -20,6 +20,7 @@ function updateIcons() {
         btnLogin.style.display = "none";
         btnLogout.style.display = "inline-block";
         btnMyPage.style.display = "inline-block";
+        
     } else {
         // 로그아웃 상태일 때
         btnProfile.style.display = "inline-block";
@@ -27,4 +28,8 @@ function updateIcons() {
         btnLogout.style.display = "none";
         btnMyPage.style.display = "none";
     }
-}
+    
+    
+    
+    
+}*/

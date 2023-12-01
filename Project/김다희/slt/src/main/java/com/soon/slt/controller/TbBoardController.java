@@ -7,6 +7,7 @@ import java.util.List;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import com.soon.slt.entity.TbUser;
 import com.soon.slt.form.TbBoardForm;
 import com.soon.slt.service.TbBoardService;
 import com.soon.slt.service.TbUserSecurityService;
+import com.soon.slt.service.TbUserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,10 +37,11 @@ import lombok.RequiredArgsConstructor;
 public class TbBoardController {
 
 	private final TbBoardService tbBoardService;
+	private final TbUserService tbUserService;
 	private final TbUserSecurityService tbUserServiceSecurityService;
 
 	// 게시글 검색 조회
-	@GetMapping("/search")
+	@GetMapping("/main")
 	public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
 							  @RequestParam(value="searchingWord", defaultValue="") String searchingWord,
 							  @RequestParam(value="category", defaultValue="")String category){
@@ -122,6 +125,15 @@ public class TbBoardController {
 		return String.format("redirect:/board/detail/%s", bdIdx);
 	}
 
+	// 게시글 좋아요
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/good/{bdIdx}")
+    public String boardGood(Principal principal, @PathVariable("bdIdx") String bdIdx) {
+        TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
+        TbUser tbUser = this.tbUserService.getUser(principal.getName());
+        this.tbBoardService.boardLikes(tbBoard, tbUser);
+        return String.format("redirect:/board/detail/%s", bdIdx);
+    }
 }
 
 

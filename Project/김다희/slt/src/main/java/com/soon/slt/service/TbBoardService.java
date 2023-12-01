@@ -54,6 +54,7 @@ public class TbBoardService {
 		b.setBdCategory(bdCategory);
 		b.setBdContent(bdContent);
 		b.setTbUser(tbUser);
+		b.setBdLikes(0);
 		b.setCreatedAt(LocalDateTime.now());
 		TbBoard saveBoard = this.tbBoardRepository.save(b);
 		String idx = saveBoard.getBdIdx();
@@ -122,4 +123,9 @@ public class TbBoardService {
 		this.tbBoardRepository.save(tbBoard);
 	}
 
+	// 게시글 추천
+	public void boardLikes(TbBoard tbBoard, TbUser tbUser) {
+		//tbBoard.getBdLikes().add(tbUser);
+		this.tbBoardRepository.save(tbBoard);
+	}
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/logsign.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <form id="form-container" class="loginform" th:action="@{/tbUser/login}" method="post">
+        <div class="logo">
+            <img src="./image/logo1.png" alt="logo">
+        </div>
+        
+        <div class="log-container">
+            <div class="log-title">
+                <h2>로그인</h2>
+            </div>
+        </div>
+        <div th:if="${param.error}">
+			<div class="alert alert-danger">
+				ID 또는 비밀번호를 잘못 입력하셨습니다.
+			</div>
+        </div>
+            <div class="log-box">
+                <div class="log-content">
+                    <input type="email" id="username" placeholder="이메일을 입력하세요." name="username" required>
+                </div>
+                <div class="log-content">
+                    <input type="password" id="password" placeholder="비밀번호를 입력하세요." name="password" required>
+                </div>
+    
+                <button type="submit">로그인</button>
+                <div class="login-signup">
+                    <span><a th:href=@{/tbUser/signup}>회원가입</a></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
