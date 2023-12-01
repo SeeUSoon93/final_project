@@ -36,8 +36,8 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 	List<TbBoard> findAllByUser(@Param("tbUser") TbUser tbUser);
 
 	@Query("select "
-			+ "distinct b "
-			+ "from TbBoard b inner join TbLikes l "
+			+ "distinct l "
+			+ "from TbLikes l "
 			+ "where l.tbUser = :tbUser")
 	List<TbLikes> findAllByLike(@Param("tbUser") TbUser thUser);
 
