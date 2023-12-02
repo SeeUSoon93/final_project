@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>수어랑말해랑-커뮤니티</title>
-    <link rel="stylesheet" href="/css/css_board/board-list.css">
+    <link rel="stylesheet" href="../static/css/css_board/board-list.css">
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
@@ -60,27 +60,32 @@
                             <th class="th1">번 호</th>
                             <th class="th2">분 류</th>
                             <th id="title" class="th3">제 목</th>
-                            <th class="th4">글쓴이</th>
+                            <th class="th4">작성자</th>
                             <th class="th5">조회수</th>
                             <th class="th6">등록일</th>
                             <th class="th7">추천수</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="TbBoard,loop">
-							<td></td>							
-							
-							
-							
-							
-							
-                            <!--<td>1</td>
+                        <!-- <tr th:each="TbBoard,loop">
+                            <td>1</td>
                             <td>자 유</td>
                             <td>제목제목제목제목제목제목</td>
                             <td>오시오</td>
                             <td>12</td>
                             <td>2023. 11. 29</td>
-                            <td>12</td>-->
+                            <td>12</td>
+                        </tr> -->
+                        <tr class="post-item" data-category="suggestion" th:each="board,loop:${boardList}">
+                            <td th:text="${loop.count}"></td>
+                            <td th:text="${board.bdCategory}"></td>
+                            <td>
+                                <a th:href="@{|/board/detail/${board.bdIdx}|}" th:text="${board.bdContent}"></a>
+                            </td>
+                            <td th:text="${board.tdUser.userNick}"></td>
+                            <td th:text="${board.bdViews}"></td>
+                            <td th:text="${#temporals.format(board.boardDate, 'yy-MM-dd')}"></td>
+                            <td th:text="${board.bdLikes}"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -142,7 +147,7 @@
 
     <div id="footer-container"></div>
 
-    <script src="/js/js_headfoot/headFoot.js"></script>
+    <script src="../static/js/js_headfoot/headFoot.js"></script>
     <!-- <script src="/js/js_board/board-list.js"></script> -->
 </body>
 

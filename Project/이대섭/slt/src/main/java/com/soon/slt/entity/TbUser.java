@@ -24,7 +24,7 @@ public class TbUser {
 	public String userEmail;
 
 	public String userPw;
-	
+
 	@Column(unique = true)
 	public String userNick;
 
@@ -39,5 +39,4 @@ public class TbUser {
 	@OneToMany(mappedBy = "tbUser", cascade = CascadeType.REMOVE)
 	public List<TbLikes> tbLikesList;
 
-	
 }
