@@ -68,7 +68,7 @@
 			            <i class="fa-regular fa-user fa-2x" alt="LOGOUT"></i>
 						<p>로그아웃</p>
 			        </a>
-			        <a href="#" class="btn-profile header-utils-btn" id="btnMyPage" th:if="${#authorization.expression('isAuthenticated')}">
+			        <a th:href="@{/tbUser/mypage}" class="btn-profile header-utils-btn" id="btnMyPage" th:if="${#authorization.expression('isAuthenticated')}">
 			            <i class="fa-solid fa-user-gear fa-2x" alt="MY PAGE"></i>
 			            <p>마이페이지</p>
 			        </a>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="mypage.css">
+    <link rel="stylesheet" href="/css/mypage.css">
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
@@ -53,8 +53,8 @@
                                 <img src="../mypage7tab/6번포켓몬.jpg" alt="profile">
                             </td>
                             <td class="my-info">
-                                <p id="user">admin</p>
-                                <p id="email">admin@smhrd.com</p>
+                                <p id="user" th:text="${tbUser.userNick}"></p>
+                                <p id="email" th:text="${tbUser.userEmail}"></p>
                             </td>
                         </tr>
                         <tr class="my-views">
@@ -78,28 +78,28 @@
                     <thead class="info-thead">
                         <h2>게시글 관리</h2>
                     </thead>
-                    <tbody class="info-tbody">
+                    <tbody th:each="tbBoard : ${tbUser.tbBoardList}" class="info-tbody">
                         <tr class="info-detail">
                             <td id="info-icon">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </td>
                             <td class="info-title">
-                                <p>게시글 제목 테스트</p>
+                                <p th:text="${tbBoard.bdTitle}"></p>
                             </td>
                         </tr>
                         <tr class="info-views">
                             <td id="info-icon2"><i class="fa-regular fa-eye"></i></td>
-                            <td id="info-view">55</td>
+                            <td th:text="${tbBoard.bdViews}" id="info-view"></td>
                             <td id="info-icon2"><i class="fa-solid fa-heart"></i></td>
-                            <td id="info-like">23</td>
+                            <td th:text="${tbBoard.bdLikes}" id="info-like"></td>
                         </tr>
                         <tr class="info-datetime">
-                            <td id="info-date">
-                                <p>2023. 11. 29&nbsp&nbsp|&nbsp&nbsp</p>
+                            <td th:text="${tbBoard.createdAt}" id="info-date">
+                                <p></p>
                             </td>
-                            <td id="info-time">
+                            <!--<td id="info-time">
                                 <p>10:23:43</p>
-                            </td>
+                            </td>-->
                         </tr>
                     </tbody>
                 </table>
@@ -109,12 +109,12 @@
                     <thead class="comnt-thead">
                         <h2>댓글 관리</h2>
                     </thead>
-                    <tbody class="comnt-tbody">
+                    <tbody th:each="tbComment : ${tbUser.tbCommentList}" class="comnt-tbody">
                         <tr class="comnt-detail">
                             <td id="comnt-icon"><i class="fa-solid fa-comment"></i></td>
                             <td id="comnt-num">
-                                <a href="#">
-                                    <p>1번&nbsp&nbsp</p>
+                                <a th:href="@{/board/{id}(id=${tbComment.bdIdx})}">
+                                    <p th:text="${tbComment.bdIdx + '번&nbsp&nbsp'}"></p>
                                 </a>
                             </td>
                             <td id="info-title">
@@ -122,15 +122,15 @@
                             </td>
                         </tr>
                         <tr class="comnt-views">
-                            <td id="comnt-view">테스트입니다.</td>
+                            <td th:text="${tbComment.cmtContent}" id="comnt-view"></td>
                         </tr>
                         <tr class="info-datetime">
                             <td id="info-date">
-                                <p>2023. 11. 29&nbsp&nbsp|&nbsp&nbsp</p>
+                                <p th:text="${tbCommnet.createdAt}"></p>
                             </td>
-                            <td id="info-time">
+<!--                            <td id="info-time">
                                 <p>10:23:43</p>
-                            </td>
+                            </td>-->
                         </tr>
                     </tbody>
                 </table>
@@ -141,7 +141,7 @@
                     <thead class="comnt-thead">
                         <h2>추천 게시글</h2>
                     </thead>
-                    <tbody class="like-tbody">
+                    <tbody th:each="" class="like-tbody">
                         <tr class="info-detail">
                             <td id="info-icon"><i class="fa-solid fa-heart"></i></td>
                             <td id="comnt-num">
@@ -174,7 +174,7 @@
         <!-- footer -->
         <div id="footer-container"></div>
         <!-- js -->
-        <script src="mypage.js"></script>
+        <script src="/js/mypage.js"></script>
 </body>
 
 </html>

@@ -69,9 +69,23 @@ a {
 }
 
 /* 전체 버튼 */
+.bt-group {
+    width: 54%;
+    display: flex;
+    margin-top: 10px;
+    float: right;
+}
+
+#heart {
+    width: 50px;
+    cursor: pointer;
+    color: #FF5353;
+}
 .bt_wrap {
-    margin-top: 20px;
-    text-align: center;
+    width: 204px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 390px;
 }
 
 .bt_wrap button {

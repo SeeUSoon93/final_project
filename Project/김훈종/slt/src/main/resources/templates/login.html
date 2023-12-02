@@ -2,50 +2,44 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수어랑말해랑-Community</title>
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/template.css">
-    <link rel="stylesheet" href="./css/login_signUp.css">
-    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>수어랑말해랑-Community</title>
+	<link rel="stylesheet" href="/css/logsign.css">
+	<script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div id="header-container"></div>
-    <!-- main -->
-    <main class="th-layout-main">
-        <div class="signLangCom" id=""></div>
-        <div class="login-form">
-            <div class="contents-inner">
-                <div class="contents-container container-md">
-                    <div class="textset textset-sub">
-                        <h2 class="textset-tit">로그인</h2>
+    <form id="form-container" class="loginform" th:action="@{/tbUser/login}" method="post">
+        <div class="logo">
+            <a th:href=@{/main}>
+                <img src="/image/logo1.png" alt="logo" width="100px">
+            </a>
+        </div>
+
+        <div class="log-container">
+            <div class="log-title">
+                <h2>로그인</h2>
+            </div>
+            <div class="log-box">
+                <div class="log-content">
+                    <input type="email" id="username" class="logemail" placeholder="이메일을 입력하세요." name="username" required>
+                </div>
+                <div class="log-content">
+                    <input type="password" id="password" class="logpass" placeholder="비밀번호를 입력하세요." name="password" required>
+                </div>
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">
+                        ID 또는 비밀번호를 잘못 입력하셨습니다.
                     </div>
-                    <form th:action="@{/tbUser/login}" id="form-container" method="post">
-						<div th:if="${param.error}">
-				            <div class="alert alert-danger">
-				                ID 또는 비밀번호를 잘못 입력하셨습니다.
-				            </div>
-				        </div>
-                         <div class="mb-3">
-            <label for="username" class="form-label">ID</label>
-            <input type="text" name="username" id="username" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
-            <input type="password" name="password" id="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
-                    </form>
+                </div>
+                <button type="submit">로그인</button>
+                <div class="login-signup">
+                    <span><a th:href=@{/tbUser/signup}>회원가입</a></span>
                 </div>
             </div>
         </div>
-    </main>
-    <!-- footer -->
-    <div id="footer-container"></div>
-    <!-- js -->
-    <script src="/js/js_headfoot/headFoot.js"></script>
+    </form>
 </body>
 
 </html>

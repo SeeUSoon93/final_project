@@ -10,6 +10,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.soon.slt.entity.TbBoard;
+import com.soon.slt.entity.TbLikes;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -31,13 +33,13 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 			+ "distinct b "
 			+ "from TbBoard b "
 			+ "where b.tbUser = :tbUser")
-	Page<TbBoard> findAllByUser(TbUser tbUser, Pageable pageable);
+	List<TbBoard> findAllByUser(@Param("tbUser") TbUser tbUser);
 
 	@Query("select "
-			+ "distinct b "
-			+ "from TbBoard b left outer join TbLikes l "
+			+ "distinct l "
+			+ "from TbLikes l "
 			+ "where l.tbUser = :tbUser")
-	Page<TbBoard> findAllByLike(TbUser tbUser, Pageable pageable);
+	List<TbLikes> findAllByLike(@Param("tbUser") TbUser thUser);
 
 	@Query("select b "
 			+ "from TbBoard b "

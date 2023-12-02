@@ -14,8 +14,11 @@ import org.springframework.stereotype.Service;
 
 import com.soon.slt.exception;
 import com.soon.slt.entity.TbBoard;
+import com.soon.slt.entity.TbComment;
+import com.soon.slt.entity.TbLikes;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.repository.TbBoardRepository;
+import com.soon.slt.repository.TbCommentRepository;
 import com.soon.slt.repository.TbUserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,7 @@ public class TbUserService {
 	
 	private final TbUserRepository tbUserRepository;
 	private final TbBoardRepository tbBoardRepository;
+	private final TbCommentRepository tbCommentRepository;
 	private final PasswordEncoder passwordEncoder;
 	
 	public TbUser create(String userEmail, String userPw, String userNick, LocalDateTime joinedAt) {
@@ -38,44 +42,41 @@ public class TbUserService {
 		return TbUser;
 	}
 	
-	// userNick을 통해 TbUser객체를 조회
-	public TbUser getUser(String userNick) {
-		Optional<TbUser> tbuser = this.tbUserRepository.findByUserNick(userNick);
+	// 마이페이지 회원 정보
+	public TbUser getUser(String userEmail) {
+		Optional<TbUser> tbuser = this.tbUserRepository.findByUserEmail(userEmail);
 		if(tbuser.isPresent()) {
 			return tbuser.get();
 		} else {
 			throw new exception("회원이 없습니다.");
 		}
 	}
-		
-	// 마이페이지 게시글 리스트 출력
-	public Page<TbBoard> myBoardList(int page, TbUser tbUser){
-		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.desc("createdAt"));
-			
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.tbBoardRepository.findAllByUser(tbUser, pageable);
 	
+	// 마이페이지 게시글 리스트 출력
+	public List<TbBoard> myBoardList(TbUser tbUser){
+		return this.tbBoardRepository.findAllByUser(tbUser);
 	}
 	
+	// 마이페이지 댓글 리스트 출력
+	public List<TbComment> myCommentList(TbUser tbUser){
+		return this.tbCommentRepository.findAllByUser(tbUser);
+	}
+	
+		
 	// 마이페이지 좋아요 게시글 리스트 출력
-	public Page<TbBoard> myLikeList(int page, TbUser tbUser){
-		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.desc("createdAt"));
-				
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.tbBoardRepository.findAllByLike(tbUser, pageable);
+	public List<TbLikes> myLikeList(TbUser tbUser){
+		return this.tbBoardRepository.findAllByLike(tbUser);
 	}
 
+	// 이메일 중복 확인
 	public boolean checkEmailDuplicate(String email) {
 		return tbUserRepository.existsByUserEmail(email);
 	}
 
+	// 닉네임 중복 확인
 	public boolean checkNickDuplicate(String nick) {
 		return tbUserRepository.existsByUserNick(nick);
 	}
-	
-	
 	
 	
 	
