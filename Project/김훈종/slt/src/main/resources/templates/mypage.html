@@ -31,10 +31,6 @@
                     <i class="fa-solid fa-pencil" id="menu__text"></i>
                     <span>내게시글 관리</span>
                 </button>
-                <button class="tablink" onclick="openCity(event, 'comnt')">
-                    <i class="fa-solid fa-comment" id="menu__comt"></i>
-                    <span>내댓글 관리</span>
-                </button>
                 <button class="tablink" onclick="openCity(event, 'like')">
                     <i class="fa-solid fa-heart" id="menu__like"></i>
                     <span>추천 게시글</span>
@@ -50,7 +46,7 @@
                     <tbody class="my-tbody">
                         <tr class="my-detail">
                             <td id="my-img">
-                                <img src="../mypage7tab/6번포켓몬.jpg" alt="profile">
+                                <img src="/image/fq.jpg" alt="profile">
                             </td>
                             <td class="my-info">
                                 <p id="user" th:text="${tbUser.userNick}"></p>
@@ -59,10 +55,10 @@
                         </tr>
                         <tr class="my-views">
                             <td id="my-list">
-                                <p>작성 글</p>
+                                <p>작성글 수</p>
                             </td>
                             <td class="my-list">
-                                <p>작성 댓글</p>
+                                <p>추천 수</p>
                             </td>
                         <tr class="my-number">
                             <td class="my-num">55</td>
@@ -104,49 +100,18 @@
                     </tbody>
                 </table>
             </div>
-            <div id="comnt" class="tabcontent">
-                <table class="comnt-container">
-                    <thead class="comnt-thead">
-                        <h2>댓글 관리</h2>
-                    </thead>
-                    <tbody th:each="tbComment : ${tbUser.tbCommentList}" class="comnt-tbody">
-                        <tr class="comnt-detail">
-                            <td id="comnt-icon"><i class="fa-solid fa-comment"></i></td>
-                            <td id="comnt-num">
-                                <a th:href="@{/board/{id}(id=${tbComment.bdIdx})}">
-                                    <p th:text="${tbComment.bdIdx + '번&nbsp&nbsp'}"></p>
-                                </a>
-                            </td>
-                            <td id="info-title">
-                                <p>게시글에 댓글을 작성했습니다.</p>
-                            </td>
-                        </tr>
-                        <tr class="comnt-views">
-                            <td th:text="${tbComment.cmtContent}" id="comnt-view"></td>
-                        </tr>
-                        <tr class="info-datetime">
-                            <td id="info-date">
-                                <p th:text="${tbCommnet.createdAt}"></p>
-                            </td>
-<!--                            <td id="info-time">
-                                <p>10:23:43</p>
-                            </td>-->
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
             <div id="like" class="tabcontent">
                 <table class="like-container">
                     <thead class="comnt-thead">
                         <h2>추천 게시글</h2>
                     </thead>
-                    <tbody th:each="" class="like-tbody">
+                    <tbody class="like-tbody">
                         <tr class="info-detail">
                             <td id="info-icon"><i class="fa-solid fa-heart"></i></td>
                             <td id="comnt-num">
                                 <a href="#">
-                                    <p>1번&nbsp&nbsp</p>
+                                    <p>게시글제목</p>
                                 </a>
                             </td>
                             <td id="info-title">
