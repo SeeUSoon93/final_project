@@ -30,9 +30,9 @@ public class SecurityConfig {
 				// 주로 클릭재킹 공격을 방지하기 위해 사용
 				.headers((headers) -> headers.addHeaderWriter(
 						new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-				.formLogin((formLogin) -> formLogin.loginPage("/user/login") // 로그인시 어디로 이동해야할지 알려줌
+				.formLogin((formLogin) -> formLogin.loginPage("/tbUser/login") // 로그인시 어디로 이동해야할지 알려줌
 						.defaultSuccessUrl("/main"))
-				.logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")) // 로그아웃 요청시 이동하는 페이지
+				.logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/tbUser/logout")) // 로그아웃 요청시 이동하는 페이지
 						.logoutSuccessUrl("/main") // 로그아웃 성공시 이동
 						.invalidateHttpSession(true)) // 로그아웃시 세션 삭제
 		;
