@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수어랑말해랑-커뮤니티</title>
+    <link rel="stylesheet" href="/css/css_board/board-list.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="header-container"></div>
+
+    <div class="banner">
+        <div class="banner-font">
+            <h2>커뮤니티</h2>
+            <P>커뮤니티 전체목록</P>
+        </div>
+    </div>
+
+    <div class="board-list">
+        <div class="board-contents">
+            <div class="tableset">
+                <div class="textset textset-sub">
+                    <div class="radio-inputs">
+                        <label class="radio" onclick="filterPosts('all')">
+                            <input type="radio" name="radio" checked="">
+                            <span class="name">전 체</span>
+                        </label>
+                        <label class="radio" onclick="filterPosts('free')">
+                            <input type="radio" name="radio">
+                            <span class="name">자 유</span>
+                        </label>
+                        <label class="radio" onclick="filterPosts('suggestion')">
+                            <input type="radio" name="radio">
+                            <span class="name">건 의</span>
+                        </label>
+                    </div>
+                    <form action="#" class="search">
+                        <select class="lang" name="languages">
+                            <option value="title">제 목</option>
+                            <option value="writer">작성자</option>
+                        </select>
+                        <div class="search-box">
+                            <div class="search-field">
+                                <input placeholder="Search" class="input" type="text">
+                                <div class="search-box-icon">
+                                    <button class="btn-icon-content">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <table class="tableset-table">
+                    <thead class="headgroup">
+                        <tr>
+                            <th class="th1">번 호</th>
+                            <th class="th2">분 류</th>
+                            <th id="title" class="th3">제 목</th>
+                            <th class="th4">글쓴이</th>
+                            <th class="th5">조회수</th>
+                            <th class="th6">등록일</th>
+                            <th class="th7">추천수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+							<td></td>							
+							
+							
+							
+							
+							
+                            <!--<td>1</td>
+                            <td>자 유</td>
+                            <td>제목제목제목제목제목제목</td>
+                            <td>오시오</td>
+                            <td>12</td>
+                            <td>2023. 11. 29</td>
+                            <td>12</td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-write">
+                <button id="write" th:onclick="|location.href='@{/board/create}'|">글쓰기</button>
+
+            </div>
+
+            <div th:if="${!paging.isEmpty()}" class="pagiset pagiset-circ pagiset-border">
+                <ul class="pagination" id="pagination">
+                    <!-- 페이지 번호가 자동으로 추가될 부분 -->
+                    <nav class="pagiset-group">
+                        <!--처음-->
+                        <li class="pagiset-ctrl" th:style="${!paging.hasPrevious} ? 'display:none;' : '' ">
+                            <a th:href="@{|?page=1|}" class="pagiset-link pagiset-first">
+                                <span class="visually-hidden">
+                                    <i class="fa-solid fa-angles-left"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <!--이전-->
+                        <li class="pagiset-ctrl" th:style="${!paging.hasPrevious} ? 'display:none;' : '' ">
+                            <a th:href="@{|?page=${paging.number-1}|}" class="pagiset-link pagiset-prev">
+                                <span class="visually-hidden">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <!--페이지 숫자-->
+                        <li class="pagiset-list" th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                            th:if="${page >= paging.number-3 and page <= paging.number+3}" >
+                            <a class="pagiset-link active-fill" th:text="${page}" th:href="@{|?page=${page}|}"></a>
+                        </li>
+                        <!--다음-->
+                        <li class="pagiset-ctrl" th:style="${!paging.hasNext} ? 'display:none;' : '' ">
+                            <a class="pagiset-link pagiset-next" th:href="@{|?page=${paging.number+1}|}">
+                                <span class="visually-hidden">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <!--마지막-->
+                        <li class="pagiset-ctrl" th:style="${!paging.hasNext} ? 'display:none;' : '' ">
+                            <!--<a th:href="@{|?page=int(paging/10)|}" class="pagiset-link pagiset-last">
+                                <span class="visually-hidden">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </span>
+                            </a>-->
+                        </li>
+                    </nav>
+                </ul>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="/js/js_headfoot/headFoot.js"></script>
+    <!-- <script src="/js/js_board/board-list.js"></script> -->
+</body>
+
+</html>

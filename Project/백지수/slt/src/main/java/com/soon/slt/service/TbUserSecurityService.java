@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class TbUserSecurityService implements UserDetailsService{
 	private final TbUserRepository tbUserRepository;
-	@Override
+	
 	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException{
 		Optional<TbUser> _tbUser = this.tbUserRepository.findByUserEmail(userEmail);
 		if(_tbUser.isEmpty()) {
