@@ -2,136 +2,152 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/mypage.css">
-    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/css/mypage.css">
+	<script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <!-- header -->
-    <div id="header-container"></div>
-    <!-- banner -->
-    <div class="banner">
-        <div class="banner-font">
-            <h2>마이페이지</h2>
-        </div>
-    </div>
-    <!-- main -->
-    <div class="mypage-box">
-        <div class="mypage-contents">
-            <!-- tab -->
-            <div class="tab">
-                <button class="tablink" onclick="openCity(event, 'my')">
-                    <i class="fa-solid fa-circle-info" id="menu__info"></i>
-                    <span>내정보</span>
-                </button>
-                <button class="tablink" onclick="openCity(event, 'info')">
-                    <i class="fa-solid fa-pencil" id="menu__text"></i>
-                    <span>내게시글 관리</span>
-                </button>
-                <button class="tablink" onclick="openCity(event, 'like')">
-                    <i class="fa-solid fa-heart" id="menu__like"></i>
-                    <span>추천 게시글</span>
-                </button>
-            </div>
+	<!-- header -->
+	<div id="header-container"></div>
+	<!-- banner -->
+	<div class="banner">
+		<div class="banner-font">
+			<h2>마이페이지</h2>
+		</div>
+	</div>
+	<!-- main -->
+	<div class="mypage-box">
+		<div class="mypage-contents">
+			<!-- tab -->
+			<div class="tab">
+				<button class="tablink" onclick="openCity(event, 'my')">
+					<i class="fa-solid fa-circle-info" id="menu__info"></i>
+					<span>내정보</span>
+				</button>
+				<button class="tablink" onclick="openCity(event, 'info')">
+					<i class="fa-solid fa-pencil" id="menu__text"></i>
+					<span>내게시글 관리</span>
+				</button>
+				<button class="tablink" onclick="openCity(event, 'like')">
+					<i class="fa-solid fa-heart" id="menu__like"></i>
+					<span>추천 게시글</span>
+				</button>
+			</div>
 
-            <!-- content -->
-            <div id="my" class="tabcontent">
-                <table class="my-container">
-                    <thead class="my-thead">
-                        <h2>내정보</h2>
-                    </thead>
-                    <tbody class="my-tbody">
-                        <tr class="my-detail">
-                            <td id="my-img">
-                                <img src="../mypage7tab/6번포켓몬.jpg" alt="profile">
-                            </td>
-                            <td class="my-info">
-                                <p id="user" th:text="${tbUser.userNick}"></p>
-                                <p id="email" th:text="${tbUser.userEmail}"></p>
-                            </td>
-                        </tr>
-                        <tr class="my-views">
-                            <td id="my-list">
-                                <p>작성 글</p>
-                            </td>
-                            <td class="my-list">
-                                <p>추천 글</p>
-                            </td>
-                        <tr class="my-number">
-                            <td class="my-num" th:text="${tbUser.tbBoardList != null ? #lists.size(tbUser.tbBoardList : 0)}"></td>
-                            <td class="my-num" th:text="${tbUser.tbLikesList != null ? #lists.size(tbUser.tbLikesList : 0)}"></td>
-                        </tr>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+			<!-- content -->
+			<div id="my" class="tabcontent">
+				<table class="my-container">
+					<thead class="my-thead">
+						<h2>내정보</h2>
+					</thead>
+					<tbody class="my-tbody">
+						<tr class="my-detail">
+							<td id="my-img">
+								<img src="../mypage7tab/6번포켓몬.jpg" alt="profile">
+							</td>
+							<td class="my-info">
+								<p id="user" th:text="${tbUser.userNick}"></p>
+								<p id="email" th:text="${tbUser.userEmail}"></p>
+							</td>
+						</tr>
+						<tr class="my-views">
+							<td id="my-list">
+								<p>작성 글</p>
+							</td>
+							<td class="my-list">
+								<p>추천 글</p>
+							</td>
+						<tr class="my-number">
+							<td class="my-num"
+								th:text="${tbUser.tbBoardList != null ? #lists.size(tbUser.tbBoardList) : 0}"></td>
+							<td class="my-num"
+								th:text="${tbUser.tbLikesList != null ? #lists.size(tbUser.tbLikesList) : 0}"></td>
+						</tr>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-            <div id="info" class="tabcontent">
-                <table class="info-container">
-                    <thead class="info-thead">
-                        <h2>게시글 관리</h2>
-                    </thead>
-                    <tbody th:each="tbBoard : ${tbUser.tbBoardList}" class="info-tbody">
-                        <tr class="info-detail">
-                            <td id="info-icon">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                            <td class="info-title">
-                                <p th:text="${tbBoard.bdTitle}"></p>
-                            </td>
-                        </tr>
-                        <tr class="info-views">
-                            <td id="info-icon2"><i class="fa-regular fa-eye"></i></td>
-                            <td th:text="${tbBoard.bdViews}" id="info-view"></td>
-                            <td id="info-icon2"><i class="fa-solid fa-heart"></i></td>
-                            <td th:text="${tbBoard.bdLikes}" id="info-like"></td>
-                        </tr>
-                        <tr class="info-datetime">
-                            <td th:text="${#dates.format(tbBoard.createdAt, 'yyyy-MM-dd')}" id="info-date">
-                                <p>&nbsp&nbsp|&nbsp&nbsp</p>
-                            </td>
-                            <td th:text="${#dates.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+			<div id="info" class="tabcontent">
+				<table class="info-container">
+					<thead class="info-thead">
+						<h2>게시글 관리</h2>
+					</thead>
+					<tbody class="nbl-group"
+						th:if="${tbUser.tbBoardList == null or #lists.isEmpty(tbUser.tbBoardList)}">
+						<tr>
+							<td colspan="4" class="noboardlist">등록된 게시글이 없습니다.</td>
+						</tr>
+					</tbody>
+					<tbody th:each="tbBoard : ${tbUser.tbBoardList}" class="info-tbody">
+						<tr class="info-detail">
+							<td id="info-icon">
+								<i class="fa-solid fa-pen-to-square"></i>
+							</td>
+							<td class="info-title">
+								<p th:text="${tbBoard.bdTitle}"></p>
+							</td>
+						</tr>
+						<tr class="info-views">
+							<td id="info-icon2"><i class="fa-regular fa-eye"></i></td>
+							<td th:text="${tbBoard.bdViews}" id="info-view"></td>
+							<td id="info-icon2"><i class="fa-solid fa-heart"></i></td>
+							<td th:text="${tbBoard.bdLikes}" id="info-like"></td>
+						</tr>
+						<tr class="info-datetime">
+							<td th:text="${#dates.format(tbBoard.createdAt, 'yyyy-MM-dd')}" id="info-date">
+								<p>&nbsp&nbsp|&nbsp&nbsp</p>
+							</td>
+							<td th:text="${#dates.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-            <div id="like" class="tabcontent">
-                <table class="like-container">
-                    <thead class="comnt-thead">
-                        <h2>추천 게시글</h2>
-                    </thead>
-                    <tbody th:each="tbBoard : ${tbUser.tbLikesList}" class="like-tbody">
-                        <tr class="info-detail">
-                            <td id="info-icon"><i class="fa-solid fa-heart"></i></td>
-                            <td id="comnt-num">
-                                <a href="#">
-                                    <p ${#strings.length(tbUser.bdTitle) > 10 ? #strings.substring(tbUser.bdTitle, 0, 10) + '...' : tbUser.bdTitle}"></p>
-                                </a>
-                            </td>
-                            <td id="info-title">
-                                <p>게시글에 좋아요를 눌렀습니다.</p>
-                            </td>
-                        </tr>
-                        <tr class="like-datetime">
-                            <td th:text="${#dates.format(tbBoard.createdAt, 'yyyy-MM-dd')}" id="info-date">
-                                <p>&nbsp&nbsp|&nbsp&nbsp</p>
-                            </td>
-                            <td th:text="${#dates.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!-- footer -->
-        <div id="footer-container"></div>
-        <!-- js -->
-        <script src="/js/mypage.js"></script>
+			<div id="like" class="tabcontent">
+				<table class="like-container">
+					<thead class="comnt-thead">
+						<h2>추천 게시글</h2>
+					</thead>
+					<tbody th:if="${tbUser.tbLikesList == null or #lists.isEmpty(tbUser.tbLikesList)}">
+						<tr>
+							<td colspan="3" class="noboardlist">추천한 게시글이 없습니다</td>
+						</tr>
+					</tbody>
+					<tbody th:each="tbBoard : ${tbUser.tbLikesList}" class="like-tbody">
+						<tr class="info-detail">
+							<td id="info-icon"><i class="fa-solid fa-heart"></i></td>
+							<td id="comnt-num">
+								<a href="#">
+									<p ${#strings.length(tbUser.bdTitle)> 10 ? #strings.substring(tbUser.bdTitle, 0, 10)
+										+ '...' : tbUser.bdTitle}"></p>
+								</a>
+							</td>
+							<td id="info-title">
+								<p>게시글에 좋아요를 눌렀습니다.</p>
+							</td>
+						</tr>
+						<tr class="like-datetime">
+							<td th:text="${#dates.format(tbBoard.createdAt, 'yyyy-MM-dd')}" id="info-date">
+								<p>&nbsp&nbsp|&nbsp&nbsp</p>
+							</td>
+							<td th:text="${#dates.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<!--<div id="footer-container"></div>-->
+	<!-- js -->
+	<script src="/js/mypage.js"></script>
+	<script src="/js/js_headfoot/headFoot.js"></script>
 </body>
 
 </html>
