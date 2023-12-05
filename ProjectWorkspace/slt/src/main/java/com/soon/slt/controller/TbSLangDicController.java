@@ -21,6 +21,16 @@ public class TbSLangDicController {
 	
 	private final TbSLangDicService tbSLangDicService;
 	
+	// Footer 와 Header 활성화
+	@GetMapping("footer")
+	public String footer() {
+		return "footer";
+	}
+	@GetMapping("header")
+	public String header() {
+		return "header";
+	}
+	
 	// 수어 게시글 리스트 조회
 	@GetMapping("/main")
 	public String langMain(Model model, @RequestParam(value = "page", defaultValue = "0")int page,

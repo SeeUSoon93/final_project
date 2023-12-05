@@ -35,12 +35,8 @@ public class NoticeService {
 	private final TbBoardRepository tbBoardRepository;
 	private final TbFileRepository tbFileRepository;
 
-	public Page<TbBoard> searchList(int page, String kw) {
-		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.desc("createdAt"));
-		
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.tbBoardRepository.findNoticeByKeyword(kw, pageable);
+	public List<TbBoard> selectList(){
+		return this.tbBoardRepository.findNoticeByKeyword();
 	}
 
 	public void noticeCreate(String bdTitle, String bdContent, TbUser tbUser, List<MultipartFile> files)

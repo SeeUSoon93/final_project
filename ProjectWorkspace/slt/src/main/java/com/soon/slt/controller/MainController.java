@@ -15,12 +15,6 @@ public class MainController {
 		return "main";
 	}
 
-	@GetMapping("/board")
-	public String goBoard() {
-		return "board-list2";
-	}
-
-
 	// Footer 와 Header 활성화
 	@GetMapping("footer")
 	public String footer() {
@@ -31,4 +25,13 @@ public class MainController {
 		return "header";
 	}
 
+	@GetMapping("/translate")
+	public String goTranslate() {
+		return "sl-translation";
+	}
+	
+	
+	
+	
+	
 }
