@@ -46,7 +46,7 @@
                     <tbody class="my-tbody">
                         <tr class="my-detail">
                             <td id="my-img">
-                                <img src="/image/fq.jpg" alt="profile">
+                                <img src="../mypage7tab/6번포켓몬.jpg" alt="profile">
                             </td>
                             <td class="my-info">
                                 <p id="user" th:text="${tbUser.userNick}"></p>
@@ -55,14 +55,14 @@
                         </tr>
                         <tr class="my-views">
                             <td id="my-list">
-                                <p>작성글 수</p>
+                                <p>작성 글</p>
                             </td>
                             <td class="my-list">
-                                <p>추천 수</p>
+                                <p>추천 글</p>
                             </td>
                         <tr class="my-number">
-                            <td class="my-num">55</td>
-                            <td class="my-num">23</td>
+                            <td class="my-num" th:text="${tbUser.tbBoardList != null ? #lists.size(tbUser.tbBoardList) : 0}"></td>
+                            <td class="my-num" th:text="${tbUser.tbLikesList != null ? #lists.size(tbUser.tbLikesList) : 0}"></td>
                         </tr>
                         </tr>
                     </tbody>
@@ -90,12 +90,11 @@
                             <td th:text="${tbBoard.bdLikes}" id="info-like"></td>
                         </tr>
                         <tr class="info-datetime">
-                            <td th:text="${tbBoard.createdAt}" id="info-date">
-                                <p></p>
+                            <td th:text="${#dates.format(tbBoard.createdAt, 'yyyy-MM-dd')}" id="info-date">
+                                <p>&nbsp&nbsp|&nbsp&nbsp</p>
                             </td>
-                            <!--<td id="info-time">
-                                <p>10:23:43</p>
-                            </td>-->
+                            <td th:text="${#dates.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -106,30 +105,23 @@
                     <thead class="comnt-thead">
                         <h2>추천 게시글</h2>
                     </thead>
-                    <tbody class="like-tbody">
+                    <tbody th:each="tbBoard : ${tbUser.tbLikesList}" class="like-tbody">
                         <tr class="info-detail">
                             <td id="info-icon"><i class="fa-solid fa-heart"></i></td>
                             <td id="comnt-num">
                                 <a href="#">
-                                    <p>게시글제목</p>
+                                    <p ${#strings.length(tbUser.bdTitle) > 10 ? #strings.substring(tbUser.bdTitle, 0, 10) + '...' : tbUser.bdTitle}"></p>
                                 </a>
                             </td>
                             <td id="info-title">
                                 <p>게시글에 좋아요를 눌렀습니다.</p>
                             </td>
                         </tr>
-                        <!-- <tr class="info-views">
-                            <td id="info-icon2"><i class="fa-regular fa-eye"></i></td>
-                            <td id="info-view">55</td>
-                            <td id="info-icon2"><i class="fa-solid fa-heart"></i></td>
-                            <td id="info-like">23</td>
-                        </tr> -->
                         <tr class="like-datetime">
-                            <td id="info-date">
-                                <p>2023. 11. 29&nbsp&nbsp|&nbsp&nbsp</p>
+                            <td th:text="${#dates.format(tbBoard.createdAt, 'yyyy-MM-dd')}" id="info-date">
+                                <p>&nbsp&nbsp|&nbsp&nbsp</p>
                             </td>
-                            <td id="info-time">
-                                <p>10:23:43</p>
+                            <td th:text="${#dates.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
                             </td>
                         </tr>
                     </tbody>
