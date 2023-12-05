@@ -1,0 +1,175 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard-Regular';
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+
+/* 게시글 상세보기 */
+.bv-contents {
+    max-width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+}
+
+.bv-group {
+    border-top: 0.1rem solid #000;
+}
+
+.title {
+    height: 3.5rem;
+    padding: 15px 15px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.info-group {
+    height: 3.5rem;
+    padding: 15px;
+    border-bottom: 1px solid black;
+}
+
+.info {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 1rem;
+    border-right: 1px solid #ddd;
+}
+
+.info:first-child {
+    padding-left: 0;
+}
+
+.cont {
+    width: 100%;
+    border-bottom: 1px solid #b3b3b3;
+}
+
+#content {
+    min-height: 290px;
+    margin: 2.5rem 0 1rem 0;
+    word-break:break-all;
+}
+
+#writer {
+    text-align: left;
+}
+
+/* 전체 버튼 */
+.bt-group {
+    width: 54%;
+    display: flex;
+    margin-top: 10px;
+    float: right;
+}
+
+#heart {
+    width: 50px;
+    cursor: pointer;
+    color: #FF5353;
+}
+.bt_wrap {
+    width: 204px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 390px;
+}
+
+.bt_wrap button {
+    padding: 0.6rem 1rem;
+    background-color: #477489;
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    margin: 0 0.2rem;
+    cursor: pointer;
+}
+
+/* 댓글 */
+#comment-form {
+    display: flex;
+    align-items: center;
+}
+
+#comment-text {
+    width: 90%;
+    padding: 12px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    float: right;
+    padding: 1.2rem;
+    background-color: #477489;
+    color: white;
+    border: none;
+    border-radius: 0.3rem;
+    margin: 0 0.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.comments {
+    padding-top: 30px;
+}
+
+#comment-form button[type="submit"] {
+    background-color: #477489;
+    padding: 21px;
+    border: none;
+    font-size: 1.5rem;
+    border-radius: 0.3rem;
+    color: #fff;
+}
+
+#comment-form button:active {
+    box-shadow: 2px 2px 2px #999;
+}
+
+
+/* footer 하단 고정 */
+#footer-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* banner */
+.banner {
+    width: 100%;
+    height: 12rem;
+    background-color: #F1E5FD;
+    background-image: url(../../image/image2.jpg);
+    background-repeat: no-repeat;
+    background-position: 80rem;
+    margin-bottom: 3rem;
+    
+}
+
+.banner-font {
+    margin-top: 4rem;
+    margin-left: 28rem;
+    float: left;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+.banner p {
+    font-size: 1.2rem;
+}
