@@ -30,11 +30,5 @@ public class MainController {
 	public String header() {
 		return "header";
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }
