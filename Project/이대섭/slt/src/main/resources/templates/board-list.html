@@ -67,24 +67,27 @@
                         </tr>
                     </thead>
                     <tbody>
-						<!-- 게시글 목록 부분 -->
-                        <tr th:each="board : ${paging.content}">
-                            <td th:text="${board.bdIdx}"></td>
-                            <td th:text="${board.bdCategory}"></td>
-                            <td>
-                                <!-- 게시글 상세 페이지로 이동하는 링크 -->
-                                <a th:href="@{/board/detail/{bdIdx}(bdIdx=${board.bdIdx})}" th:text="${board.bdTitle}"></a>
-                            </td>
-                            <td th:text="${board.tbUser.userNick}"></td>
-                            <td th:text="${board.bdViews}"></td>
-                            <td th:text="${#dates.format(board.createdAt, 'yyyy-MM-dd')}"></td>
-                            <td th:text="${board.bdLikes.size()}"></td>
+                        <tr>
+							<td></td>							
+							
+							
+							
+							
+							
+                            <!--<td>1</td>
+                            <td>자 유</td>
+                            <td>제목제목제목제목제목제목</td>
+                            <td>오시오</td>
+                            <td>12</td>
+                            <td>2023. 11. 29</td>
+                            <td>12</td>-->
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="page-write">
                 <button id="write" th:onclick="|location.href='@{/board/create}'|">글쓰기</button>
+
             </div>
 
             <div th:if="${!paging.isEmpty()}" class="pagiset pagiset-circ pagiset-border">
@@ -138,7 +141,7 @@
         </div>
     </div>
 
-    <!--<div id="footer-container"></div>-->
+    <div id="footer-container"></div>
 
     <script src="/js/js_headfoot/headFoot.js"></script>
     <!-- <script src="/js/js_board/board-list.js"></script> -->

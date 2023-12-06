@@ -26,7 +26,6 @@ import com.soon.slt.repository.TbBoardRepository;
 import com.soon.slt.repository.TbFileRepository;
 import com.soon.slt.repository.TbUserRepository;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -50,24 +49,16 @@ public class TbBoardService {
    // 게시글 생성
    @Transactional
    public void boardCreate(String bdTitle, String bdCategory, String bdContent, TbUser tbUser,
-         List<MultipartFile> files, HttpServletRequest request) throws IOException {
+         List<MultipartFile> files) throws IOException {
       TbBoard b = new TbBoard();
       b.setBdTitle(bdTitle);
       b.setBdCategory(bdCategory);
       b.setBdContent(bdContent);
       b.setTbUser(tbUser);
       b.setCreatedAt(LocalDateTime.now());
-      
-      System.out.println(b.toString());
-      
       TbBoard saveBoard = this.tbBoardRepository.save(b);
-      
-      
       String idx = saveBoard.getBdIdx();
       TbBoard board = tbBoardRepository.findById(idx).get();
-      
-      
-      
 
       // 파일이 있을 시 저장
       if (!files.isEmpty()) {
@@ -90,9 +81,7 @@ public class TbBoardService {
             f.setTbBoard(board);
 
             // 파일을 저장할 경로 지정
-           // String uploadDirectory = "/src/main/resources/static/boardFile";
-            // String uploadDirectory = "C:/Users/smhrd/Desktop/SpringBoot/slt/src/main/resources/static/boardFile";
-            String uploadDirectory = request.getServletContext().getRealPath("/src/main/resources/static/boardFile2");
+            String uploadDirectory = "/src/main/resources/boardFile";
             file.transferTo(new File(uploadDirectory));
 
             // 업로드할 파일의 실제 경로 생성
