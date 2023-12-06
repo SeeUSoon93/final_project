@@ -90,7 +90,7 @@
 
             </div>
 
-            <div th:if="${!paging.isEmpty()}" class="pagiset pagiset-circ pagiset-border">
+            <div th:if="${paging != null and !paging.isEmpty()}" class="pagiset pagiset-circ pagiset-border">
                 <ul class="pagination" id="pagination">
                     <!-- 페이지 번호가 자동으로 추가될 부분 -->
                     <nav class="pagiset-group">

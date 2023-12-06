@@ -1,66 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="/css/css_board/board-update.css">
-	<script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/css_board/board-update.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
-	<div id="header-container"></div>
+    <div id="header-container"></div>
+    
+    <div class="banner">
+        <div class="banner-font">
+            <h2>커뮤니티</h2>
+            <P>커뮤니티 글 수정하기</P>
+        </div>
+    </div>
+    <div class="bu-contents">
+        <div class="board-update">
+            <form class="board-form">
+                <div class="board-write-wrap">
+                    <div class="board-write">
+                        <div class="board-title">
+                            <input type="text" name="board-title" placeholder="제목을 입력하세요.">
+                        </div>
+                        <div class="board-nick">
+                            <input type="text" name="board-writer" placeholder="닉네임을 입력하세요.">
+                        </div>
+                        <div class="board-content">
+                            <textarea name="board-content" placeholder="내용을 입력하세요." onkeydown="resize(this)"
+                                onkeyup="resize(this)"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="bu_button">
+					<input class="bu_write" type="button" value="목 록">
+                    <input class="bu_write" type="button" value="등 록">
+                    <input class="bu_clean" type="reset" value="초기화">
+                </div>
+            </form>
+        </div>
+    </div>
 
-	<div class="banner">
-		<div class="banner-font">
-			<h2>커뮤니티</h2>
-			<P>커뮤니티 글 수정하기</P>
-		</div>
-	</div>
-	<div class="bu-contents">
-		<div class="board-update">
-			<form class="board-form">
-				<div class="board-write-wrap">
-					<div class="board-write">
-						<div class="board-title">
-							<input type="text" name="board-title" placeholder="제목을 입력하세요.">
-						</div>
-						<div class="board-nick">
-							<input type="text" name="board-writer" placeholder="닉네임을 입력하세요.">
-						</div>
-						<div class="board-content">
-							<textarea name="board-content" placeholder="내용을 입력하세요." onkeydown="resize(this)"
-								onkeyup="resize(this)"></textarea>
-							<input type="file" name="board-file">
-						</div>
-					</div>
-				</div>
-				<div class="bu_button">
-					<input class="bu_write" type="button" value="목 록" th:onclick="|window.location.href='/board/main'|">
-					<input class="bu_write" type="button" value="등 록">
-					<input class="bu_clean" type="reset" value="초기화">
-				</div>
-			</form>
-		</div>
-	</div>
+    <div id="footer-container"></div>
 
-	<div id="footer-container"></div>
-	<script>
-		// 초기화
-		document.addEventListener("DOMContentLoaded", function () {
-			// 폼 엘리먼트 가져오기
-			const boardForm = document.querySelector('.board-form');
-
-			// "초기화" 버튼에 대한 이벤트 리스너
-			document.querySelector('.bu_clean').addEventListener('click', function () {
-				// 폼 내용을 초기화
-				boardForm.reset();
-			});
-		});
-	</script>
-
-	<script src="/js/js_headfoot/headFoot.js"></script>
+    <script src="/js/js_headfoot/headFoot.js"></script>
 </body>
-
 </html>

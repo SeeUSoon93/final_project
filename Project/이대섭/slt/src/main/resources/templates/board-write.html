@@ -2,75 +2,72 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="/css/css_board/board-write.css">
-	<script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/css_board/board-write.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-	<div id="header-container"></div>
+    <div id="header-container"></div>
 
-	<div class="banner">
-		<div class="banner-font">
-			<h2>커뮤니티</h2>
-			<P>커뮤니티 글 작성하기</P>
-		</div>
-	</div>
-	<div class="board-contents">
-		<div class="bc-write">
-			<form class="board-form" th:action="@{/board/create}" method="post" enctype="multipart/form-data">
-				<div class="board-write-wrap">
-					<div class="board-write">
-						<div class="board-title">
-							<input type="text" name="board-title" placeholder="제목을 입력하세요.">
-						</div>
-						<div class="board-nick">
-							<input type="text" name="board-writer" placeholder="닉네임을 입력하세요."
-								th:value="${#authentication.principal != null ? #authentication.principal.username : ''}"
+    <div class="banner">
+        <div class="banner-font">
+            <h2>커뮤니티</h2>
+            <P>커뮤니티 글 작성하기</P>
+        </div>
+    </div>
+    <div class="board-contents">
+        <div class="bc-write">
+            <form class="board-form" th:action="@{/board/create}" method="post">
+                <div class="board-write-wrap">
+                    <div class="board-write">
+                        <div class="board-title">
+                            <input type="text" name="bdTitle" placeholder="제목을 입력하세요.">
+                        </div>
+                        <div class="board-nick">
+                            <input type="text" name="board-writer" placeholder="닉네임을 입력하세요." th:value="${#authentication.principal != null ? #authentication.principal.username : ''}"
 								readonly>
-							<div class="category">
-								<h4>카테고리</h4>
-								<label id="free" class="radio-button">
-									<input type="radio" name="option" value="option1">
-									<div class="radio-circle"></div>
-									<span class="radio-label">자 유</span>
-								</label>
-								<label class="radio-button">
-									<input type="radio" name="option" value="option2">
-									<div class="radio-circle"></div>
-									<span class="radio-label">건 의</span>
-								</label>
-							</div>
-						</div>
-						<div class="board-content">
-							<textarea name="board-content" placeholder="내용을 입력하세요." onkeydown="resize(this)"
-								onkeyup="resize(this)"></textarea>
-							<input type="file" name="board-file">
-						</div>
-					</div>
-				</div>
-
-				<div class="bw_button">
+                            <div class="category">
+                                <h4>카테고리</h4>
+                                <label id="free" class="radio-button">
+                                    <input type="radio" name="bdCategory" value="Category 1">
+                                    <div class="radio-circle"></div>
+                                    <span class="radio-label">자 유</span>
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" name="bdCategory" value="Category 2">
+                                    <div class="radio-circle"></div>
+                                    <span class="radio-label">건 의</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="board-content">
+                            <textarea name="bdContent" placeholder="내용을 입력하세요." onkeydown="resize(this)"
+                                onkeyup="resize(this)"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="bw_button">
 					<input class="bw_list" type="button" value="목 록" th:onclick="|window.location.href='/board/main'|">
-					<input class="bw_write" type="submit" value="등 록">
-					<input class="bw_clean" type="reset" value="초기화">
-				</div>
-			</form>
-		</div>
-	</div>
+                    <input class="bw_write" type="submit" value="등 록">
+                    <input class="bw_clean" type="reset" value="초기화">
+                </div>
+            </form>
+        </div>
+    </div>
 
-	<!--<div id="footer-container"></div>-->
+    <!--<div id="footer-container"></div>-->
 
-	<script>
-		// textarea 내의 글자수가 고정값보다 넘어갔을떄 늘리게하기  
-		function resize(obj) {
-			obj.style.height = "1rem";
-			obj.style.height = (0.75 + obj.scrollHeight / 16) + "rem";
-		}
-
-		// 초기화
+    <script>
+        // textarea 내의 글자수가 고정값보다 넘어갔을떄 늘리게하기  
+        function resize(obj) {
+            obj.style.height = "1rem";
+            obj.style.height = (0.75 + obj.scrollHeight / 16) + "rem";
+        }
+        
+        // 초기화
 		document.addEventListener("DOMContentLoaded", function () {
 			// 폼 엘리먼트 가져오기
 			const boardForm = document.querySelector('.board-form');
@@ -92,9 +89,9 @@
 				event.preventDefault();
 
 				// 제목, 카테고리, 내용 값을 가져옵니다.
-				const title = document.querySelector('input[name="board-title"]').value;
-				const category = document.querySelector('input[name="option"]:checked');
-				const content = document.querySelector('textarea[name="board-content"]').value;
+				const title = document.querySelector('input[name="bdTitle"]').value;
+				const category = document.querySelector('input[name="bdCategory"]:checked');
+				const content = document.querySelector('textarea[name="bdContent"]').value;
 
 				// 제목, 카테고리, 내용 중 하나라도 비어있을 경우 알림창을 띄웁니다.
 				if (!title || !category || !content) {
@@ -105,9 +102,8 @@
 				}
 			});
 		});
-
-	</script>
-	<script src="/js/js_headfoot/headFoot.js"></script>
+    </script>
+    <script src="/js/js_headfoot/headFoot.js"></script>
 </body>
 
 </html>

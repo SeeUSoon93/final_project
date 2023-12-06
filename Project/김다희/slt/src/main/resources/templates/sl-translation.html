@@ -7,6 +7,7 @@
     <title>수어랑말해랑-수어사전</title>
     <link rel="stylesheet" href="/css/css_translation/sl-translation.css">
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+      
 </head>
 
 <body>
@@ -38,8 +39,17 @@
                 </div>
             </div>
 
+            <div class="video-box" style="display: none;">
+                <video src=""></video>
+            </div>
+
+            <!-- 여기는 웹캠 화면 -->
             <div class="video-box">
-                <video src="" controls></video>
+                <div id="recordingStatus" style="display: none;">녹화중...</div>
+                <video id="webcam" autoplay></video>
+                <button id="startRecord">시작</button>
+                <button id="stopRecord">종료</button>
+                <canvas id="canvas" style="display: none;"></canvas>
             </div>
 
             <div class="dictionary-content">
@@ -77,9 +87,9 @@
         </div>
     </div>
 
-    <!-- <div id="footer-container"></div> -->
-
-    <script src="../static/js/js_headfoot/headFoot.js"></script>
+    <!--<div id="footer-container"></div>--> 
+    <script src="/js/js_headfoot/headFoot.js"></script>
+    <script src="/js/js_sl-translation/sl-translation.js"></script>  
 </body>
 
 </html>

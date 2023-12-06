@@ -50,7 +50,6 @@ public class TbSLangDicController {
 		
 		// 나머지 데이터 뷰로 전달
 		model.addAttribute("tbSignlang",tbSignlang);
-		//return "lang_detail";
 		return "sl-dictview";
 	}
 
