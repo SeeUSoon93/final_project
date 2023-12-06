@@ -94,6 +94,7 @@ public class TbUserController {
 		return "mypage";
 	}
 	
+	
 	@GetMapping("/user_email/{email}")
 	public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email){
 		return ResponseEntity.ok(tbUserService.checkEmailDuplicate(email));

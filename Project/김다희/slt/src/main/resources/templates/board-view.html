@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../static/css/css_board/board-view.css">
+    <link rel="stylesheet" href="/css/css_board/board-view.css">
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
@@ -36,19 +36,28 @@
                                     <div id="date">0000. 00. 00</div>
                                 </div>
                                 <div class="info">
-                                    <div id="views"><i class="fa-regular fa-eye"></i></div>
+                                    <div id="views">
+										<i class="fa-regular fa-eye"></i>
+										55
+									</div>
                                 </div>
                                 <div class="info">
-                                    <div id="like"><i class="fa-solid fa-heart"></i></div>
+                                    <div id="like">
+										<i class="fa-solid fa-heart"></i>
+										55
+									</div>
                                 </dlv>
                             </div>
                             <div class="cont">
-                                <div id="content">asfsafsdafa</div>
+                                <div id="content">가나다라마바사아자차카타파하</div>
                             </div>
-                            <div class="bt_wrap">
-                                <button id="list" type="button" onclick="location.href='./list.html'">목 록</button>
-                                <button id="modify">수 정</button>
-                                <button id="delete">삭 제</button>
+                            <div class="bt-group">
+                                <i id="heart" class="fa-regular fa-heart fa-3x"></i>
+                                <div class="bt_wrap">
+                                    <button id="list" class="view-bt" type="button" onclick="location.href='./list.html'">목 록</button>
+                                    <button id="modify" class="view-bt">수 정</button>
+                                    <button id="delete" class="view-bt">삭 제</button>
+                                </div>
                             </div>
                             <!-- 댓글 시스템 시작 -->
                             <div class="comments">
@@ -69,7 +78,7 @@
 
     <div id="footer-container"></div>
 
-    <script src="../static/js/js_headfoot/headFoot.js"></script>
+    <script src="/js/js_headfoot/headFoot.js"></script>
 </body>
 
 </html>
