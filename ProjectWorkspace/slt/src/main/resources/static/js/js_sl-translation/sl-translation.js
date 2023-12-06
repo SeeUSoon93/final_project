@@ -6,6 +6,15 @@ let context = canvas.getContext('2d');
 let recordingStatus = document.getElementById('recordingStatus');
 let intervalId; // 2초마다 캡쳐를 위한 인터벌 ID
 
+// 웹캠 접근 및 비디오 스트림 설정
+navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+  .then((stream) => {
+    video.srcObject = stream;
+  })
+  .catch((err) => {
+    console.error('Error accessing media devices:', err);
+  });
+
 // 녹화 시작 버튼 이벤트
 document.getElementById('startRecord').addEventListener('click', () => {
   recordedBlobs = [];
@@ -28,6 +37,7 @@ document.getElementById('startRecord').addEventListener('click', () => {
       sendImageToServer(blob); // 이미지 전송 함수 호출
     }, 'image/jpeg');
   }, 2000);
+  console.log(recordedBlobs);
 });
 
 // 녹화 중지 버튼 이벤트
@@ -43,7 +53,7 @@ function sendImageToServer(blob) {
   let formData = new FormData();
   formData.append('image', blob);
 
-  fetch('http://localhost:8000/upload', { //FastAPI url 적기
+  fetch('http://localhost:9090/upload', { //FastAPI url 적기
     method: 'POST',
     body: formData
   })

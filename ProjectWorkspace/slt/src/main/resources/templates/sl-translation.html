@@ -46,9 +46,11 @@
             <!-- 여기는 웹캠 화면 -->
             <div class="video-box">
                 <div id="recordingStatus" style="display: none;">녹화중...</div>
-                <video id="webcam" autoplay></video>
-                <button id="startRecord">시작</button>
-                <button id="stopRecord">종료</button>
+                <video id="webcam" autoplay playsinline></video>
+                <div class="record">
+	                <button id="startRecord">시 작</button>
+	                <button id="stopRecord">종 료</button>					
+				</div>
                 <canvas id="canvas" style="display: none;"></canvas>
             </div>
 
@@ -87,8 +89,8 @@
         </div>
     </div>
 
-    <!-- <div id="footer-container"></div> -->
-    <script src="../static/js/js_headfoot/headFoot.js"></script>
+    <!--<div id="footer-container"></div>--> 
+    <script src="/js/js_headfoot/headFoot.js"></script>
     <script src="/js/js_sl-translation/sl-translation.js"></script>  
 </body>
 

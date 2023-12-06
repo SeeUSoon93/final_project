@@ -1,16 +1,23 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from typing import List
+from predict import predict_method
+import numpy as np
+import cv2
 # from some_model_library import SomeModel # 가정: 모델을 불러오는 라이브러리
-
+# 서버 실행하기 uvicorn main:app --reload
 app = FastAPI()
-model = SomeModel.load("model_path") # 모델 로드
 predictions = [] # 예측값을 저장할 리스트
 
 @app.post("/upload")
 async def predict(image: UploadFile = File(...)):
+    # 이미지 파일을 읽어 NumPy 배열로 변환
+    image_data = await image.read()
+    nparr = np.frombuffer(image_data, np.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
     # 이미지를 모델에 입력하여 예측
-    prediction = model.predict(image.file)
+    prediction = predict_method(img)
     predictions.append(prediction)
 
     return {"message": "예측 수행됨"}
