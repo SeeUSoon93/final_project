@@ -24,7 +24,7 @@
                 <div class="board-write-wrap">
                     <div class="board-write">
                         <div class="board-title">
-                            <input type="text" name="board-title" placeholder="제목을 입력하세요.">
+                            <input type="text" name="bdTitle" placeholder="제목을 입력하세요.">
                         </div>
                         <div class="board-nick">
                             <input type="text" name="board-writer" placeholder="닉네임을 입력하세요." th:value="${#authentication.principal != null ? #authentication.principal.username : ''}"
@@ -32,19 +32,19 @@
                             <div class="category">
                                 <h4>카테고리</h4>
                                 <label id="free" class="radio-button">
-                                    <input type="radio" name="option" value="option1">
+                                    <input type="radio" name="bdCategory" value="Category 1">
                                     <div class="radio-circle"></div>
                                     <span class="radio-label">자 유</span>
                                 </label>
                                 <label class="radio-button">
-                                    <input type="radio" name="option" value="option2">
+                                    <input type="radio" name="bdCategory" value="Category 2">
                                     <div class="radio-circle"></div>
                                     <span class="radio-label">건 의</span>
                                 </label>
                             </div>
                         </div>
                         <div class="board-content">
-                            <textarea name="board-content" placeholder="내용을 입력하세요." onkeydown="resize(this)"
+                            <textarea name="bdContent" placeholder="내용을 입력하세요." onkeydown="resize(this)"
                                 onkeyup="resize(this)"></textarea>
                         </div>
                     </div>
@@ -89,9 +89,9 @@
 				event.preventDefault();
 
 				// 제목, 카테고리, 내용 값을 가져옵니다.
-				const title = document.querySelector('input[name="board-title"]').value;
-				const category = document.querySelector('input[name="option"]:checked');
-				const content = document.querySelector('textarea[name="board-content"]').value;
+				const title = document.querySelector('input[name="bdTitle"]').value;
+				const category = document.querySelector('input[name="bdCategory"]:checked');
+				const content = document.querySelector('textarea[name="bdContent"]').value;
 
 				// 제목, 카테고리, 내용 중 하나라도 비어있을 경우 알림창을 띄웁니다.
 				if (!title || !category || !content) {
