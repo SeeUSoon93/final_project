@@ -40,6 +40,7 @@ a {
     width: 500px;
     padding: 40px;
     /* border: 1px solid red; */
+    border-radius: 10px;
     box-shadow: 0 0 10px #ddd;
 }
 

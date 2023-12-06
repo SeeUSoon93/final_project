@@ -37,13 +37,15 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    // 스프링 시큐리티를 사용하기 위함
-    // 스프링 시큐리티 - 스프링 기반 애플리케이션의 인증과 권한을 담당하는 스프링의 하위 프레임워크
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+	// 스프링 시큐리티를 사용하기 위한 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 	
 	// 파일 업로드 라이브러리
 	implementation 'commons-fileupload:commons-fileupload:1.4'
+
+	// RestTemplate을 사용하기 위한 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	
 	// mysql
 	// implementation 'mysql:mysql-connector-java'

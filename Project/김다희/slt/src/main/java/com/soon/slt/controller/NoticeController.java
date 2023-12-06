@@ -37,6 +37,17 @@ public class NoticeController {
 	private final NoticeService noticeService;
 	private final TbUserSecurityService tbUserServiceSecurityService;
 	
+	
+	// Footer 와 Header 활성화
+	@GetMapping("footer")
+	public String footer() {
+		return "footer";
+	}
+	@GetMapping("header")
+	public String header() {
+		return "header";
+	}
+	
 	// 공지사항 리스트 출력
 	@GetMapping("/main")
 	public String noticeList(Model model) {

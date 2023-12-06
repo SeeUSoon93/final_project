@@ -21,13 +21,23 @@ public class TbSLangDicController {
 	
 	private final TbSLangDicService tbSLangDicService;
 	
+	// Footer 와 Header 활성화
+	@GetMapping("footer")
+	public String footer() {
+		return "footer";
+	}
+	@GetMapping("header")
+	public String header() {
+		return "header";
+	}
+	
 	// 수어 게시글 리스트 조회
 	@GetMapping("/main")
 	public String langMain(Model model, @RequestParam(value = "page", defaultValue = "0")int page,
 			@RequestParam(value="searchingWord", defaultValue="") String searchingWord) {
 		Page<TbSignlang> langList = this.tbSLangDicService.getSignlang(page, searchingWord);
 		model.addAttribute("langList", langList);
-		return "lang_main";
+		return "sl-dictionary";
 	}
 
 	// 수어 게시글 상세보기
@@ -40,8 +50,7 @@ public class TbSLangDicController {
 		
 		// 나머지 데이터 뷰로 전달
 		model.addAttribute("tbSignlang",tbSignlang);
-		//return "lang_detail";
-		return "lang_main";
+		return "sl-dictview";
 	}
 
 	// 수어사전 검색 기능
