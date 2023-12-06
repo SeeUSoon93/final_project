@@ -37,7 +37,7 @@ public class TbSLangDicController {
 			@RequestParam(value="searchingWord", defaultValue="") String searchingWord) {
 		Page<TbSignlang> langList = this.tbSLangDicService.getSignlang(page, searchingWord);
 		model.addAttribute("langList", langList);
-		return "lang_main";
+		return "sl-dictionary";
 	}
 
 	// 수어 게시글 상세보기
@@ -51,7 +51,7 @@ public class TbSLangDicController {
 		// 나머지 데이터 뷰로 전달
 		model.addAttribute("tbSignlang",tbSignlang);
 		//return "lang_detail";
-		return "lang_main";
+		return "sl-dictview";
 	}
 
 	// 수어사전 검색 기능

@@ -37,5 +37,6 @@ public class TbUserSecurityService implements UserDetailsService{
 		}
 		return new User(tbUser.getUserEmail(),tbUser.getUserPw(), authorities); 
 	}
+	
 
 }

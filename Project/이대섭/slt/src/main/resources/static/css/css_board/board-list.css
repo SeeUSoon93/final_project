@@ -55,9 +55,6 @@ tbody {
 
 
 
-
-
-
 .board-contents {
     min-height: 30rem;
 }
@@ -179,7 +176,7 @@ tbody {
 .search-box {
     max-width: 250px;
     min-width: 150px;
-    height: 23px;
+    height: 35px;
     border: 1px solid #646464;
     border-radius: 5px;
     padding: 5px 15px;
