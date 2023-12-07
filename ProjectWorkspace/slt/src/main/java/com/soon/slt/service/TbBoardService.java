@@ -38,12 +38,12 @@ public class TbBoardService {
    private final TbUserRepository tbUserRepository;
 
    // 검색 목록 리스트 조회
-   public Page<TbBoard> searchList(int page, String kw, String category){
+   public Page<TbBoard> searchList(int page, String kw){
       List<Sort.Order> sorts = new ArrayList<>();
       sorts.add(Sort.Order.desc("createdAt"));
 
       Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-      return this.tbBoardRepository.findAllByKeyword(kw, category, pageable);
+      return this.tbBoardRepository.findAllByKeyword(kw, pageable);
    }
 
    // 게시글 생성

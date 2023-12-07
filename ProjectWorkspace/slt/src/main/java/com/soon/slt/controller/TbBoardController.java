@@ -48,12 +48,11 @@ public class TbBoardController {
 		return "header";
 	}
 
-   // 게시글 검색 조회
+   // 게시글 조회 및 검색
    @GetMapping("/main")
    public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
-                       @RequestParam(value="searchingWord", defaultValue="") String searchingWord,
-                       @RequestParam(value="category", defaultValue="")String category){
-      Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
+                             @RequestParam(value="searchingWord", defaultValue="") String searchingWord){
+      Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord);
       model.addAttribute("paging", paging);
       model.addAttribute("searchingWord", searchingWord);
       return "board-list";

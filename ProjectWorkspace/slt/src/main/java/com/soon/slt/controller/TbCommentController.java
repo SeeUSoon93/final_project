@@ -33,23 +33,6 @@ public class TbCommentController {
 	private final TbUserService tbUserService;
 	private final TbCommentService tbCommentService;
 	
-	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/create/{bdIdx}")
-	public String createComment(Model model, @PathVariable("bdIdx") String bdIdx,
-			@Valid TbCommentForm tbCommentForm, BindingResult bindingResult, Principal principal) {
-		
-		
-		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
-		TbUser tbUser = this.tbUserService.getUser(principal.getName());
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("tbBoard", tbBoard);
-			return "board-view";
-		}
-		TbComment tbComment = this.tbCommentService.createComment(tbBoard, tbCommentForm.getCmtContent(), tbUser);
-		return String.format("redirect:/board/detail/%s#reple_%s", tbComment.getTbBoard().getBdIdx(), tbComment.getCmtIdx());
-		
-	}
-	
 	// 댓글 수정
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/update/{cmtIdx}")
