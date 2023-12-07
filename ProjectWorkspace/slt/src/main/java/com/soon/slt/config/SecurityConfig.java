@@ -24,7 +24,7 @@ public class SecurityConfig {
 						.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
 				// CSRF - 웹 사이트 취약점 공격을 방지하기 위한 기술.
 				// CSRF 검증을 비활성화 - 개발단계에서는 테스트를 쉽게 할 수 있도록 실제 운영 환경에서는 CSRF 검증을 활성화 해주기
-				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/**")))
 				// X-Frame-Option 헤더를 설정
 				// 브라우저가 페이지를 렌더링할 수 있도록 해줌
 				// 주로 클릭재킹 공격을 방지하기 위해 사용
