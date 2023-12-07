@@ -1,6 +1,7 @@
 package com.soon.slt.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.soon.slt.entity.TbUser;
 import com.soon.slt.repository.TbCommentRepository;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @Service
@@ -27,6 +29,21 @@ public class TbCommentService {
 	 * tbComment.setTbUser(tbUser); this.tbCommentRepository.save(tbComment); return
 	 * tbComment; }
 	 */
+	
+	// 댓글 생성
+	public TbComment addComment(TbBoard tbBoard, TbUser tbUser, String comment){
+		TbComment c = new TbComment();
+		c.setTbBoard(tbBoard);
+		c.setTbUser(tbUser);
+		c.setCmtContent(comment);
+		c.setCreatedAt(LocalDateTime.now());
+		return tbCommentRepository.save(c);
+	}
+	
+	// 댓글 불러오기
+	public List<TbComment> getAllComments() {
+		return tbCommentRepository.findAll();
+	}
 	
 	// 댓글 아이디로 댓글 조회
 	public TbComment getComment(String cmtIdx) {

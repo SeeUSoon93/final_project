@@ -1,6 +1,7 @@
 package com.soon.slt.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,9 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.soon.slt.DataNotFound;
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbComment;
 import com.soon.slt.entity.TbUser;
@@ -23,6 +26,7 @@ import com.soon.slt.service.TbUserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
 
 @RequestMapping("/comment")
 @RequiredArgsConstructor
@@ -53,6 +57,23 @@ public class TbCommentController {
 	 * 
 	 * }
 	 */
+	
+	// 댓글 생성 //Mono<Comment>
+	@PostMapping
+	public TbComment createComment(@RequestBody String content, @RequestBody String bdIdx, Principal principal) {
+		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
+		TbUser tbUser = this.tbUserService.getUser(principal.getName());
+		if (principal == null) {
+		    throw new DataNotFound("로그인이 필요합니다.");
+		}
+		return tbCommentService.addComment(tbBoard, tbUser, content);
+	}
+	
+	// 댓글 불러오기 //Flux<Comment>
+	@GetMapping
+	public List<TbComment> getAllComments() {
+		return tbCommentService.getAllComments();
+	}
 	
 	// 댓글 수정
     @PreAuthorize("isAuthenticated()")

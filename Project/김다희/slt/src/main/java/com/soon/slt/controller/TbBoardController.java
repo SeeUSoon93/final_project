@@ -103,9 +103,14 @@ public class TbBoardController {
 
    // 게시글 상세보기
    @GetMapping("/detail/{bdIdx}")
-   public String boardDetail(Model model, @PathVariable("bdIdx") String bdIdx) {
+   public String boardDetail(Model model, @PathVariable("bdIdx") String bdIdx, Principal principal) {
       TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
       model.addAttribute("tbBoard", tbBoard);
+      
+      String userName = principal.getName();
+      
+      boolean isAuthor = tbBoard.getTbUser().getUserEmail().equals(userName);
+      model.addAttribute("isAuthor", isAuthor);
       return "board-view";
    }
 
@@ -145,6 +150,7 @@ public class TbBoardController {
         this.tbBoardService.boardLikes(tbBoard, tbUser);
         return String.format("redirect:/board/detail/%s", bdIdx);
     }
+    
 }
 
 
