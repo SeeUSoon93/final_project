@@ -16,6 +16,7 @@
     <div class="banner">
         <div class="banner-font">
             <h2>마이페이지</h2>
+            <P>공지사항 전체목록</P>
         </div>
     </div>
     <!-- main -->
@@ -41,12 +42,12 @@
             <div id="my" class="tabcontent">
                 <table class="my-container">
                     <thead class="my-thead">
-                        <h2>내정보</h2>
+                        <h3>내정보</h3>
                     </thead>
                     <tbody class="my-tbody">
                         <tr class="my-detail">
                             <td id="my-img">
-                                <img src="/image/sign.jpg" alt="profile">
+                                <img src="/image/sl-love.jpg" alt="profile">
                             </td>
                             <td class="my-info">
                                 <p id="user" th:text="${tbUser.userNick}"></p>
@@ -72,7 +73,7 @@
             <div id="info" class="tabcontent">
                 <table class="info-container">
                     <thead class="info-thead">
-                        <h2>게시글 관리</h2>
+                        <h3>게시글 관리</h3>
                     </thead>
                     <tbody class="nbl-group"
 						th:if="${tbUser.tbBoardList == null or #lists.isEmpty(tbUser.tbBoardList)}">
@@ -109,7 +110,7 @@
             <div id="like" class="tabcontent">
                 <table class="like-container">
                     <thead class="comnt-thead">
-                        <h2>추천 게시글</h2>
+                        <h3>추천 게시글</h2>
                     </thead>
                     <tbody th:if="${tbUser.tbLikesList == null or #lists.isEmpty(tbUser.tbLikesList)}">
 						<tr>
@@ -140,7 +141,7 @@
             </div>
         </div>
         <!-- footer -->
-        <div id="footer-container"></div>
+        <!--<div id="footer-container"></div>-->
         <!-- js -->
         <script src="/js/mypage.js"></script>
         <script src="/js/js_headfoot/headFoot.js"></script>

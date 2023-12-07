@@ -1,6 +1,7 @@
 package com.soon.slt.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,7 +40,7 @@ public class TbBoard {
 	public int bdViews;
 
 	@ManyToMany
-	Set<TbUser> bdLikes;
+	private Set<TbUser> bdLikes = new HashSet<>(); // 좋아요 기본값 0으로 설정
 
 	public LocalDateTime createdAt;
 

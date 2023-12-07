@@ -7,6 +7,7 @@ import java.util.List;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
@@ -48,12 +50,11 @@ public class TbBoardController {
 		return "header";
 	}
 
-   // 게시글 검색 조회
+   // 게시글 조회 및 검색
    @GetMapping("/main")
    public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
-                       @RequestParam(value="searchingWord", defaultValue="") String searchingWord,
-                       @RequestParam(value="category", defaultValue="")String category){
-      Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
+                       @RequestParam(value="searchingWord", defaultValue="") String searchingWord){
+      Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord);
       model.addAttribute("paging", paging);
       model.addAttribute("searchingWord", searchingWord);
       return "board-list";
@@ -139,12 +140,25 @@ public class TbBoardController {
 
    // 게시글 좋아요
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/good/{bdIdx}")
-    public String boardGood(Principal principal, @PathVariable("bdIdx") String bdIdx) {
-        TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
-        TbUser tbUser = this.tbUserService.getUser(principal.getName());
-        this.tbBoardService.boardLikes(tbBoard, tbUser);
-        return String.format("redirect:/board/detail/%s", bdIdx);
+    @GetMapping("/like")
+    @ResponseBody
+    public ResponseEntity<String> boardLike(Principal principal, @RequestParam("bdIdx") String bdIdx) {
+        try {
+        	TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
+        	TbUser tbUser = this.tbUserService.getUser(principal.getName());
+        	
+        	// 좋아요 토글 수행
+            boolean liked = this.tbBoardService.boardLike(tbBoard, tbUser);
+        	
+        	//this.tbBoardService.boardLikes(tbBoard, tbUser);
+            if (liked) {
+                return ResponseEntity.ok("Liked");
+            } else {
+                return ResponseEntity.ok("Unliked");
+            }
+        }catch (Exception e) {
+        	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+		}
     }
 }
 

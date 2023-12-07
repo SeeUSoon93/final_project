@@ -1,5 +1,6 @@
 package com.soon.slt.service;
 
+import java.io.Console;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.slf4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,12 +40,12 @@ public class TbBoardService {
    private final TbUserRepository tbUserRepository;
 
    // 검색 목록 리스트 조회
-   public Page<TbBoard> searchList(int page, String kw, String category){
+   public Page<TbBoard> searchList(int page, String kw){
       List<Sort.Order> sorts = new ArrayList<>();
       sorts.add(Sort.Order.desc("createdAt"));
 
       Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-      return this.tbBoardRepository.findAllByKeyword(kw, category, pageable);
+      return this.tbBoardRepository.findAllByKeyword(kw, pageable);
    }
 
    // 게시글 생성
@@ -58,7 +60,6 @@ public class TbBoardService {
       b.setTbUser(tbUser);
       b.setCreatedAt(LocalDateTime.now());
       TbBoard saveBoard = this.tbBoardRepository.save(b);
-      
 		/*
 		 * String idx = saveBoard.getBdIdx(); TbBoard board =
 		 * tbBoardRepository.findById(idx).get();
@@ -92,8 +93,14 @@ public class TbBoardService {
    }
 
    // 게시글 상세 조회
-   public TbBoard boardDetail(String dbIdx) {
-      Optional<TbBoard> b = this.tbBoardRepository.findById(dbIdx);
+   public TbBoard boardDetail(String bdIdx) {
+	   
+	  System.out.println("게시글 상세조회 시작");
+	  System.out.println("---------------------------bdIdx : "+bdIdx);
+	  Optional<TbBoard> b = this.tbBoardRepository.findById(bdIdx);
+	  
+	  System.out.println(b.toString());
+	  
       if (b.isPresent()) {
          return b.get();
       } else {
@@ -115,10 +122,22 @@ public class TbBoardService {
       this.tbBoardRepository.save(tbBoard);
    }
 
-   // 게시글 추천
-   public void boardLikes(TbBoard tbBoard, TbUser tbUser) {
-      tbBoard.getBdLikes().add(tbUser);
-      
-      this.tbBoardRepository.save(tbBoard);
-   }
+// 게시글 추천
+@Transactional
+public boolean boardLike(TbBoard tbBoard, TbUser tbUser) {
+    // 좋아요가 눌렸을 때 중복 체크를 하고, 중복되지 않으면 좋아요를 추가하고 게시글을 저장
+    if (tbBoard.getBdLikes().contains(tbUser)) {
+        tbBoard.getBdLikes().remove(tbUser);
+    } else {
+        tbBoard.getBdLikes().add(tbUser);
+    }
+    this.tbBoardRepository.save(tbBoard);
+
+    // 여기서 return 값 설정
+    // 만약 사용자가 이미 좋아요를 눌렀다면 contains는 true를 반환하게 되는데, 여기에 ! 연산자를 사용하여 false로 바꾸어주고, 
+    // 그 반대의 경우에는 true로 바꾸어줍니다.
+    return !tbBoard.getBdLikes().contains(tbUser);
 }
+}
+
+

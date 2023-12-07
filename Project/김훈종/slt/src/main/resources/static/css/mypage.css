@@ -89,18 +89,30 @@
 }
 
 #my-img {
-    width: 200px;
+    width: 150px;
+    height: 150px;
     margin-top: 20px;
-    /* margin-left: 50px; */
+}
+
+#my-img > img{
+	width: 100%;
+	height: 100%;
+    border-radius: 50%;
+    background-color: #ebe9e9;
+    /* #f7f7fb */
 }
 
 .my-info {
 	height: 100px;
     display: flex;
-    margin-top: 40px;
-    margin-left: -30px;
+    margin-top: 45px;
+    padding: 24px 10px;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.my-info p {
+	margin: 8px;
 }
 
 #user{
@@ -117,21 +129,15 @@
     background-color: cornflowerblue;
 }
 
-#my-img > img{
-    width: 70%;
-    border-radius: 50%;
-    background-color: #ebe9e9;
-    /* #f7f7fb */
-}
-
 .my-views {
     width: 30rem;
     color: #a7a7a7;
     border-top: 1px solid #ddd;
-    margin: 15px 80px;
+    margin: 30px;
+    padding: 10px 0;
     display: flex;
     justify-content: space-evenly;
-}
+   }
 
 #my-list{
     margin-left: 10px;
@@ -140,10 +146,11 @@
 .my-number {
     width: 30rem;
     color: #477489;
-    margin: -20px 0 20px 0;
+    margin: -30px 0 10px 0;
     display: flex;
     font-size: 2rem;
     justify-content: space-evenly;
+    /* background-color: chartreuse; */
 }
 
 .my-num {
@@ -161,9 +168,11 @@
     background-color: #f7f7fb;
 }
 
-h2 {
-    font-size: 1.7rem;
-}
+h3 {
+	font-size: 1.8rem;
+	margin-bottom: 20px;
+	margin-left: 10px;
+} 
 
 .info-detail,
 .comnt-detail,
@@ -279,7 +288,7 @@ h2 {
     width: 100%;
     height: 12rem;
     background-color: #D8F9EE;
-    background-image: url(../../static/image/image5.jpg);
+    background-image: url(/image/image5.jpg);
     background-repeat: no-repeat;
     background-position: 80rem;
     margin-bottom: 3rem;
@@ -292,5 +301,10 @@ h2 {
 }
 
 h2 {
+	margin-top: 30px;
     font-size: 2.5rem;
+}
+
+.noboardlist {
+	padding-left: 10px;
 }
