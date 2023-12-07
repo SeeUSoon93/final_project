@@ -49,6 +49,8 @@ dependencies {
 	
 	// mysql
 	// implementation 'mysql:mysql-connector-java'
+	
+	implementation 'io.projectreactor:reactor-core:3.4.18'
 
 }
 
