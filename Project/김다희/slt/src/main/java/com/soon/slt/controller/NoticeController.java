@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import com.soon.slt.form.NoticeForm;
 import com.soon.slt.form.TbBoardForm;
 import com.soon.slt.service.NoticeService;
 import com.soon.slt.service.TbUserSecurityService;
+import com.soon.slt.service.TbUserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,7 @@ import lombok.RequiredArgsConstructor;
 public class NoticeController {
 
 	private final NoticeService noticeService;
+	private final TbUserService tbUserService;
 	private final TbUserSecurityService tbUserServiceSecurityService;
 	
 	
@@ -51,37 +54,36 @@ public class NoticeController {
 	// 공지사항 리스트 출력
 	@GetMapping("/main")
 	public String noticeList(Model model) {
+		System.out.println("여기까지 왔니?");
 		List<TbBoard> boardList = this.noticeService.selectList();
-		model.addAttribute(boardList);
+		model.addAttribute("boardList", boardList);
+		System.out.println("여기까지는 왔어..?");
 		return "notice-list";
 	}
 	
-	// 공지사항 폼 이동
-	@GetMapping("/form")
+	// 공지사항 생성 페이지 이동
+	@GetMapping("/create")
 	public String noticeForm() {
-		return "notice-form";
+		return "notice-write";
 	}
 	
 	
 	// 공지사항 생성
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create")
-	public String noticeCreate(@Valid NoticeForm noticeForm, BindingResult bindingResult, Principal principal,
-			@RequestPart("files") List<MultipartFile> files, RedirectAttributes redirectAttributes) {
+	public String noticeCreate(@Valid NoticeForm noticeForm, BindingResult bindingResult, Principal principal, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
+			System.out.println("공지사항 생성 중 에러 발생");
 			return "notice-list";
 		}
-		TbUser user = (TbUser) this.tbUserServiceSecurityService.loadUserByUsername(principal.getName());
-		try {
-			this.noticeService.noticeCreate(noticeForm.getBdTitle(), noticeForm.getBdContent(), user, files);
-		} catch (IOException e) {
-			redirectAttributes.addFlashAttribute("message", "파일업로드에 실패하셨습니다.");
-			return "notice-write";
-		}
+		System.out.println("공지사항 생성");
+		TbUser user = this.tbUserService.getUser(principal.getName());
+			this.noticeService.noticeCreate(noticeForm.getBdTitle(), noticeForm.getBdContent(), user);
 		return "notice-list";
 	}
 	
 	// 공지사항 삭제
-	@PostMapping("/delete/{bdIdx}")
+	@GetMapping("/delete/{bdIdx}")
 	public String noticeDelete(@PathVariable("bdIdx") String bdIdx, Principal principal) {
 		TbBoard tbBoard = this.noticeService.noticeDetail(bdIdx);
 		if(!tbBoard.getTbUser().getUserNick().equals(principal.getName())) {

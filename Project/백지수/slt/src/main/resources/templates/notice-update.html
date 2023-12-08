@@ -20,16 +20,16 @@
     </div>
     <div class="nw-contents">
         <div class="notice-update">
-            <form class="notice-form">
+            <form class="notice-form" action="@{/update/{bdIdx}" method="post">
                 <div class="board-write-wrap">
                     <div class="board-write">
-                        <div class="notice-title">
+                        <div class="notice-title" th:text="${tbBoard.bdTitle">
                             <input type="text" name="notice-title" placeholder="제목을 입력하세요.">
                         </div>
-                        <div class="notice-nick">
+                        <div class="notice-nick" th:text="${tbBoard.tbUser.userNick}">
                             <input type="text" name="notice-writer" placeholder="닉네임을 입력하세요.">
                         </div>
-                        <div class="notice-content">
+                        <div class="notice-content" th:text="${tbBoard.bdContent}">
                             <textarea name="notice-content" placeholder="내용을 입력하세요." onkeydown="resize(this)"
                                 onkeyup="resize(this)"></textarea>
                             <input type="file" name="notice-file">

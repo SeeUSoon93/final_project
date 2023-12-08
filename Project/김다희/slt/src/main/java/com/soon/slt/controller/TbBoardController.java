@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -22,14 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.soon.slt.CommentRequest;
-import com.soon.slt.DataNotFound;
 import com.soon.slt.entity.TbBoard;
-import com.soon.slt.entity.TbComment;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.form.TbBoardForm;
 import com.soon.slt.service.TbBoardService;
-import com.soon.slt.service.TbCommentService;
 import com.soon.slt.service.TbUserService;
 
 import jakarta.validation.Valid;
@@ -56,10 +51,11 @@ public class TbBoardController {
    // 게시글 조회 및 검색
    @GetMapping("/main")
    public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
-                       @RequestParam(value="searchingWord", defaultValue="") String searchingWord){
-      Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord);
+		   @RequestParam(value="category", defaultValue="") String category,
+           @RequestParam(value="kw", defaultValue="") String kw){
+      Page<TbBoard> paging = this.tbBoardService.searchList(page,category, kw);
       model.addAttribute("paging", paging);
-      model.addAttribute("searchingWord", searchingWord);
+      model.addAttribute("searchingWord", kw);
       return "board-list";
    }
    

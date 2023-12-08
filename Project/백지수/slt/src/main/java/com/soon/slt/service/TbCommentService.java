@@ -19,15 +19,14 @@ public class TbCommentService {
 	
 	private final TbCommentRepository tbCommentRepository;
 	
-	public TbComment createComment(TbBoard tbBoard, String cmtContent, TbUser tbUser) {
-		TbComment tbComment = new TbComment();
-		tbComment.setCmtContent(cmtContent);
-		tbComment.setCreatedAt(LocalDateTime.now());
-		tbComment.setTbBoard(tbBoard);
-		tbComment.setTbUser(tbUser);
-		this.tbCommentRepository.save(tbComment);
-		return tbComment;
-	}
+	/*
+	 * public TbComment createComment(TbBoard tbBoard, String cmtContent, TbUser
+	 * tbUser) { TbComment tbComment = new TbComment();
+	 * tbComment.setCmtContent(cmtContent);
+	 * tbComment.setCreatedAt(LocalDateTime.now()); tbComment.setTbBoard(tbBoard);
+	 * tbComment.setTbUser(tbUser); this.tbCommentRepository.save(tbComment); return
+	 * tbComment; }
+	 */
 	
 	// 댓글 아이디로 댓글 조회
 	public TbComment getComment(String cmtIdx) {

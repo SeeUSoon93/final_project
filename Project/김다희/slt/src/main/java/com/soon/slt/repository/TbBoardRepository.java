@@ -23,9 +23,10 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 
 	// Category1 - 커뮤니티, Category2- 건의사항, Category3-공지사항
 	@Query("select distinct b "
-	        + "from TbBoard b left outer join TbUser u on b.tbUser = u "
-	        + "where b.bdCategory IN('Category 1','Category 2') ")
-	Page<TbBoard> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
+	        + "from TbBoard b " //left outer join TbUser u on b.tbUser = u "
+	        + "where b.bdCategory IN('Category 1','Category 2') "
+	        + "and b.:category like %:kw%")
+	Page<TbBoard> findAllByKeyword(@Param("category") String category, @Param("kw") String kw, Pageable pageable);
 
 	@Query("select "
 			+ "distinct b "
@@ -39,10 +40,10 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 			+ "where l.tbUser = :tbUser")
 	List<TbLikes> findAllByLike(@Param("tbUser") TbUser thUser);
 
-	@Query("select b "
+	@Query("select distinct b "
 			+ "from TbBoard b "
-			+ "where b.bdCategory = 'notice'")
-	List<TbBoard>findNoticeByKeyword();
+			+ "where b.bdCategory = 'Category 3'")
+	List<TbBoard> findByNotice();
 
 	
 }

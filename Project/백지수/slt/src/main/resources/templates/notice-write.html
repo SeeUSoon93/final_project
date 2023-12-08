@@ -20,14 +20,15 @@
     </div>
     <div class="nw-contents">
         <div class="notice-write">
-            <form class="notice-form">
+            <form class="notice-form" th:action="@{/notice/create}" method="post">
                 <div class="board-write-wrap">
                     <div class="board-write">
                         <div class="notice-title">
                             <input type="text" name="notice-title" placeholder="제목을 입력하세요.">
                         </div>
                         <div class="notice-nick">
-                            <input type="text" name="notice-writer" placeholder="닉네임을 입력하세요.">
+                            <input type="text" name="notice-writer" placeholder="닉네임을 입력하세요."
+                            	th:value="${#authentication.principal != null ? #authentication.principal.username : ''}" readonly>
                         </div>
                         <div class="notice-content">
                             <textarea name="notice-content" placeholder="내용을 입력하세요." onkeydown="resize(this)"
@@ -37,7 +38,7 @@
                     </div>
                 </div>
                 <div class="nw_button">
-					<input class="nw_list" type="button" value="목 록">
+					<input class="nw_list" type="button" value="목 록" th:onclick="|window.location.href='/notice/main'|">
                     <input class="nw_write" type="button" value="등 록">
                     <input class="nw_clean" type="reset" value="초기화">
                 </div>

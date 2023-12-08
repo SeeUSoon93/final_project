@@ -24,8 +24,11 @@ public class MainController {
 	public String header() {
 		return "header";
 	}
-	
-	
+
+	@GetMapping("/translate")
+	public String goTranslate() {
+		return "sl-translation";
+	}
 	
 	
 	

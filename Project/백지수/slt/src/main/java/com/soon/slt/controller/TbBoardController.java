@@ -25,7 +25,6 @@ import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.form.TbBoardForm;
 import com.soon.slt.service.TbBoardService;
-import com.soon.slt.service.TbUserSecurityService;
 import com.soon.slt.service.TbUserService;
 
 import jakarta.validation.Valid;
@@ -38,14 +37,22 @@ public class TbBoardController {
 
    private final TbBoardService tbBoardService;
    private final TbUserService tbUserService;
-   private final TbUserSecurityService tbUserServiceSecurityService;
+   
+	// Footer 와 Header 활성화
+	@GetMapping("footer")
+	public String footer() {
+		return "footer";
+	}
+	@GetMapping("header")
+	public String header() {
+		return "header";
+	}
 
-   // 게시글 검색 조회
+   // 게시글 조회 및 검색
    @GetMapping("/main")
    public String boardSearch(Model model, @RequestParam(value="page", defaultValue="0") int page,
-                       @RequestParam(value="searchingWord", defaultValue="") String searchingWord,
-                       @RequestParam(value="category", defaultValue="")String category){
-      Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord, category);
+                       @RequestParam(value="searchingWord", defaultValue="") String searchingWord){
+      Page<TbBoard> paging = this.tbBoardService.searchList(page, searchingWord);
       model.addAttribute("paging", paging);
       model.addAttribute("searchingWord", searchingWord);
       return "board-list";
@@ -58,23 +65,27 @@ public class TbBoardController {
    }
 
    // 게시글 생성
+   @PreAuthorize("isAuthenticated()")
    @PostMapping("/create")
    public String boardCreate(@Valid TbBoardForm tbBoardForm, BindingResult bindingResult, Principal principal,
-         @RequestPart("files") List<MultipartFile> files, RedirectAttributes redirectAttributes) {
+         //@RequestPart("files") List<MultipartFile> files, 
+		   RedirectAttributes redirectAttributes) {
       if (bindingResult.hasErrors()) {
-         
-         return "board-list2";
+    	  System.out.println("에러");
+         return "board-write";
       }
-      TbUser user = (TbUser) this.tbUserServiceSecurityService.loadUserByUsername(principal.getName());
+      TbUser user = this.tbUserService.getUser(principal.getName());
       
       try {
          this.tbBoardService.boardCreate(tbBoardForm.getBdTitle(), tbBoardForm.getBdCategory(),
-               tbBoardForm.getBdContent(), user, files);
+               tbBoardForm.getBdContent(), user); // , files);
+         System.out.println("서비스 넘어감");
       } catch (IOException e) {
          redirectAttributes.addFlashAttribute("message", "파일업로드에 실패하셨습니다.");
+         System.out.println("파일업로드 실패");
          return "board-write";
       }
-
+      System.out.println("잘됨");
       return "redirect:/board/main";
       // return "board-list2";
    }
@@ -134,10 +145,7 @@ public class TbBoardController {
         this.tbBoardService.boardLikes(tbBoard, tbUser);
         return String.format("redirect:/board/detail/%s", bdIdx);
     }
+    
+
 }
-
-
-
-
-
 

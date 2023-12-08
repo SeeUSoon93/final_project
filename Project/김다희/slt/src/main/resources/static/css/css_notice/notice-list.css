@@ -28,6 +28,16 @@
     border-bottom: 1px solid #dddddd;
 }
 
+.checkBtn{
+	float: left;
+    width: 30px;
+    margin-left: 5px;
+}
+
+.checkBtn p {
+	float: right;
+}
+
 .que span {
     margin: 0 1rem;
 }
@@ -66,14 +76,14 @@
 
 .notice {
     float: left;
-    margin: 0 1rem;
+    margin: 0 1.5rem;
     font-weight: 600;
     color: #477489;
 }
 
 .notice-title {
     float: left;
-    width: 69%;
+    width: 60%;
     margin: 0 1rem;
 }
 
@@ -148,3 +158,5 @@ h2 {
 .banner p {
     font-size: 1.2rem;
 }
+
+
