@@ -24,10 +24,11 @@
 		<div class="notice-contents">
 			<div id="Accordion_wrap">
 				<div class="que">
-					<div class="checkBtn">
-						<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-					</div>
 					<span class="nt-group">
+						<div class="checkBtn">
+							<input type="checkbox">
+							<p>1</p>
+						</div>
 						<div class="notice">
 							중요공지
 						</div>
@@ -119,42 +120,6 @@
 	</div>
 
 	<div id="footer-container"></div>
-
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			// .checkBtn 클래스를 가진 요소들을 가져와서 반복
-			var checkBtnElements = document.querySelectorAll('.checkBtn');
-			checkBtnElements.forEach(function (checkBtnElement) {
-				// 클릭 이벤트 리스너 추가
-				checkBtnElement.addEventListener('click', function (event) {
-					// input type=radio 요소를 찾아서 클릭 처리
-					var radioInput = checkBtnElement.querySelector('input[type=radio]');
-
-					// 라디오 버튼 상태를 토글
-					radioInput.checked = !radioInput.checked;
-
-					// 현재 .que 요소에 'on' 클래스 추가 및 제거하여 스타일 변경
-					var queElement = checkBtnElement.closest('.que');
-					queElement.classList.toggle('on', radioInput.checked);
-
-					// 만약 라디오 버튼이 체크된 상태에서 클릭된 경우, 선택된 .que 요소 이외의 모든 .que 요소에 'on' 클래스 제거
-					if (radioInput.checked) {
-						var queElements = document.querySelectorAll('.que');
-						queElements.forEach(function (otherQueElement) {
-							if (otherQueElement !== queElement) {
-								otherQueElement.classList.remove('on');
-							}
-						});
-					}
-
-					// 이벤트 전파(stopPropagation)를 막아 부모 요소에 대한 클릭 이벤트 전파 방지
-					event.stopPropagation();
-				});
-			});
-		});
-
-
-	</script>
 
 	<script src="/js/js_notice/notice-list.js"></script>
 	<script src="/js/js_headfoot/headFoot.js"></script>

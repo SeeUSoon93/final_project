@@ -29,9 +29,13 @@
 }
 
 .checkBtn{
-    width: 2%;
-    float: left;
-    margin-left: -3rem;
+	float: left;
+    width: 30px;
+    margin-left: 5px;
+}
+
+.checkBtn p {
+	float: right;
 }
 
 .que span {
@@ -72,14 +76,14 @@
 
 .notice {
     float: left;
-    margin: 0 1rem;
+    margin: 0 1.5rem;
     font-weight: 600;
     color: #477489;
 }
 
 .notice-title {
     float: left;
-    width: 69%;
+    width: 65%;
     margin: 0 1rem;
 }
 
@@ -155,12 +159,4 @@ h2 {
     font-size: 1.2rem;
 }
 
-/*.checkBtn {
-    width: 0.8rem;
-    float: left;
-    margin-left: -3rem;
-    position: relative;
-    z-index: 1;
-}
-*/
 
