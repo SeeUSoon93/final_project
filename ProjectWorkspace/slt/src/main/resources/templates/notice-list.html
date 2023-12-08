@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/css/css_notice/notice-list.css">
+	<script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div id="header-container"></div>
+
+	<div class="banner">
+		<div class="banner-font">
+			<h2>공지사항</h2>
+			<P>공지사항 전체목록</P>
+		</div>
+	</div>
+	<div class="notice-box">
+		<div class="notice-contents">
+			<div id="Accordion_wrap" th:each="board,loop : ${boardList}">
+				<div class="que">
+					<span class="nt-group">
+						
+						<div class="checkBtn">
+							<input type="checkbox">
+							<p>1</p>
+						</div>
+						<div class="notice">
+							<span>중요공지</span>
+						</div>
+						<div class="notice-title">
+							<span th:text="${board.bdTitle}"></span>
+						</div>
+						<div class="notice-date">
+							<span th:text="${#temporals.format(board.createdAt, 'yy-MM-dd')}"></span>
+						</div>
+					</span>
+					<div class="arrow-wrap">
+						<span class="arrow-top">
+							<i class="fa-solid fa-chevron-up"></i>
+						</span>
+						<span class="arrow-bottom">
+							<i class="fa-solid fa-chevron-down"></i>
+						</span>
+					</div>
+				</div>
+				<div class="anw">
+					<span>
+						<div class="notice-content" th:text="${board.bdContent}"></div>
+					</span>
+				</div>
+			</div>
+			<div class="notice-button">
+				<input class="nbt-write" type="button" value="등 록" th:onclick="|location.href='@{/notice/create}'|">
+				<input class="nbt-delete" type="button" value="삭 제" th:if="${boardList != null}"
+					th:onclick="|location.href='@{/notice/delete/${board.bdIdx}}'|">
+
+			</div>
+		</div>
+	</div>
+
+	<div id="footer-container"></div>
+
+	<script src="/js/js_notice/notice-list.js"></script>
+	<script src="/js/js_headfoot/headFoot.js"></script>
+</body>
+
+</html>
