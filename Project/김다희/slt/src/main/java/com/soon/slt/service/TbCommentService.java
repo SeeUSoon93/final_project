@@ -30,19 +30,17 @@ public class TbCommentService {
 	 * tbComment; }
 	 */
 	
-	// 댓글 생성
-	public TbComment addComment(TbBoard tbBoard, TbUser tbUser, String comment){
+	public TbComment createComment(TbBoard tbBoard, TbUser tbUser, String comment){
 		TbComment c = new TbComment();
-		c.setTbBoard(tbBoard);
-		c.setTbUser(tbUser);
 		c.setCmtContent(comment);
 		c.setCreatedAt(LocalDateTime.now());
+		c.setTbBoard(tbBoard);
+		c.setTbUser(tbUser);
 		return tbCommentRepository.save(c);
 	}
 	
-	// 댓글 불러오기
-	public List<TbComment> getAllComments() {
-		return tbCommentRepository.findAll();
+	public List<TbComment> getAllComments(String bdIdx) {
+		return tbCommentRepository.findByboard(bdIdx);
 	}
 	
 	// 댓글 아이디로 댓글 조회

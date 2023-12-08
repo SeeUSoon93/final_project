@@ -57,12 +57,6 @@ public class TbUserService {
 		return this.tbBoardRepository.findAllByUser(tbUser);
 	}
 	
-	// 마이페이지 댓글 리스트 출력
-	public List<TbComment> myCommentList(TbUser tbUser){
-		return this.tbCommentRepository.findAllByUser(tbUser);
-	}
-	
-		
 	// 마이페이지 좋아요 게시글 리스트 출력
 	public List<TbLikes> myLikeList(TbUser tbUser){
 		return this.tbBoardRepository.findAllByLike(tbUser);

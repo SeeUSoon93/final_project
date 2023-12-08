@@ -85,9 +85,6 @@ public class TbUserController {
 		List<TbBoard> boardList = this.tbUserService.myBoardList(tbUser);
 		model.addAttribute("boardList", boardList);
 		
-		List<TbComment> commentList = this.tbUserService.myCommentList(tbUser);
-		model.addAttribute("commentList", commentList);
-		
 		List<TbLikes> likeList = this.tbUserService.myLikeList(tbUser);
 		model.addAttribute("likeList", likeList);
 		

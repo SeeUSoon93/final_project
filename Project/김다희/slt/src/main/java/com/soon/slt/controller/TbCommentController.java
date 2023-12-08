@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.soon.slt.CommentRequest;
 import com.soon.slt.DataNotFound;
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbComment;
@@ -32,11 +34,11 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @Controller
 public class TbCommentController {
-	
+
 	private final TbBoardService tbBoardService;
 	private final TbUserService tbUserService;
 	private final TbCommentService tbCommentService;
-	
+
 	/*
 	 * @PreAuthorize("isAuthenticated()")
 	 * 
@@ -57,62 +59,62 @@ public class TbCommentController {
 	 * 
 	 * }
 	 */
-	
-	// 댓글 생성 //Mono<Comment>
-	@PostMapping
-	public TbComment createComment(@RequestBody String content, @RequestBody String bdIdx, Principal principal) {
-		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
+
+	// 댓글 생성
+	@PostMapping("/create")
+	public TbComment createComment(@RequestParam("bdIdx") String bdIdx, @RequestParam("comment") String comment,
+			Principal principal) {
 		TbUser tbUser = this.tbUserService.getUser(principal.getName());
-		if (principal == null) {
-		    throw new DataNotFound("로그인이 필요합니다.");
-		}
-		return tbCommentService.addComment(tbBoard, tbUser, content);
+		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
+		return tbCommentService.createComment(tbBoard, tbUser, comment);
 	}
 	
-	// 댓글 불러오기 //Flux<Comment>
-	@GetMapping
-	public List<TbComment> getAllComments() {
-		return tbCommentService.getAllComments();
+	// 댓글 리스트 출력
+	@GetMapping("/select")
+	public List<TbComment> selectComment(@RequestParam("bdIdx") String bdIdx) {
+		return tbCommentService.getAllComments(bdIdx);
 	}
-	
+
 	// 댓글 수정
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/update/{cmtIdx}")
-    public String updateComment(@Valid TbCommentForm tbCommentForm, BindingResult bindingResult, @PathVariable("cmtIdx") String cmtIdx, Principal principal) {
-    	if(bindingResult.hasErrors()) {
-    		return "board-view";
-    	}
-    	TbComment tbComment = this.tbCommentService.getComment(cmtIdx);
-    	if (!tbComment.getTbUser().getUserNick().equals(principal.getName())) {
-    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-    	}
-    	this.tbCommentService.commentUpdate(tbComment, tbComment.getCmtContent());
-    	tbCommentForm.setCmtContent(tbComment.getCmtContent());
-    	return String.format("redirect:/board/detail/%s#reple_%s", tbComment.getTbBoard().getBdIdx(), tbComment.getCmtIdx());
-    }
-    
-    // 댓글 삭제
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/delete/{cmtIdx}")
-    public String commentDelete(Principal principal, @PathVariable("cmtIdx") String cmtIdx) {
-    	TbComment tbComment = this.tbCommentService.getComment(cmtIdx);
-    	if(!tbComment.getTbUser().getUserNick().equals(principal.getName())) {
-    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"삭제 권한이 없습니다.");
-    	}
-    	this.tbCommentService.commentDelete(tbComment);
-    	return String.format("redirect:/board/detail/%s", tbComment.getTbBoard().getBdIdx());
-    }
-	
-    // 댓글 좋아요
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/good/{cmtIdx}")
-    public String commentGood(Principal principal, @PathVariable("cmtIdx") String cmtIdx) {
-    	TbComment tbComment = this.tbCommentService.getComment(cmtIdx);
-    	TbUser tbUser = this.tbUserService.getUser(principal.getName());
-    	this.tbCommentService.commentGood(tbComment, tbUser);
-    	return String.format("redirect:/board/detail/%s#reple_%s", tbComment.getTbBoard().getBdIdx(), tbComment.getCmtIdx());
-    	
-    }
-	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/update/{cmtIdx}")
+	public String updateComment(@Valid TbCommentForm tbCommentForm, BindingResult bindingResult,
+			@PathVariable("cmtIdx") String cmtIdx, Principal principal) {
+		if (bindingResult.hasErrors()) {
+			return "board-view";
+		}
+		TbComment tbComment = this.tbCommentService.getComment(cmtIdx);
+		if (!tbComment.getTbUser().getUserNick().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+		}
+		this.tbCommentService.commentUpdate(tbComment, tbComment.getCmtContent());
+		tbCommentForm.setCmtContent(tbComment.getCmtContent());
+		return String.format("redirect:/board/detail/%s#reple_%s", tbComment.getTbBoard().getBdIdx(),
+				tbComment.getCmtIdx());
+	}
+
+	// 댓글 삭제
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/delete/{cmtIdx}")
+	public String commentDelete(Principal principal, @PathVariable("cmtIdx") String cmtIdx) {
+		TbComment tbComment = this.tbCommentService.getComment(cmtIdx);
+		if (!tbComment.getTbUser().getUserNick().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
+		}
+		this.tbCommentService.commentDelete(tbComment);
+		return String.format("redirect:/board/detail/%s", tbComment.getTbBoard().getBdIdx());
+	}
+
+	// 댓글 좋아요
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/good/{cmtIdx}")
+	public String commentGood(Principal principal, @PathVariable("cmtIdx") String cmtIdx) {
+		TbComment tbComment = this.tbCommentService.getComment(cmtIdx);
+		TbUser tbUser = this.tbUserService.getUser(principal.getName());
+		this.tbCommentService.commentGood(tbComment, tbUser);
+		return String.format("redirect:/board/detail/%s#reple_%s", tbComment.getTbBoard().getBdIdx(),
+				tbComment.getCmtIdx());
+
+	}
 
 }

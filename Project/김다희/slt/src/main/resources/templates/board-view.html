@@ -7,10 +7,12 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="/css/css_board/board-view.css">
 	<script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
 
 <body>
-	<div id="header-container"></div>
+	<!--<div id="header-container"></div>-->
 
 	<div class="banner">
 		<div class="banner-font">
@@ -28,6 +30,7 @@
 							<div class="title" id="subject">
 								<h3 th:text="${tbBoard.bdTitle}"></h3>
 							</div>
+							<div id="bdIdx" th:text="${tbBoard.bdIdx}"></div>
 							<div class="info-group">
 								<div class="info">
 									<div id="writer" th:text="${tbBoard.tbUser.userNick}"></div>
@@ -68,38 +71,6 @@
 										<button type="submit">댓글 작성</button>
 									</form>
 									<div id="comments-container">
-										<div class="comnt-table">
-											<div class="comnt-field">
-												<div class="comnt-header">
-													<div class="comnt-id">
-														<p>kim</p>
-													</div>
-													<div class="comnt-date">
-														<p>5분 전</p>
-													</div>
-												</div>
-												<div class="comnt-contents">
-													<div class="comnt-read">
-														<p>hihihihi</p>
-													</div>
-												</div>
-											</div>
-											<div class="comnt-field">
-												<div class="comnt-header">
-													<div class="comnt-id">
-														<p>aaaaasdgfadsgas</p>
-													</div>
-													<div class="comnt-date">
-														<p>1분 전</p>
-													</div>
-												</div>
-												<div class="comnt-contents">
-													<div class="comnt-read">
-														<p>asjdflajadsfasdfasdfads</p>
-													</div>
-												</div>
-											</div>
-										</div>
 									</div>
 								</div>
 								<!-- 댓글 시스템 끝 -->
@@ -110,83 +81,107 @@
 		</div>
 	</div>
 
-	<div id="footer-container"></div>
+	<!--<div id="footer-container"></div>-->
 
 	<script src="/js/js_headfoot/headFoot.js"></script>
 	<script>
-		// 입력한 댓글 내용 가져오고, json형식으로 서버에 전송
+
+		function resize(obj) {
+			obj.style.height = "1rem";
+			obj.style.height = (0.75 + obj.scrollHeight / 16) + "rem";
+		}
+
+		// 댓글 추가 함수
 		function addComment() {
-			var content = $('#comment-text').val();
-			// bdIdx 가져오기
-			var bdIdx = $('#bdIdx').val();
+			var bdIdx = $("#bdIdx").text();
+			var comment = $("#comment").val();
 
 			$.ajax({
-				type: 'post',
-				url: '/comment',
-				contentType: 'application/json',
-				data: JSON.stringify({
-					"content": content,
-					"bdIdx": bdIdx
-				}),
-				success: function (response) {
-					loadComments();
+				type: "Post",
+				url: "/comment/create",
+				data: {
+					bdIdx: bdIdx,
+					comment: comment
 				},
-				error: function (error) {
-					console.error('댓글 보내는데 실패하셨습니다.', error);
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					updateCommentList(data);
+				},
+				error: function () {
+					alert("댓글 등록에 실패했습니다.");
 				}
 			});
 		}
-		// 서버에 Get 요청을 보내서 댓글 목록 가져오는 함수
-		function loadComments() {
-			$.ajax({
-				type: 'GET',
-				url: '/comment',
-				success: function (comments) {
-					var commentsHtml = '';
-					comments.forEach(function (comment) {
-						commentsHtml += '<p>' + comment.content + '<p>';
-					});
-					$('#comment-form').html(commentsHtml);
-				},
-				error: function (error) {
-					console.error('댓글 등록에 실패하셨습니다.', error);
+
+		// 댓글 목록 업데이트 함수
+		function updateCommentList(data) {
+			var commentsDiv = $("#comments-container");
+			commentsDiv.empty();
+
+			if (data.length > 0) {
+				for (var i = 0; i < data.length; i++) {
+					var comment = data[i];
+					var formattedDate = formatCommentDate(comment.createdAt);
+					commentHtml = `
+                <div class="comnt-table">
+                    <div class="comnt-field">
+                        <div class="comnt-header">
+                            <div class="comnt-id">${comments.tbUser.userNick}</div>
+                            <div class="comnt-date">${formattedDate}</div>
+                        </div>
+                        <div class="comnt-contents">
+                            <div class="comnt-read">${comments.cmtContent}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+					commentsDiv.append(commentHtml);
 				}
-			});
+			} else {
+				commentsDiv.append("<p>등록된 댓글이 없습니다.</p>");
+			}
 		}
-		// 페이지가 로드될 때 실행되는 함수로, 초기에 페이지가 로드될 때 댓글 목록을 불러와서 화면에 표시
+
+		function formatCommentDate(dateString) {
+			var date = new Date(dateString);
+			var now = new Date();
+			var diffInMilliseconds = now - date;
+
+			if (diffInMilliseconds < 60 * 60 * 1000) {
+				// 1시간 이내
+				return Math.floor(diffInMilliseconds / (60 * 1000)) + "분 전";
+			} else if (diffInMilliseconds < 24 * 60 * 60 * 1000) {
+				// 24시간 이내
+				return Math.floor(diffInMilliseconds / (60 * 60 * 1000)) + "시간 전";
+			} else {
+				// 그 외
+				var options = {year: 'numeric', month: '2-digit', day: '2-digit'};
+				return date.toLocaleDateString('ko-KR', options);
+			}
+		}
+
+		// 초기 댓글 목록 불러오기
 		$(document).ready(function () {
-			loadComments();
-		});
-
-		<!-- 댓글 추가 -->
-		function addComment() {
-			var content = $('#comment-text').val();
-			var bdIdx = $('#bdIdx').val();
-
+			var bdIdx = $("#bdIdx").text();
+			console.log(bdIdx);
 			$.ajax({
-				type: 'post',
-				url: '/comment',
-				contentType: 'application/json',
-				data: JSON.stringify({
-					"content": content,
-					"bdIdx": bdIdx
-				}),
-				success: function (response) {
-					loadComments();
-					updateCommentsContainerHeight();
+				type: "GET",
+				url: "/comment/select",
+				data: {
+					bdIdx: bdIdx
 				},
-				error: function (error) {
-					console.error('댓글 보내는데 실패하셨습니다.', error);
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					// 초기 댓글 목록 업데이트
+					updateCommentList(data);
+				},
+				error: function () {
+					alert("댓글 목록을 불러오는데 실패했습니다.");
 				}
 			});
-		}
-
-		function updateCommentsContainerHeight() {
-			// 댓글을 추가한 후, #comments-container의 높이를 업데이트
-			var container = $('#comments-container');
-			var newHeight = container[0].scrollHeight;
-			container.css('height', newHeight + 'px');
-		}
+		});
 
 	</script>
 </body>

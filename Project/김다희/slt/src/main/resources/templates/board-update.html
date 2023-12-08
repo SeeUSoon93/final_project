@@ -18,16 +18,16 @@
     </div>
     <div class="bu-contents">
         <div class="board-update">
-            <form class="board-form">
+            <form class="board-form" action="@{/update/{bdIdx}}" method="post">
                 <div class="board-write-wrap">
                     <div class="board-write">
-                        <div class="board-title">
+                        <div class="board-title" th:text="${tbBoard.bdTitle}">
                             <input type="text" name="board-title" placeholder="제목을 입력하세요.">
                         </div>
-                        <div class="board-nick">
+                        <div class="board-nick" th:text="${tbBoard.tbUser.userNick}">
                             <input type="text" name="board-writer" placeholder="닉네임을 입력하세요.">
                         </div>
-                        <div class="board-content">
+                        <div class="board-content" th:text="${tbBoard.bdContent}">
                             <textarea name="board-content" placeholder="내용을 입력하세요." onkeydown="resize(this)"
                                 onkeyup="resize(this)"></textarea>
                         </div>
@@ -35,8 +35,8 @@
                 </div>
                 <div class="bu_button">
 					<input class="bu_write" type="button" value="목 록">
-                    <input class="bu_write" type="button" value="등 록">
-                    <input class="bu_clean" type="reset" value="초기화">
+                    <input class="bu_write" type="button" value="수 정">
+                    <!--<input class="bu_clean" type="reset" value="초기화">-->
                 </div>
             </form>
         </div>

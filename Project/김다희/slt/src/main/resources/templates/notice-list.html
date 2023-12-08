@@ -21,17 +21,15 @@
     </div>
     <div class="notice-box">
         <div class="notice-contents">
-            <div id="Accordion_wrap">
+            <div id="Accordion_wrap" th:each="board : ${boardList}">
                 <div class="que">
                     <span class="nt-group">
-                        <div class="notice">
+                        <div class="notice" th:text="{$board.bdCategory}">
                             중요공지
                         </div>
-                        <div class="notice-title">
-                            커뮤니티 게시글 작성에 대한 공지입니다.
+                        <div class="notice-title" th:text="{board.bdTitle}">
                         </div>
-                        <div class="notice-date">
-                            2023. 11. 24
+                        <div class="notice-date" th:text="{$temporals.format(board.createdAt, 'yyyy-MM-dd')}">
                         </div>
                     </span>
                     <div class="arrow-wrap">
@@ -45,67 +43,15 @@
                 </div>
                 <div class="anw">
                     <span>
-                        <div class="notice-content">게시글 작성할 때 욕설 및 폭언 등 상대방에 대한 배려 없는 게시글은 삭제됩니다.</div>
-                    </span>
-                </div>
-
-                <div class="que">
-                    <span class="nt-group">
-                        <div class="notice">
-                            중요공지
-                        </div>
-                        <div class="notice-title">
-                            수어번역 페이지에 대한 공지입니다.
-                        </div>
-                        <div class="notice-date">
-                            2023. 11. 24
-                        </div>
-                    </span>
-                    <div class="arrow-wrap">
-                        <span class="arrow-top">
-                            <i class="fa-solid fa-chevron-up"></i>
-                        </span>
-                        <span class="arrow-bottom">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="anw">
-                    <span>
-                        <div class="notice-content">낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이</div>
-                    </span>
-                </div>
-                
-                <div class="que">
-                    <div class="arrow-wrap">
-                        <span class="arrow-top">
-                            <i class="fa-solid fa-chevron-up"></i>
-                        </span>
-                        <span class="arrow-bottom">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </div>
-                    <span class="nt-group">
-                        <div class="notice">
-                            중요공지
-                        </div>
-                        <div class="notice-title">
-                            커뮤니티 게시글 작성에 대한 공지입니다.
-                        </div>
-                        <div class="notice-date">
-                            2023. 11. 25
-                        </div>
-                    </span>
-                </div>
-                <div class="anw">
-                    <span>
-                        <div class="notice-content">낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이낫오케이</div>
+                        <div class="notice-content" th:text"{$board.bdContent}"></div>
                     </span>
                 </div>
             </div>
             <div class="notice-button">
-                <input class="nbt-write" type="button" value="등 록">
-                <input class="nbt-delete" type="button" value="삭 제">
+				<input type="radio">
+                <input class="nbt-write" type="button" value="등 록" th:onclick="|window.location.href='/notice/create'|">
+    <input class="nbt-delete" type="button" value="삭 제" th:if="${board != null}" th:onclick="|window.location.href='/notice/delete/${board.bdIdx}'|">
+
             </div>
         </div>
     </div>
