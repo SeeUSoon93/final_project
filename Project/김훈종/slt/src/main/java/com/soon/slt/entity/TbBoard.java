@@ -28,8 +28,8 @@ public class TbBoard {
 
 	// GenerationType.UUID 로 설정하면 UUID를 사용해 기본키 생성
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	public String bdIdx;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long bdIdx;
 
 	// DB에서 이미 길이제한을 설정했으면, @Column 어노테이션의 legth속성은 실제 DB에 영향을 미치지 않음
 	public String bdCategory, bdTitle;
@@ -50,8 +50,6 @@ public class TbBoard {
 	@OneToMany(mappedBy = "tbBoard", cascade = CascadeType.REMOVE)
 	public List<TbComment> tbCommentList;
 
-	@OneToMany(mappedBy = "tbBoard", cascade = CascadeType.REMOVE)
-	public List<TbFile> tbFileList;
 
 	@OneToMany(mappedBy = "tbBoard", cascade = CascadeType.REMOVE)
 	public List<TbLikes> tbLikesList;

@@ -21,8 +21,8 @@ import lombok.Setter;
 public class TbLikes {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	public String likeIdx;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long likeIdx;
 
 	@ManyToOne
 	public TbBoard tbBoard;
