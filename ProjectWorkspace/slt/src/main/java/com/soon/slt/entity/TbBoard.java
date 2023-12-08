@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
@@ -45,6 +46,7 @@ public class TbBoard {
 	public LocalDateTime createdAt;
 
 	@ManyToOne
+	@JoinColumn(name = "user_email")
 	public TbUser tbUser;
 
 	@OneToMany(mappedBy = "tbBoard", cascade = CascadeType.REMOVE)
