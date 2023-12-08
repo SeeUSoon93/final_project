@@ -19,6 +19,7 @@ a {
 
 .board-contents {
     max-width: 1200px;
+    height: 700px;
     margin: 0 auto;
 }
 
@@ -49,14 +50,16 @@ thead tr {
 }
 
 tbody {
-    height: 40px;
     text-align: center;
 }
 
+tbody tr {
+	height: 45px;
+}
 
-
-
-
+tbody tr td {
+	border-bottom: 1px solid #eee;
+}
 
 .board-contents {
     min-height: 30rem;
@@ -103,7 +106,7 @@ tbody {
 }
 
 .pagiset-list {
-    width: 15%;
+    width: 3%;
     height: 2rem;
     float: left;
 }

@@ -97,10 +97,10 @@
                             <td th:text="${tbBoard.bdLikes}" id="info-like"></td>
                         </tr>
                         <tr class="info-datetime">
-                            <td th:text="${#dates.format(tbBoard.createdAt, 'yyyy-MM-dd')}" id="info-date">
+                            <td th:text="${#temporals.format(tbBoard.createdAt, 'yy-MM-dd')}" id="info-date">
                                 <p>&nbsp&nbsp|&nbsp&nbsp</p>
                             </td>
-                            <td th:text="${#dates.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
+                            <td th:text="${#temporals.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
                             </td>
                         </tr>
                     </tbody>
@@ -110,7 +110,7 @@
             <div id="like" class="tabcontent">
                 <table class="like-container">
                     <thead class="comnt-thead">
-                        <h3>추천 게시글</h2>
+                        <h3>추천 게시글</h3>
                     </thead>
                     <tbody th:if="${tbUser.tbLikesList == null or #lists.isEmpty(tbUser.tbLikesList)}">
 						<tr>
@@ -122,7 +122,7 @@
                             <td id="info-icon"><i class="fa-solid fa-heart"></i></td>
                             <td id="comnt-num">
                                 <a href="#">
-                                    <p ${#strings.length(tbUser.bdTitle) > 10 ? #strings.substring(tbUser.bdTitle, 0, 10) + '...' : tbUser.bdTitle}"></p>
+                                    <p th:text="${#strings.length(tbBoard.bdTitle) > 10 ? #strings.substring(tbBoard.bdTitle, 0, 10) + '...' : tbBoard.bdTitle}"></p>
                                 </a>
                             </td>
                             <td id="info-title">
@@ -130,10 +130,10 @@
                             </td>
                         </tr>
                         <tr class="like-datetime">
-                            <td th:text="${#dates.format(tbBoard.createdAt, 'yyyy-MM-dd')}" id="info-date">
+                            <td th:text="${#temporals.format(tbBoard.createdAt, 'yy-MM-dd')}" id="info-date">
                                 <p>&nbsp&nbsp|&nbsp&nbsp</p>
                             </td>
-                            <td th:text="${#dates.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
+                            <td th:text="${#temporals.format(tbBoard.createdAt, 'HH:mm:ss')}" id="info-time">
                             </td>
                         </tr>
                     </tbody>
