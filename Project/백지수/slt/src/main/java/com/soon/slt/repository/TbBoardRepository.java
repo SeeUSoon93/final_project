@@ -20,14 +20,12 @@ public interface TbBoardRepository extends JpaRepository<TbBoard, String> {
 	Page<TbBoard> findAll(Pageable pageable);
 
 	Page<TbBoard> findAll(Specification<TbBoard> specification, Pageable pageable);
-
+	
 	// Category1 - 커뮤니티, Category2- 건의사항, Category3-공지사항
 	@Query("select distinct b "
 	        + "from TbBoard b left outer join TbUser u on b.tbUser = u "
-	        + "where b.bdCategory IN('Category 1','Category 2') AND "
-	        + "   ((:option = 'writer' and b.bdTitle like %:kw%) "
-	        + "   or (:option = 'title' and u.userNick like %:kw%))")
-	Page<TbBoard> findAllByKeyword(@Param("kw") String kw, @Param("option") String option, Pageable pageable);
+	        + "where b.bdCategory IN('Category 1','Category 2') ")
+	Page<TbBoard> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
 
 	@Query("select "
 			+ "distinct b "

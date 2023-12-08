@@ -28,6 +28,12 @@
     border-bottom: 1px solid #dddddd;
 }
 
+.checkBtn{
+    width: 2%;
+    float: left;
+    margin-left: -3rem;
+}
+
 .que span {
     margin: 0 1rem;
 }
@@ -130,14 +136,14 @@
     background-color: #DDF0FF;
     background-image: url(../../image/image1.jpg);
     background-repeat: no-repeat;
-    background-position: 80rem;
+    background-position: 71rem;
     margin-bottom: 3rem;
     
 }
 
 .banner-font {
     margin-top: 4rem;
-    margin-left: 28rem;
+    margin-left: 23rem;
     float: left;
 }
 
@@ -148,3 +154,13 @@ h2 {
 .banner p {
     font-size: 1.2rem;
 }
+
+/*.checkBtn {
+    width: 0.8rem;
+    float: left;
+    margin-left: -3rem;
+    position: relative;
+    z-index: 1;
+}
+*/
+

@@ -26,7 +26,7 @@ a {
     width: 100%;
     height: 3.5rem;
     border-top: solid 1px black;
-    border-bottom: solid 1px #dddddd;
+    
     border-spacing: 0;
 }
 
@@ -49,13 +49,17 @@ thead tr {
 }
 
 tbody {
-    height: 40px;
+	height: auto;
     text-align: center;
 }
 
+tbody tr {
+	height: 45px;
+}
 
-
-
+.line tr td {
+	border-bottom: solid 1px #dddddd;
+}
 
 
 .board-contents {
@@ -179,7 +183,7 @@ tbody {
 .search-box {
     max-width: 250px;
     min-width: 150px;
-    height: 23px;
+    height: 35px;
     border: 1px solid #646464;
     border-radius: 5px;
     padding: 5px 15px;
@@ -290,13 +294,13 @@ tbody {
         background-color: #F1E5FD;
         background-image: url(../../image/image2.jpg);
         background-repeat: no-repeat;
-        background-position: 80rem;
+        background-position: 71rem;
         margin-bottom: 3rem;
     }
 
     .banner-font {
         margin-top: 4rem;
-        margin-left: 28rem;
+        margin-left: 23rem;
         float: left;
     }
 
