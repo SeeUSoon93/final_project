@@ -21,7 +21,7 @@ public class TbSignlang {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long slangIdx;
 
-	public String slangCategory, slangVideo;
+	public String slangCategory, slangVideo, slangThumb;
 
 	@Lob // 데이터베이스의 TEXT, CLOB (Character Large Object) 또는 해당 데이터베이스의 대응되는 큰 텍스트 데이터 타입으로 매핑
 	public String slangText;
