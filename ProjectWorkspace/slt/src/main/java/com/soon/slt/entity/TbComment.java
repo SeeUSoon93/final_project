@@ -24,8 +24,8 @@ import lombok.Setter;
 public class TbComment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	public String cmtIdx;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long cmtIdx;
 
 	@Lob
 	public String cmtContent;

@@ -1,6 +1,7 @@
 package com.soon.slt.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,9 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.soon.slt.CommentRequest;
+import com.soon.slt.DataNotFound;
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbComment;
 import com.soon.slt.entity.TbUser;
@@ -33,10 +37,29 @@ public class TbCommentController {
 	private final TbUserService tbUserService;
 	private final TbCommentService tbCommentService;
 	
+
+	
+	// 댓글 생성 //Mono<Comment>
+	@PostMapping("/create")
+	public TbComment createComment(@RequestBody CommentRequest request, Principal principal) {
+		if (principal == null) {
+		    throw new DataNotFound("로그인이 필요합니다.");
+		}
+		TbUser tbUser = this.tbUserService.getUser(principal.getName());
+		TbBoard tbBoard = this.tbBoardService.boardDetail(request.getBdIdx());
+		return tbCommentService.addComment(tbBoard, tbUser, request.getContent());
+	}
+	
+	// 댓글 불러오기 //Flux<Comment>
+	@GetMapping("/get")
+	public List<TbComment> getAllComments(@RequestBody String bdIdx) {
+		return tbCommentService.getAllComments(bdIdx);
+	}
+	
 	// 댓글 수정
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/update/{cmtIdx}")
-    public String updateComment(@Valid TbCommentForm tbCommentForm, BindingResult bindingResult, @PathVariable("cmtIdx") String cmtIdx, Principal principal) {
+    public String updateComment(@Valid TbCommentForm tbCommentForm, BindingResult bindingResult, @PathVariable("cmtIdx") Long cmtIdx, Principal principal) {
     	if(bindingResult.hasErrors()) {
     		return "board-view";
     	}
@@ -52,7 +75,7 @@ public class TbCommentController {
     // 댓글 삭제
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{cmtIdx}")
-    public String commentDelete(Principal principal, @PathVariable("cmtIdx") String cmtIdx) {
+    public String commentDelete(Principal principal, @PathVariable("cmtIdx") Long cmtIdx) {
     	TbComment tbComment = this.tbCommentService.getComment(cmtIdx);
     	if(!tbComment.getTbUser().getUserNick().equals(principal.getName())) {
     		throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"삭제 권한이 없습니다.");
@@ -64,7 +87,7 @@ public class TbCommentController {
     // 댓글 좋아요
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/good/{cmtIdx}")
-    public String commentGood(Principal principal, @PathVariable("cmtIdx") String cmtIdx) {
+    public String commentGood(Principal principal, @PathVariable("cmtIdx") Long cmtIdx) {
     	TbComment tbComment = this.tbCommentService.getComment(cmtIdx);
     	TbUser tbUser = this.tbUserService.getUser(principal.getName());
     	this.tbCommentService.commentGood(tbComment, tbUser);

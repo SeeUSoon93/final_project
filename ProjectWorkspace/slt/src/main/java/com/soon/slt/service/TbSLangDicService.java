@@ -38,7 +38,7 @@ public class TbSLangDicService {
 
 	
 	// 수어 게시글 상세 조회
-	public TbSignlang langDetail(String slangIdx) {
+	public TbSignlang langDetail(Long slangIdx) {
 		Optional<TbSignlang> b = this.tbSignlangRepository.findById(slangIdx);
 		if (b.isPresent()) {
 			return b.get();

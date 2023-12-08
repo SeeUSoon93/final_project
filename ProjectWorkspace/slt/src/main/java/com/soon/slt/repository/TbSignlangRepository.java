@@ -9,7 +9,7 @@ import com.soon.slt.entity.TbSignlang;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface TbSignlangRepository extends JpaRepository<TbSignlang, String>{
+public interface TbSignlangRepository extends JpaRepository<TbSignlang, Long>{
 	
 	Page<TbSignlang> findAll(Pageable pageable);
 
