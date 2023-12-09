@@ -11,7 +11,8 @@ public interface TbUserRepository extends JpaRepository<TbUser, String>{
 	Optional<TbUser> findByUserNick(String userNick);
 	
 	//이메일,닉네임 유효성 검사 - 중복체크
-	boolean existsByUserEmail(String userEmail);
+	boolean existsByUserEmail(String userEmail);	
+	
 	boolean existsByUserNick(String userNick);
 	
 }

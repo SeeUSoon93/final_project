@@ -42,7 +42,7 @@ public class TbSLangDicController {
 
 	// 수어 게시글 상세보기
 	@GetMapping("/detail/{slangIdx}")
-	public String langDetail(Model model, @PathVariable("slangIdx") String slangIdx) {
+	public String langDetail(Model model, @PathVariable("slangIdx") Long slangIdx) {
 		TbSignlang tbSignlang = this.tbSLangDicService.langDetail(slangIdx);
 		
 		// 영상 경로를 뷰로 전달

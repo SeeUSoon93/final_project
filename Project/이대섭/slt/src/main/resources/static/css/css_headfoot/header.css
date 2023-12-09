@@ -53,6 +53,32 @@
   	width: 7rem;
   }
 
+/* 로고 gif */
+#gif-container{
+	position: relative;
+	display: inline-block;
+}
+
+#signgif{
+	display: none;
+	position: absolute;
+	top: 110%;
+	left: 50%; 
+	width: 200px;
+}
+
+#menugif{
+	display: none;
+	position: absolute;
+	top: 150%;
+	left: 50%; 
+	width: 200px;
+}
+
+#gif-container:hover #signgif,
+#gif-container:hover #menugif{
+	display: block;
+}
 
   /* 메뉴부분 */
   .header-gnblist {

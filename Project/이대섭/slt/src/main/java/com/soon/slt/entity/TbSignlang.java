@@ -18,8 +18,8 @@ import lombok.Setter;
 public class TbSignlang {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	public String slangIdx;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long slangIdx;
 
 	public String slangCategory, slangVideo;
 

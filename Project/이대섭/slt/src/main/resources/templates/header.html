@@ -14,8 +14,9 @@
         <div class="header-contents">
             <div class="header-left">
                 <h1 class="header-title">
-                    <a th:href="@{/main}">
-                        <img src="/image/logo1.png" alt="Logo">
+                    <a id="gif-container" th:href="@{/main}">
+                        <img id="text" src="/image/logo1.png" alt="Logo">
+                        <img id="signgif" src="/gif/수어랑말해랑.gif" alt="GIF">
                     </a>
                 </h1>
             </div>
@@ -23,29 +24,35 @@
                 <ul class="header-gnblist">
                     <li class="header-gnbitem">
                         <a class="header-gnblink" th:href="@{../translate}">
-                            <span class="menu-icon">
-                                <p>수어번역</p>
+                            <span id="gif-container" class="menu-icon">
+                                <!--<a id="gif-container">-->
+                                	<p>수어번역</p>
+                                	<img id="menugif" src="/gif/수어번역.gif" alt="GIF">
+                                </a><!---->
                             </span>
                         </a>
                     </li>
                     <li class="header-gnbitem">
                         <a class="header-gnblink" th:href="@{../dic/main}">
-                            <span class="menu-icon">
+                            <span id="gif-container" class="menu-icon">
                                 <p>수어사전</p>
+                                <img id="menugif" src="/gif/수어사전.gif" alt="GIF">
                             </span>
                         </a>
                     </li>
                     <li class="header-gnbitem">
                         <a class="header-gnblink" th:href="@{../board/main}">
-                            <span class="menu-icon">
+                            <span id="gif-container" class="menu-icon">
                                 <p>커뮤니티</p>
+                                <img id="menugif" src="/gif/게시판.gif" alt="GIF">
                             </span>
                         </a>
                     </li>
                     <li class="header-gnbitem">
                         <a class="header-gnblink" th:href="@{../notice/main}">
-                            <span class="menu-icon">
+                            <span id="gif-container" class="menu-icon">
                                 <p>공지사항</p>
+                                <img id="menugif" src="/gif/알리다.gif" alt="GIF">
                             </span>
                         </a>
                     </li>

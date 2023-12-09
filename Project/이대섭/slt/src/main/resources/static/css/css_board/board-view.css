@@ -30,13 +30,13 @@ a {
 }
 
 .title {
-    height: 3.5rem;
+    height: 1.5rem;
     padding: 15px 15px;
     border-bottom: 1px dashed #ddd;
 }
 
 .info-group {
-    height: 3.5rem;
+    height: 1.5rem;
     padding: 15px;
     border-bottom: 1px solid black;
 }
@@ -76,17 +76,42 @@ a {
     float: right;
 }
 
+.like-button {
+	border: none;
+	background-color: transparent;
+}
+
+
 #heart {
     width: 50px;
     cursor: pointer;
     color: #FF5353;
 }
 .bt_wrap {
-    width: 204px;
+    width: 205px;
     margin-top: 10px;
     margin-bottom: 30px;
-    margin-left: 390px;
+    margin-left: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    white-space: nowrap;
+    gap: 10px;
+    }
+
+.upde {
+	float: left;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	white-space: nowrap;
+	gap: 20px;
 }
+
+#list {
+	float: left;
+}
+
 
 .bt_wrap button {
     padding: 0.6rem 1rem;

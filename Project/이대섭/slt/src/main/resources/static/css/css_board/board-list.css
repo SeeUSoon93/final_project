@@ -49,10 +49,16 @@ thead tr {
 }
 
 tbody {
-    height: 40px;
     text-align: center;
 }
 
+tbody tr {
+	height: 40px;
+}
+
+tbody tr td {
+	border-bottom: 1px solid #eee;
+}
 
 
 

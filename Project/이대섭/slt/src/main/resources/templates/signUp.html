@@ -77,6 +77,7 @@
 					url: "/tbUser/user_email/" + email,
 					type: "GET",
 					success: function (response) {
+						console.log(response);
 						if (response == false) {
 							alert("사용 가능한 이메일입니다.");
 							isEmailAvailable = true;
@@ -92,6 +93,7 @@
 				});
 			});
 		});
+		
 		//닉네임 중복 처리
 		$(document).ready(function () {
 			// 이메일 중복 확인 버튼 클릭 시
@@ -124,19 +126,7 @@
 			});
 		});
 
-		// 회원가입 제출 전 중복 확인 상태 확인 및 처리
-		$(document).ready(function () {
-			$("form").submit(function (event) {
-				if (!isEmailAvailable) {
-					alert("이메일 중복 확인을 해주세요.");
-					event.preventDefault(); // 폼 제출 중단
-				}
-				if (!isNickAvailable) {
-					alert("닉네임 중복 확인을 해주세요.");
-					event.preventDefault();
-				}
-			})
-		})
+		
 	</script>
 </body>
 
