@@ -23,10 +23,6 @@ public class TbSLangDicService {
 	
 	private final TbSignlangRepository tbSignlangRepository;
 	
-	
-	
-	
-
 	// 수어사전 검색 조회
 	public Page<TbSignlang> getSignlang(int page, String kw) {
 		List<Sort.Order> sorts = new ArrayList<>();
@@ -35,7 +31,6 @@ public class TbSLangDicService {
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 		return this.tbSignlangRepository.findAllByKeyword(kw, pageable);
 	}
-
 	
 	// 수어 게시글 상세 조회
 	public TbSignlang langDetail(Long slangIdx) {

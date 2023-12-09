@@ -34,8 +34,8 @@ public class TbSLangDicController {
 	// 수어 게시글 리스트 조회
 	@GetMapping("/main")
 	public String langMain(Model model, @RequestParam(value = "page", defaultValue = "0")int page,
-			@RequestParam(value="searchingWord", defaultValue="") String searchingWord) {
-		Page<TbSignlang> langList = this.tbSLangDicService.getSignlang(page, searchingWord);
+			@RequestParam(value="searchingWord", defaultValue="") String kw) {
+		Page<TbSignlang> langList = this.tbSLangDicService.getSignlang(page, kw);
 		model.addAttribute("langList", langList);
 		return "sl-dictionary";
 	}
@@ -43,23 +43,19 @@ public class TbSLangDicController {
 	// 수어 게시글 상세보기
 	@GetMapping("/detail/{slangIdx}")
 	public String langDetail(Model model, @PathVariable("slangIdx") Long slangIdx) {
-		TbSignlang tbSignlang = this.tbSLangDicService.langDetail(slangIdx);
-		
-		// 영상 경로를 뷰로 전달
-		model.addAttribute("videoPath", tbSignlang.getSlangVideo());
-		
+		TbSignlang slang = this.tbSLangDicService.langDetail(slangIdx);
 		// 나머지 데이터 뷰로 전달
-		model.addAttribute("tbSignlang",tbSignlang);
+		model.addAttribute("slang",slang);
 		return "sl-dictview";
 	}
 
 	// 수어사전 검색 기능
 	@GetMapping("/search")
 	public String dicSearch(Model model, @RequestParam(value="page", defaultValue = "0")int page,
-							@RequestParam(value="searchingWord", defaultValue = "") String searchingWord) {
-		Page<TbSignlang> paging = this.tbSLangDicService.getSignlang(page, searchingWord);
+							@RequestParam(value="kw", defaultValue = "") String kw) {
+		Page<TbSignlang> paging = this.tbSLangDicService.getSignlang(page, kw);
 		model.addAttribute("paging", paging);
-		model.addAttribute("searchingWord", searchingWord);
+		model.addAttribute("searchingWord", kw);
 		return "index";
 	}
 	

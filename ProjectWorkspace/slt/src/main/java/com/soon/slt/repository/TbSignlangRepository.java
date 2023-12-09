@@ -15,11 +15,9 @@ public interface TbSignlangRepository extends JpaRepository<TbSignlang, Long>{
 
 	Page<TbSignlang> findAll(Specification<TbSignlang> specification, Pageable pageable);
 
-	@Query("select "
-			+ "distinct s "
+	@Query("select distinct s "
 			+ "from TbSignlang s "
-			+ "where "
-			+ "   s.slangText like %:kw% ")
+			+ "where s.slangText like %:kw% ")
 	Page<TbSignlang> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
 
 }
