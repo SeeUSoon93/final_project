@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/css_notice/notice-write.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="header-container"></div>
+
+    <div class="banner">
+        <div class="banner-font">
+            <h2>공지사항</h2>
+            <P>공지사항 글 작성하기</P>
+        </div>
+    </div>
+    <div class="nw-contents">
+        <div class="notice-write">
+            <form class="notice-form" th:action="@{/notice/create}" method="post">
+                <div class="board-write-wrap">
+                    <div class="board-write">
+                        <div class="notice-title">
+                            <input type="text" name="bdTitle" placeholder="제목을 입력하세요.">
+                        </div>
+                        <div class="notice-nick">
+                            <input type="text" name="notice-writer" placeholder="닉네임을 입력하세요." th:value="${#authentication.principal != null ? #authentication.principal.username : ''}"
+								readonly>
+                        </div>
+                        <div class="notice-content">
+                            <textarea name="bdContent" placeholder="내용을 입력하세요." onkeydown="resize(this)"
+                                onkeyup="resize(this)"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="nw_button">
+					<input class="nw_list" type="button" value="목 록" th:onclick="|window.location.href='/notice/main'|">
+                    <input class="nw_write" type="submit" value="등 록">
+                    <input class="nw_clean" type="reset" value="초기화">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="footer-container"></div>
+
+    <script>
+        // textarea 내의 글자수가 고정값보다 넘어갔을떄 늘리게하기  
+        function resize(obj) {
+            obj.style.height = "1rem";
+            obj.style.height = (0.75 + obj.scrollHeight / 16) + "rem";
+        }
+        
+        // 초기화
+		document.addEventListener("DOMContentLoaded", function () {
+			// 폼 엘리먼트 가져오기
+			const boardForm = document.querySelector('.board-form');
+
+			// "초기화" 버튼에 대한 이벤트 리스너
+			document.querySelector('.bw_clean').addEventListener('click', function () {
+				// 폼 내용을 초기화
+				boardForm.reset();
+			});
+		});
+		
+		// alert창(글 작성 빠짐없이 하세요~)
+		document.addEventListener("DOMContentLoaded", function () {
+			const boardForm = document.querySelector('.board-form');
+
+			document.querySelector('.bw_write').addEventListener('click', function (event) {
+				// 폼이 기본 동작으로 제출되지 않도록 막습니다.
+				event.preventDefault();
+
+				// 제목, 카테고리, 내용 값을 가져옵니다.
+				const title = document.querySelector('input[name="bdTitle"]').value;
+				const category = document.querySelector('input[name="bdCategory"]:checked');
+				const content = document.querySelector('textarea[name="bdContent"]').value;
+
+				// 제목, 카테고리, 내용 중 하나라도 비어있을 경우 알림창을 띄웁니다.
+				if (!title || !category || !content) {
+					alert("제목, 카테고리, 내용을 모두 입력하세요.");
+				} else {
+					// 모든 필드가 채워져 있으면 폼을 제출합니다.
+					boardForm.submit();
+				}
+			});
+		});
+    </script>
+   <!-- <script src="/js/js_headfoot/headFoot.js"></script>-->
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+.th-layout-main {
+    box-sizing: border-box;
+    /* background-color: greenyellow; */
+}
+
+.contents-inner{
+    padding-top: 3rem;
+    /* background-color: violet; */
+}
+
+.container-md {
+    max-width: 1000px;
+    margin: 0 auto;
+    /* background-color: goldenrod; */
+    
+}
+
+/* login.html */
+.log-inner-container, .in-line{
+    /* background-color: lavender; */
+    text-align: center;
+}
+
+.textField{
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 50%;
+    background-color: #eeeff1;
+}
+
+.submit-btn{
+    color: #eeeff1;
+    font-size: 14px;
+    background-color: #477489;
+    margin-bottom: 30px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.submit-btn:hover{
+    cursor: pointer;
+    /* box-shadow: 3px 3px rgb(180, 182, 184); */
+}
+
+/* signUp.html */
+.in-line .text-Field{
+    width: 50%;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #eeeff1;
+}
+
+.in-line input[type="email"],
+.in-line input[type="text"],
+.in-line input[type="password"]{
+    width: 50%;
+    height: 40px;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    display: inline;
+    /* outline: none; */
+    box-sizing: border-box;
+    color: black;
+    /* background-color: red; */
+}
+
+
+.in-line input[type="button"]{
+    position: absolute;
+    width: 90px;
+}
+
+.in-line #info_id{
+    position: relative;
+}
+
+#info_id button{
+    width: 7%;
+    height: 10%;
+    position: absolute;
+    margin-top: 7px;
+    right: 26%;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    background-color: #477489;
+    color: #fff;
+    /* letter-spacing: 1px; */
+}
+
+#info_id button:hover,
+.submit-btn:hover{
+    background-color: #629fbb;
+    color: #000;
+    cursor: pointer;
+}
