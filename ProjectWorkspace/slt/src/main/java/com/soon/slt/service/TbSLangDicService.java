@@ -27,7 +27,7 @@ public class TbSLangDicService {
 	public Page<TbSignlang> getSignlang(int page, String category) {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("slangIdx"));
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		Pageable pageable = PageRequest.of(page, 9, Sort.by(sorts));
 		if(category == null || category.isEmpty()) {
 			return this.tbSignlangRepository.findAll(pageable);
 		}else {
@@ -39,8 +39,12 @@ public class TbSLangDicService {
 	public Page<TbSignlang> searching(int page, String kw, String category) {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("slangIdx"));
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.tbSignlangRepository.findAllByKeyword(kw, category, pageable);
+		Pageable pageable = PageRequest.of(page, 9, Sort.by(sorts));
+		if(category == null || category.isEmpty()) {
+			return this.tbSignlangRepository.findAllByOnlyKeyword(kw, pageable);
+		}else {
+			return this.tbSignlangRepository.findAllByCaKeyword(kw, category, pageable);
+		}
 	}
 
 	// 수어 게시글 상세 조회

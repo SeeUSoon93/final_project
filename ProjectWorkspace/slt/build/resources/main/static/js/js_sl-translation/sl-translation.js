@@ -9,6 +9,7 @@ let intervalId; // 2초마다 캡쳐를 위한 인터벌 ID
 // 웹캠 접근 및 비디오 스트림 설정
 navigator.mediaDevices.getUserMedia({ video: true, audio: false })
   .then((stream) => {
+    console.log('Stream obtained:', stream);
     video.srcObject = stream;
   })
   .catch((err) => {
@@ -18,7 +19,12 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 // 녹화 시작 버튼 이벤트
 document.getElementById('startRecord').addEventListener('click', () => {
   recordedBlobs = [];
-  mediaRecorder = new MediaRecorder(video.srcObject);
+  try{
+    mediaRecorder = new MediaRecorder(video.srcObject);
+  }catch(e){
+    console.error("개씨발 에러",e);
+    return;
+  }
 
   mediaRecorder.ondataavailable = (event) => {
     if (event.data && event.data.size > 0) {
@@ -47,7 +53,7 @@ document.getElementById('stopRecord').addEventListener('click', () => {
   recordingStatus.style.display = 'none'; // 녹화중 문구 숨김
   console.log("녹화가 중지되었습니다.");
 
-  fetch('https://121.147.0.224:9090/stop')
+  fetch('http://localhost:9091/stop')
   .then(response => response.json())
   .then(data => {
     console.log("서버로부터 최종 문자열 받음:", data);
@@ -61,7 +67,7 @@ function sendImageToServer(blob) {
   let formData = new FormData();
   formData.append('image', blob);
 
-  fetch('https://121.147.0.224:9090/upload/', { //FastAPI url 적기
+  fetch('http://localhost:9091/upload', { //FastAPI url 적기
     method: 'POST',
     body: formData
   })

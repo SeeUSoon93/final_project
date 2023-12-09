@@ -69,16 +69,10 @@ public class TbSLangDicController {
 	public String dicSearch(Model model, @RequestParam(value="page", defaultValue = "0")int page,
 							@RequestParam(value="kw", defaultValue = "") String kw,
 							@RequestParam(value="category", defaultValue = "") String category) {
-		Page<TbSignlang> paging = this.tbSLangDicService.searching(page, kw, category);
-		model.addAttribute("paging", paging);
-		model.addAttribute("searchingWord", kw);
-		return "index";
+		Page<TbSignlang> langList = this.tbSLangDicService.searching(page, kw, category);
+		model.addAttribute("langList", langList);
+		model.addAttribute("kw", kw);
+		return "sl-dictionary";
 	}
-
-
-
-
-
-
 
 }

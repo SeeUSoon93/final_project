@@ -24,5 +24,11 @@ public interface TbSignlangRepository extends JpaRepository<TbSignlang, Long>{
 			+ "from TbSignlang s "
 			+ "where s.slangCategory = :category "
 			+ "and s.slangText like %:kw% ")
-	Page<TbSignlang> findAllByKeyword(@Param("kw") String kw, @Param("category") String category, Pageable pageable);
+	Page<TbSignlang> findAllByCaKeyword(@Param("kw") String kw, @Param("category") String category, Pageable pageable);
+
+	@Query("select distinct s "
+			+ "from TbSignlang s "
+			+ "where s.slangText like %:kw% ")
+	Page<TbSignlang> findAllByOnlyKeyword(@Param("kw") String kw, Pageable pageable);
+
 }
