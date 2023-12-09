@@ -7,9 +7,9 @@ import lombok.Data;
 public class CommentRequest {
 
 	private String content;
-	private String bdIdx;
+	private Long bdIdx;
 	
-	public String getBdIdx() {
+	public Long getBdIdx() {
 	    return bdIdx;
 	}
 

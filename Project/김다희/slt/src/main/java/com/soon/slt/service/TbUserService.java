@@ -26,42 +26,44 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class TbUserService {
-	
+
 	private final TbUserRepository tbUserRepository;
 	private final TbBoardRepository tbBoardRepository;
 	private final TbCommentRepository tbCommentRepository;
 	private final PasswordEncoder passwordEncoder;
-	
+
 	public TbUser create(String userEmail, String userPw, String userNick, LocalDateTime joinedAt) {
 		TbUser TbUser = new TbUser();
-		TbUser.setUserEmail(userEmail);		
+		TbUser.setUserEmail(userEmail);
 		TbUser.setUserPw(passwordEncoder.encode(userPw));
-		TbUser.setUserNick(userNick);		
+		TbUser.setUserNick(userNick);
 		TbUser.setJoinedAt(joinedAt);
 		this.tbUserRepository.save(TbUser);
 		return TbUser;
 	}
-	
+
 	// 마이페이지 회원 정보
 	public TbUser getUser(String userEmail) {
 		Optional<TbUser> tbuser = this.tbUserRepository.findByUserEmail(userEmail);
-		if(tbuser.isPresent()) {
+		if (tbuser.isPresent()) {
 			return tbuser.get();
 		} else {
 			throw new exception("회원이 없습니다.");
 		}
 	}
-	
+
 	// 마이페이지 게시글 리스트 출력
-	public List<TbBoard> myBoardList(TbUser tbUser){
+	public List<TbBoard> myBoardList(TbUser tbUser) {
 		return this.tbBoardRepository.findAllByUser(tbUser);
 	}
-	
+
 	// 마이페이지 좋아요 게시글 리스트 출력
-	public List<TbLikes> myLikeList(TbUser tbUser){
+	public List<TbLikes> myLikeList(TbUser tbUser) {
 		return this.tbBoardRepository.findAllByLike(tbUser);
 	}
 
+
+	
 	// 이메일 중복 확인
 	public boolean checkEmailDuplicate(String email) {
 		return tbUserRepository.existsByUserEmail(email);
@@ -73,6 +75,21 @@ public class TbUserService {
 	}
 	
 	
-	
+	}
 
-}
+
+
+
+
+/*
+ * // 이메일 중복 확인 public boolean checkEmailDuplicate(String email) {
+ * 
+ * Optional<TbUser> o = tbUserRepository.findById(email);
+ * 
+ * if (o.isPresent()) { System.out.println("이메일 값 있음"); TbUser u =
+ * tbUserRepository.findById(email).get(); System.out.println(u.toString()); if
+ * (u != null) { return false; } else { return true; } } else {
+ * System.out.println("이메일 값 없음"); return true; }
+ * 
+ * }
+ */

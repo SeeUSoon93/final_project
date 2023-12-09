@@ -10,7 +10,7 @@ import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbComment;
 import com.soon.slt.entity.TbUser;
 
-public interface TbCommentRepository extends JpaRepository<TbComment, String>{
+public interface TbCommentRepository extends JpaRepository<TbComment, Long>{
 	
 	@Query("select distinct c "
 			+ "from TbComment c "

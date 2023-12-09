@@ -36,10 +36,10 @@
                         <span class="name">전 문</span>
                     </label>
                 </div>
-                <form action="#" class="search">
+                <form th:action="@{/dic/main}" class="search">
                     <div class="search-box">
                         <div class="search-field">
-                            <input placeholder="Search" class="input" type="text">
+                            <input name="kw" placeholder="Search" class="input" type="text">
                             <div class="search-box-icon">
                                 <button class="btn-icon-content">
                                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -53,34 +53,19 @@
             <div class="dictionary-content">
                 <div class="dictionary-group">
                     <div class="group">
-                        <div class="item">
+                        <div class="item"  th:each="slang, loop : ${sLangList}">
                             <div class="image-box">
-                                <img src="/image/sign.jpg" alt="Image1">
+								<a th:href="@{|/dic/${slang.slangIdx}|}">
+                                <img th:src="${slang.slangThumb}" alt="${slang.slangText}">
+                            	</a>
                             </div>
                             <div class="text-box">
-                                <p>가다</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="image-box">
-                                <img src="/image/sign.jpg" alt="Image1">
-                            </div>
-                            <div class="text-box">
-                                <p>의미 1</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="image-box">
-                                <img src="/image/sign.jpg" alt="Image1">
-                            </div>
-                            <div class="text-box">
-                                <p>의미 2</p>
+                                <p th:text="${slang.slangText}">가다</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

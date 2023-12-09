@@ -6,6 +6,15 @@ let context = canvas.getContext('2d');
 let recordingStatus = document.getElementById('recordingStatus');
 let intervalId; // 2초마다 캡쳐를 위한 인터벌 ID
 
+// 웹캠 접근 및 비디오 스트림 설정
+navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+  .then((stream) => {
+    video.srcObject = stream;
+  })
+  .catch((err) => {
+    console.error('Error accessing media devices:', err);
+  });
+
 // 녹화 시작 버튼 이벤트
 document.getElementById('startRecord').addEventListener('click', () => {
   recordedBlobs = [];
@@ -28,6 +37,7 @@ document.getElementById('startRecord').addEventListener('click', () => {
       sendImageToServer(blob); // 이미지 전송 함수 호출
     }, 'image/jpeg');
   }, 2000);
+  console.log(recordedBlobs);
 });
 
 // 녹화 중지 버튼 이벤트
@@ -36,6 +46,14 @@ document.getElementById('stopRecord').addEventListener('click', () => {
   clearInterval(intervalId); // 이미지 캡쳐 중지
   recordingStatus.style.display = 'none'; // 녹화중 문구 숨김
   console.log("녹화가 중지되었습니다.");
+
+  fetch('http://127.0.0.1:9090/stop')
+  .then(response => response.json())
+  .then(data => {
+    console.log("서버로부터 최종 문자열 받음:", data);
+  })
+  .catch(error => console.log('최종 문자열 받기 에러:', error));
+
 });
 
 // 이미지 전송 함수
@@ -43,7 +61,7 @@ function sendImageToServer(blob) {
   let formData = new FormData();
   formData.append('image', blob);
 
-  fetch('http://localhost:8000/upload', { //FastAPI url 적기
+  fetch('http://127.0.0.1:9090/upload', { //FastAPI url 적기
     method: 'POST',
     body: formData
   })

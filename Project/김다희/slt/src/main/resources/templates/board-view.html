@@ -2,89 +2,128 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="/css/css_board/board-view.css">
-	<script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/css_board/board-view.css">
+    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
-	<div id="header-container"></div>
+    <div id="header-container"></div>
 
-	<div class="banner">
-		<div class="banner-font">
-			<h2>커뮤니티</h2>
-			<P>커뮤니티 상세보기</P>
-		</div>
-	</div>
+    <div class="banner">
+        <div class="banner-font">
+            <h2>커뮤니티</h2>
+            <P>커뮤니티 상세보기</P>
+        </div>
+    </div>
 
-	<div class="bv-contents">
-		<div class="bv-group">
-			<form id="viewForm">
-				<table class="tableset">
-					<div class="board_view_wrap">
-						<div class="board_view" >
-							<div class="title" id="subject">
-								<h3 th:text="${tbBoard.bdTitle}"></h3>
-							</div>
-							<div class="info-group">
-								<div class="info">
-									<div id="writer" th:text="${tbBoard.tbUser.userNick}"></div>
-								</div>
-								<div class="info">
-									<div id="date" th:text="${#temporals.format(tbBoard.createdAt, 'yyyy-MM-dd')}">
-									</div>
-								</div>
-								<div class="info">
-									<div id="views" th:text="${tbBoard.bdViews}">
-										<i class="fa-regular fa-eye"></i>
-									</div>
-								</div>
-								<div class="info">
-									<div id="like" th:text="${tbBoard.bdLikes}">
+   <div class="bv-contents">
+      <div class="bv-group">
+         <form id="viewForm">
+            <table class="tableset">
+               <div class="board_view_wrap">
+                  <div class="board_view">
+                     <div class="title" id="subject">
+                        <h3 th:text="${tbBoard.bdTitle}"></h3>
+                     </div>
+                     <div class="info-group">
+                        <div class="info">
+                           <div id="writer" th:text="${tbBoard.tbUser.userNick}"></div>
+                        </div>
+                        <div class="info">
+                           <div id="date" th:text="${#temporals.format(tbBoard.createdAt, 'yyyy-MM-dd')}">
+                           </div>
+                        </div>
+                        <div class="info">
+                           <div id="views" th:text="${tbBoard.bdViews}">
+                              <i class="fa-regular fa-eye"></i>
+                           </div>
+                        </div>
+                                <div class="info">
+                                    <div id="like">
+											<button type="button" class="like-button" th:attr="onclick='likeButton(\'' + ${tbBoard.bdIdx} + '\')'">
 										<i class="fa-solid fa-heart"></i>
+										<span id="likeCount" th:text="${tbBoard.bdLikes.size()}"></span>
 									</div>
-								</div>
-								<div class="cont">
-									<div id="content" th:text="${tbBoard.bdContent}"></div>
-								</div>
-								<div class="bt-group">
-									<i id="heart" class="fa-regular fa-heart fa-3x"></i>
-									<div class="bt_wrap">
-										<button id="list" class="view-bt" type="button"
-											onclick="location.href='/board/main'">목 록</button>
-										<div th:if="${isAuthor}">
-											<button id="modify" class="view-bt" onclick="editPost()">수 정</button>
-											<button id="delete" class="view-bt" onclick="deletePost()">삭 제</button>
-										</div>
-									</div>
-								</div>
-								<!-- 댓글 시스템 시작 -->
-								<div class="comments">
-									<form id="comment-form">
-										<textarea id="comment-text" onkeydown="resize(this)" onkeyup="resize(this)"
-											placeholder="댓글을 입력하세요"></textarea>
-										<button type="submit">댓글 작성</button>
-									</form>
-									<div id="comments-container">
-									</div>
-								</div>
-								<!-- 댓글 시스템 끝 -->
-							</div>
-						</div>
-				</table>
-			</form>
-		</div>
-	</div>
+                                </dlv>
+                            </div>
+                            <div class="cont">
+                           <div id="content" th:text="${tbBoard.bdContent}"></div>
+                        </div>
+                        <div class="bt-group">
+                           <i id="heart" class="fa-regular fa-heart fa-3x" ></i>
+                           <div class="bt_wrap">
+                               <button id="list" class="view-bt" type="button"
+                                       onclick="location.href='/board/main'">목 록</button>
+                              <div th:if="${isAuthor}">
+                                 <button id="modify" class="view-bt" onclick="eidtPost()">수 정</button>
+                                 <button id="delete" class="view-bt" onclick="deletePost()">삭 제</button>
+                              </div>
+                           </div>
+                        </div>
+                         <!-- 댓글 시스템 시작 -->
+                        <div class="comments">
+                           <form id="comment-form">
+                              <textarea id="comment-text" onkeydown="resize(this)" onkeyup="resize(this)"
+                                 placeholder="댓글을 입력하세요"></textarea>
+                              <button type="submit">댓글 작성</button>
+                           </form>
+                           <div id="comments-container">
+                              <div class="comnt-table">
+                              </div>
+                           </div>
+                        </div>
+                        <!-- 댓글 시스템 끝 -->
+                        </div>
+                    </div>
+                </table>
+            </form>
+        </div>
+    </div>
 
-	<div id="footer-container"></div>
+    <div id="footer-container"></div>
 
+        <script src="/js/js_headfoot/headFoot.js"></script>
+    <script>
+		function likeButton(bdIdx) {
+			console.log('likeButton 함수 호출 성공, bdIdx : ' , bdIdx)
+			$.ajax({
+				type:"GET",
+				url:"/board/like",
+				data : {"bdIdx" : bdIdx},				
+				success:function (response) {
+					console.log("check")
+					if (response === "Liked") {
+						 updateLikeCount(1);
+	            } else if (response === "Unliked") {
+	                updateLikeCount(-1);
+	            } else {
+	                alert("좋아요 토글 비동기 요청 중 오류 발생");
+	            }
+				},
+				error:function(){
+					alert("좋아요 비동기 요청 중 오류 발생");
+				}
+			});
+		}
+		
+		function updateLikeCount(delta) {
+			// bdIdx 에 해당하는 좋아요 갯수 업데이트
+			var likeCountElement = document.getElementById('likeCount');
+			var currentCount = parseInt(likeCountElement.innerText);
+			// Math.max 함수를 사용하여 currentCount + delta 값과 0 중에서 더 큰 값을 선택하여 likeCountElement의 텍스트 내용으로 설정
+			likeCountElement.innerText = Math.max(currentCount + delta, 0);
+		}
+		
+		
+	</script>
+	
 	<script src="/js/js_headfoot/headFoot.js"></script>
 	<script  th:inline="javascript">
-		let bdIdx = [[${session.tbBoard.bdIdx}]];
+		let bdIdx  ;
 		var content = $('#comment-text').val();
 		
 		console.log("보드아이디엑스:", bdIdx);
@@ -114,7 +153,6 @@
 		}
 		// 서버에 Get 요청을 보내서 댓글 목록을 가져오고 화면에 표시하는 함수
 		function loadComments() {
-			var postId = [[${tbBoard.bdIdx}]]
 			$.ajax({
 				type: 'GET',
 				url: '/comment/get',

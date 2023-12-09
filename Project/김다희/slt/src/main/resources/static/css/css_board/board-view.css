@@ -30,12 +30,13 @@ a {
 }
 
 .title {
+    height: 3.5rem;
     padding: 15px 15px;
     border-bottom: 1px dashed #ddd;
 }
 
 .info-group {
-    height: 1.5rem;
+    height: 3.5rem;
     padding: 15px;
     border-bottom: 1px solid black;
 }
@@ -69,24 +70,22 @@ a {
 
 /* 전체 버튼 */
 .bt-group {
-    width: 100%;
+    width: 54%;
     display: flex;
-    justify-content: flex-end;
     margin-top: 10px;
-    /*float: right;*/
+    float: right;
 }
 
 #heart {
-    width: 37%;
+    width: 50px;
     cursor: pointer;
     color: #FF5353;
-    align-items: center;
 }
 .bt_wrap {
-	display: flex;
     width: 204px;
     margin-top: 10px;
     margin-bottom: 30px;
+    margin-left: 390px;
 }
 
 .bt_wrap button {
@@ -100,24 +99,9 @@ a {
 }
 
 /* 댓글 */
-.comments {
-    padding-top: 30px;
-
-}
-
 #comment-form {
     display: flex;
     align-items: center;
-}
-
-
-#comment-form button[type="submit"] {
-    background-color: #477489;
-    padding: 21px;
-    border: none;
-    font-size: 1.5rem;
-    border-radius: 0.3rem;
-    color: #fff;
 }
 
 #comment-text {
@@ -139,66 +123,21 @@ button[type="submit"] {
     cursor: pointer;
 }
 
+.comments {
+    padding-top: 30px;
+}
+
+#comment-form button[type="submit"] {
+    background-color: #477489;
+    padding: 21px;
+    border: none;
+    font-size: 1.5rem;
+    border-radius: 0.3rem;
+    color: #fff;
+}
 
 #comment-form button:active {
     box-shadow: 2px 2px 2px #999;
-}
-
-#comments-container{
-	width: auto;
-	min-height: 80px;
-	margin-top: 30px;
-	overflow-y: auto;
-	/*border: 1px solid #ddd;*/
-	/*background-color: #e1e1e1;*/
-	flex-direction: column;
-}
-
-.comnt-table{
-	display: flex;
-	flex-direction: column;
-}
-
-.comnt-field{
-	padding-bottom: 5px;	
-}
-
-.comnt-header,
-.comnt-contents{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	/*border-bottom: 1px solid #ddd;*/
-	/*background-color: red;*/
-}
-
-.comnt-header{
-	padding: 10px 10px 0px 10px ;
-	justify-content: flex-start;
-}
-
-.comnt-contents{
-	padding: 10px;
-}
-
-.comnt-id,
-.comnt-date{
-	margin-bottom: 5px;
-	/*background-color: orange;*/
-}
-
-.comnt-id{
-	padding-right: 50px;	
-	font-weight: bold;
-}
-
-.comnt-date{
-	color: #b9b8b8;
-}
-
-.comnt-read{
-	/*padding: 10px;*/
-	/*background-color: blue;*/
 }
 
 

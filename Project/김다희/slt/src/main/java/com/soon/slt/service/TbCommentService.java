@@ -13,7 +13,6 @@ import com.soon.slt.entity.TbUser;
 import com.soon.slt.repository.TbCommentRepository;
 
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @Service
@@ -46,7 +45,7 @@ public class TbCommentService {
 	}
 	
 	// 댓글 아이디로 댓글 조회
-	public TbComment getComment(String cmtIdx) {
+	public TbComment getComment(Long cmtIdx) {
 		Optional<TbComment> tbcomment = this.tbCommentRepository.findById(cmtIdx);
 		if (tbcomment.isPresent()) {
 			return tbcomment.get();
