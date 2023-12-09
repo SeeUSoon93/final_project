@@ -56,7 +56,7 @@
         <div class="dictionary-content">
             <div class="dictionary-group">
                 <div class="group">
-                        <div class="item" th:each="slang, loop : ${sLangList}">
+                        <div class="item" th:each="slang, loop : ${langList}">
                             <div class="image-box">
                                 <a th:href="@{|/dic/${slang.slangIdx}|}">
                                     <img th:src="${slang.slangThumb}" alt="${slang.slangText}">

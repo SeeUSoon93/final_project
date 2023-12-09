@@ -61,7 +61,7 @@ function sendImageToServer(blob) {
   let formData = new FormData();
   formData.append('image', blob);
 
-  fetch('https://121.147.0.224:9090/upload', { //FastAPI url 적기
+  fetch('https://121.147.0.224:9090/upload/', { //FastAPI url 적기
     method: 'POST',
     body: formData
   })

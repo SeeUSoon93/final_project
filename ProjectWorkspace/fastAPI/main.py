@@ -22,7 +22,7 @@ app.add_middleware(
 
 predictions = [] # 예측값을 저장할 리스트
 
-@app.post("/upload")
+@app.post("/upload/")
 async def predict(image: UploadFile = File(...)):
     # 이미지 파일을 읽어 NumPy 배열로 변환
     image_data = await image.read()
