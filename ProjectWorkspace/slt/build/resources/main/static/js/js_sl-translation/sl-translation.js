@@ -47,7 +47,7 @@ document.getElementById('stopRecord').addEventListener('click', () => {
   recordingStatus.style.display = 'none'; // 녹화중 문구 숨김
   console.log("녹화가 중지되었습니다.");
 
-  fetch('http://127.0.0.1:9090/stop')
+  fetch('https://121.147.0.224:9090/stop')
   .then(response => response.json())
   .then(data => {
     console.log("서버로부터 최종 문자열 받음:", data);
@@ -61,7 +61,7 @@ function sendImageToServer(blob) {
   let formData = new FormData();
   formData.append('image', blob);
 
-  fetch('http://127.0.0.1:9090/upload', { //FastAPI url 적기
+  fetch('https://121.147.0.224:9090/upload', { //FastAPI url 적기
     method: 'POST',
     body: formData
   })

@@ -6,37 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>수어랑말해랑-수어사전</title>
     <link rel="stylesheet" href="/css/css_dictionary/sl-dictionary.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div id="header-container"></div>
+<div id="header-container"></div>
 
-    <div class="banner">
-        <div class="banner-font">
-            <h2>수어사전</h2>
-            <P>수어랑말해랑 수어사전</P>
-        </div>
+<div class="banner">
+    <div class="banner-font">
+        <h2>수어사전</h2>
+        <P>수어랑말해랑 수어사전</P>
     </div>
+</div>
 
-    <div class="sl-dictionary">
-        <div class="dictionary-head">
-            <div class="catesearch">
+<div class="sl-dictionary">
+    <div class="dictionary-head">
+        <div class="catesearch">
+            <form th:action="@{/dic/search}">
                 <div class="radio-inputs">
-                    <label class="radio" onclick="filterPosts('all')">
-                        <input type="radio" name="radio" checked="">
+                    <label class="radio" onclick="filter('')" name="category" value="">
+                        <input type="radio" name="category" checked="">
                         <span class="name">전 체</span>
                     </label>
-                    <label class="radio" onclick="filterPosts('free')">
-                        <input type="radio" name="radio">
+                    <label class="radio" onclick="filter('daily')" name="category" value="daily">
+                        <input type="radio" name="category">
                         <span class="name">일 상</span>
                     </label>
-                    <label class="radio" onclick="filterPosts('suggestion')">
-                        <input type="radio" name="radio">
+                    <label class="radio" onclick="filter('pro')" name="category" value="pro">
+                        <input type="radio" name="category">
                         <span class="name">전 문</span>
                     </label>
                 </div>
-                <form th:action="@{/dic/main}" class="search">
+                <div class="search">
                     <div class="search-box">
                         <div class="search-field">
                             <input name="kw" placeholder="Search" class="input" type="text">
@@ -47,32 +49,96 @@
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
 
-            <div class="dictionary-content">
-                <div class="dictionary-group">
-                    <div class="group">
-                        <div class="item"  th:each="slang, loop : ${sLangList}">
+        <div class="dictionary-content">
+            <div class="dictionary-group">
+                <div class="group">
+                        <div class="item" th:each="slang, loop : ${sLangList}">
                             <div class="image-box">
-								<a th:href="@{|/dic/${slang.slangIdx}|}">
-                                <img th:src="${slang.slangThumb}" alt="${slang.slangText}">
-                            	</a>
+                                <a th:href="@{|/dic/${slang.slangIdx}|}">
+                                    <img th:src="${slang.slangThumb}" alt="${slang.slangText}">
+                                </a>
                             </div>
                             <div class="text-box">
                                 <p th:text="${slang.slangText}">가다</p>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- <div id="footer-container"></div> -->
+<!-- <div id="footer-container"></div> -->
 
-    <script src="/js/js_headfoot/headFoot.js"></script>
-    <script src="/js/js_dictionary/sl-dictionary.js"></script>
+<script src="/js/js_headfoot/headFoot.js"></script>
+<script src="/js/js_dictionary/sl-dictionary.js"></script>
+<script>
+    // 카테고리 별 리스트 출력
+    function filter(category) {
+    $.ajax({
+        type: "GET",
+        url: "/dic/list",
+        data: { category: category },
+        success: function (response) {
+            var langList = response.content; // langList.content로 실제 데이터에 접근
+            var slangListHtml = '';
+
+            for (var i = 0; i < langList.length; i++) {
+                slangListHtml += `<div class="item">
+                        <div class="image-box">
+                            <a href="/dic/${langList[i].slangIdx}">
+                                <img src="${langList[i].slangThumb}" alt="${langList[i].slangText}">
+                            </a>
+                        </div>
+                        <div class="text-box">
+                            <p>${langList[i].slangText}</p>
+                        </div>
+                    </div>`;
+            }
+            $(".group").html(slangListHtml);
+        },
+        error: function (error) {
+            console.error(error);
+        }
+    });
+}
+
+
+
+<!--function filter(category){-->
+<!--   $.ajax({-->
+<!--      type: "GET",-->
+<!--      url: "/dic/list",-->
+<!--      data: {category:category},-->
+<!--      success:function(langList){-->
+<!--         var list = langList.content;-->
+<!--         var slangListHtml = '';-->
+
+<!--         for( var i=0; i<langList.length; i++){-->
+<!--            console.log(langList[i])-->
+<!--            slangListHtml+=`<div class="item">-->
+<!--                        <div class="image-box">-->
+<!--                            <a href="/dic/${langList[i].slangIdx}">-->
+<!--                                <img src="${langList[i].slangThumb}" alt="${langList[i].slangText}">-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div class="text-box">-->
+<!--                            <p>${langList[i].slangText}</p>-->
+<!--                        </div>-->
+<!--                    </div>`;-->
+<!--         }-->
+<!--         $(".group").html(slangListHtml);-->
+<!--      },-->
+<!--      error:function(error){-->
+<!--         console.error(error);-->
+<!--      }-->
+<!--   })-->
+<!--}-->
+</script>
 </body>
 
 </html>

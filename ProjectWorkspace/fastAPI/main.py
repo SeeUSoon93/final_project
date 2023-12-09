@@ -6,16 +6,16 @@ import numpy as np
 import cv2
 from fastapi.middleware.cors import CORSMiddleware
 # from some_model_library import SomeModel # 가정: 모델을 불러오는 라이브러리
-# 서버 실행하기 uvicorn main:app --reload --port 9090
+# 서버 실행하기   uvicorn main:app --reload --host 0.0.0.0 --port 9090
 app = FastAPI()
 
 # 모든 출처와 모든 헤더, 메소드를 허용하도록 CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 모든 출처 허용, 특정 출처로 제한하려면 ['http://localhost:3000', 'http://localhost:8080'] 등으로 지정
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # 모든 HTTP 메소드 허용
-    allow_headers=["*"],  # 모든 HTTP 헤더 허용
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 predictions = [] # 예측값을 저장할 리스트
