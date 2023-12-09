@@ -6,7 +6,9 @@ import numpy as np
 import cv2
 from fastapi.middleware.cors import CORSMiddleware
 # from some_model_library import SomeModel # 가정: 모델을 불러오는 라이브러리
-# 서버 실행하기   uvicorn main:app --reload --host 0.0.0.0 --port 9090
+# uvicorn main:app --reload --host 0.0.0.0 --port 9090 --ssl-keyfile=경로/키_파일.key --ssl-certfile=경로/인증서_파일.crt
+# uvicorn main:app --reload --host 0.0.0.0 --port 9090 --ssl-keyfile=./localhost-key.pem --ssl-certfile=./localhost.pem
+
 app = FastAPI()
 
 # 모든 출처와 모든 헤더, 메소드를 허용하도록 CORS 설정
