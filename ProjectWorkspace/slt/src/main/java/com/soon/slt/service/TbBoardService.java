@@ -96,7 +96,12 @@ public class TbBoardService {
 	public TbBoard boardDetail(Long dbIdx) {
 		Optional<TbBoard> b = this.tbBoardRepository.findById(dbIdx);
 		if (b.isPresent()) {
-			return b.get();
+			TbBoard tbBoard = b.get();
+			//조회수 증가
+			tbBoard.setBdViews(tbBoard.getBdViews()+1);
+			tbBoardRepository.save(tbBoard);
+			return tbBoard;
+
 		} else {
 			throw new DataNotFound("없는 게시글입니다.");
 		}

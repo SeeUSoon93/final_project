@@ -85,8 +85,6 @@
     </div>
 
     <div id="footer-container"></div>
-
-        <script src="/js/js_headfoot/headFoot.js"></script>
     <script>
 		function likeButton(bdIdx) {
 			console.log('likeButton 함수 호출 성공, bdIdx : ' , bdIdx)
@@ -117,12 +115,8 @@
 			// Math.max 함수를 사용하여 currentCount + delta 값과 0 중에서 더 큰 값을 선택하여 likeCountElement의 텍스트 내용으로 설정
 			likeCountElement.innerText = Math.max(currentCount + delta, 0);
 		}
-		
-		
-	</script>
-	
-	<script src="/js/js_headfoot/headFoot.js"></script>
-	<script  th:inline="javascript">
+<!--			1차-->
+
 		let bdIdx  ;
 		var content = $('#comment-text').val();
 		
@@ -195,9 +189,8 @@
 		$(document).ready(function () {
 			loadComments();
 		});
-	</script>
 
-	<script>
+<!--2차-->
 		// 백엔드에서 전달한 댓글 생성 시간 (타임스탬프 형태)
 		var commentTimestamp = $('#comment-time').data('comment-time'); // 예시 시간 (밀리초)
 		var currentTime = new Date();
@@ -230,6 +223,8 @@
 			commentTimestamp = '';
 		}
 	</script>
+
+    <script src="/js/js_headfoot/headFoot.js"></script>
 </body>
 
 </html>

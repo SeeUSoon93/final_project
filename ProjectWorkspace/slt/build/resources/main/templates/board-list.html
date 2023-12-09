@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<!-- Head 내용 -->
 
 <head>
 	<meta charset="UTF-8">
@@ -101,7 +103,7 @@
 				</table>
 			</div>
 			<div class="page-write">
-				<button id="write" th:onclick="|location.href='@{/board/create}'|">글쓰기</button>
+				<button id="write" th:onclick="|location.href='@{/board/create}'|" sec:authorize="isAuthenticated()">글쓰기</button>
 
 			</div>
 

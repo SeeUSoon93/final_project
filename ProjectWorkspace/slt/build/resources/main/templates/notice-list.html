@@ -54,12 +54,6 @@
 					</span>
 				</div>
 			</div>
-			<div class="notice-button">
-				<input class="nbt-write" type="button" value="등 록" th:onclick="|location.href='@{/notice/create}'|">
-				<input class="nbt-delete" type="button" value="삭 제" th:if="${boardList != null}"
-					th:onclick="|location.href='@{/notice/delete/${board.bdIdx}}'|">
-
-			</div>
 		</div>
 	</div>
 
