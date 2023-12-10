@@ -47,6 +47,7 @@
 											<button type="button" class="like-button" th:attr="onclick='likeButton(\'' + ${tbBoard.bdIdx} + '\')'">
 										<i class="fa-solid fa-heart"></i>
 										<span id="likeCount" th:text="${tbBoard.bdLikes.size()}"></span>
+                                            </button>
 									</div>
                                 </dlv>
                             </div>
@@ -79,7 +80,8 @@
                         <!-- 댓글 시스템 끝 -->
                         </div>
                     </div>
-                </table>
+               </div>
+            </table>
             </form>
         </div>
     </div>
