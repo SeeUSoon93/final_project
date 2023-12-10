@@ -30,7 +30,7 @@ async def predict(image: UploadFile = File(...)):
     image_data = await image.read()
     nparr = np.frombuffer(image_data, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
+    img = cv2.flip(img, 1)
     # 이미지를 모델에 입력하여 예측
     prediction = predict_method(img)
     predictions.append(prediction)
