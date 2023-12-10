@@ -31,10 +31,8 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/tbUser")
 public class TbUserController {
-	
 
 	private final TbUserService tbUserService;
-	
 	
 	// Footer 와 Header 활성화
 	@GetMapping("footer")

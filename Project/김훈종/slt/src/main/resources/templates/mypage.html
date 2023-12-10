@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body onload="openCity(event, 'my')">
     <!-- header -->
     <div id="header-container"></div>
     <!-- banner -->
@@ -94,7 +94,7 @@
                             <td id="info-icon2"><i class="fa-regular fa-eye"></i></td>
                             <td th:text="${tbBoard.bdViews}" id="info-view"></td>
                             <td id="info-icon2"><i class="fa-solid fa-heart"></i></td>
-                            <td th:text="${tbBoard.bdLikes}" id="info-like"></td>
+                            <td th:text="${#lists.size(tbBoard.bdLikes)}" id="info-like"></td>
                         </tr>
                         <tr class="info-datetime">
                             <td th:text="${#temporals.format(tbBoard.createdAt, 'yy-MM-dd')}" id="info-date">
@@ -145,6 +145,7 @@
         <!-- js -->
         <script src="/js/mypage.js"></script>
         <script src="/js/js_headfoot/headFoot.js"></script>
+    </div>
 </body>
 
-</html>s
+</html>

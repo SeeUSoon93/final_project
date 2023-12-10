@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
@@ -40,11 +41,12 @@ public class TbBoard {
 	public int bdViews;
 
 	@ManyToMany
-	private Set<TbUser> bdLikes = new HashSet<>(); // 좋아요 기본값 0으로 설정
+	Set<TbUser> bdLikes = new HashSet<>(); // 좋아요 기본값 0으로 설정
 
 	public LocalDateTime createdAt;
 
 	@ManyToOne
+	@JoinColumn(name = "user_email")
 	public TbUser tbUser;
 
 	@OneToMany(mappedBy = "tbBoard", cascade = CascadeType.REMOVE)

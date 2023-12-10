@@ -24,29 +24,25 @@
         <div class="translation-contents">
             <div class="radio-box">
                 <div class="radio-inputs">
-                    <label class="radio" onclick="filterPosts('all')">
+                    <label class="radio" onclick="filterPosts('predict-video')">
                         <input type="radio" name="radio" checked="">
                         <span class="name">안 내</span>
                     </label>
-                    <label class="radio" onclick="filterPosts('free')">
+                    <label class="radio" onclick="filterPosts('predict-cam')">
                         <input type="radio" name="radio">
                         <span class="name">녹 화</span>
-                    </label>
-                    <label class="radio" onclick="filterPosts('suggestion')">
-                        <input type="radio" name="radio">
-                        <span class="name">번 역</span>
                     </label>
                 </div>
             </div>
 
-            <div class="video-box" style="display: none;">
+            <div id="predict-video" class="video-box">
                 <video src=""></video>
             </div>
 
             <!-- 여기는 웹캠 화면 -->
-            <div class="video-box">
+            <div id="predict-cam" class="video-box">
                 <div id="recordingStatus" style="display: none;">녹화중...</div>
-                <video id="webcam" autoplay></video>
+                <video id="webcam" autoplay playsinline></video>
                 <div class="record">
 	                <button id="startRecord">시 작</button>
 	                <button id="stopRecord">종 료</button>					
