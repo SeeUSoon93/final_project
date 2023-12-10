@@ -4,21 +4,27 @@ let recordedBlobs;
 let canvas = document.getElementById('canvas');
 let context = canvas.getContext('2d');
 let recordingStatus = document.getElementById('recordingStatus');
-let intervalId; // 2초마다 캡쳐를 위한 인터벌 ID
+let intervalId;
 
 // 웹캠 접근 및 비디오 스트림 설정
 navigator.mediaDevices.getUserMedia({ video: true, audio: false })
   .then((stream) => {
+    console.log('Stream obtained:', stream);
     video.srcObject = stream;
   })
   .catch((err) => {
-    console.error('Error accessing media devices:', err);
+    console.error('좆같은 에ㄹ러:', err);
   });
 
 // 녹화 시작 버튼 이벤트
 document.getElementById('startRecord').addEventListener('click', () => {
   recordedBlobs = [];
-  mediaRecorder = new MediaRecorder(video.srcObject);
+  try{
+    mediaRecorder = new MediaRecorder(video.srcObject);
+  }catch(e){
+    console.error("개씨발 에러",e);
+    return;
+  }
 
   mediaRecorder.ondataavailable = (event) => {
     if (event.data && event.data.size > 0) {
@@ -26,7 +32,7 @@ document.getElementById('startRecord').addEventListener('click', () => {
     }
   };
   mediaRecorder.start();
-  console.log("녹화가 시작되었습니다.");
+  console.log("녹화 시작");
 
   recordingStatus.style.display = 'block'; // 녹화중 문구 표시
 
@@ -36,7 +42,7 @@ document.getElementById('startRecord').addEventListener('click', () => {
     canvas.toBlob(blob => {
       sendImageToServer(blob); // 이미지 전송 함수 호출
     }, 'image/jpeg');
-  }, 2000);
+  }, 2500);
   console.log(recordedBlobs);
 });
 
@@ -45,14 +51,14 @@ document.getElementById('stopRecord').addEventListener('click', () => {
   mediaRecorder.stop();
   clearInterval(intervalId); // 이미지 캡쳐 중지
   recordingStatus.style.display = 'none'; // 녹화중 문구 숨김
-  console.log("녹화가 중지되었습니다.");
+  console.log("녹화 중지");
 
-  fetch('http://127.0.0.1:9090/stop')
+  fetch('http://localhost:9091/stop')
   .then(response => response.json())
   .then(data => {
-    console.log("서버로부터 최종 문자열 받음:", data);
+    console.log("받은 문자열:", data);
   })
-  .catch(error => console.log('최종 문자열 받기 에러:', error));
+  .catch(error => console.log('니미 에러:', error));
 
 });
 
@@ -61,16 +67,16 @@ function sendImageToServer(blob) {
   let formData = new FormData();
   formData.append('image', blob);
 
-  fetch('http://127.0.0.1:9090/upload', { //FastAPI url 적기
+  fetch('http://localhost:9091/upload', { //FastAPI url 적기
     method: 'POST',
     body: formData
   })
   .then(response => response.json())
   .then(data => {
-    console.log("서버로부터 응답 받음:", data);
+    console.log("받은 데이터:", data);
     speakText(data.text); // 서버로부터 받은 텍스트 읽기
   })
-  .catch(error => console.log('이미지 전송 에러:', error));
+  .catch(error => console.log('씨밸럼의 에러:', error));
 }
 
 // 텍스트를 음성으로 읽는 함수

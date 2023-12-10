@@ -30,13 +30,13 @@ a {
 }
 
 .title {
-    height: 1.5rem;
+    height: 3.5rem;
     padding: 15px 15px;
     border-bottom: 1px dashed #ddd;
 }
 
 .info-group {
-    height: 1.5rem;
+    height: 3.5rem;
     padding: 15px;
     border-bottom: 1px solid black;
 }
@@ -165,11 +165,13 @@ button[type="submit"] {
     box-shadow: 2px 2px 2px #999;
 }
 
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
 
 /* footer 하단 고정 */
 #footer-container {
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }
 
@@ -180,14 +182,14 @@ button[type="submit"] {
     background-color: #F1E5FD;
     background-image: url(../../image/image2.jpg);
     background-repeat: no-repeat;
-    background-position: 80rem;
+    background-position: 71rem;
     margin-bottom: 3rem;
-    
+
 }
 
 .banner-font {
     margin-top: 4rem;
-    margin-left: 28rem;
+    margin-left: 23rem;
     float: left;
 }
 

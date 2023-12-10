@@ -23,7 +23,7 @@ a {
 }
 
 .dict-head{
-    width: 60%;
+    width: 38%;
     height: 50%;
     margin: 0 0 0 100px;
     display: flex;
@@ -86,6 +86,16 @@ a {
     background-color: #477489;
 }
 
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
+
+/* footer 하단 고정 */
+#footer-container {
+    width: 100%;
+}
+
 /* banner */
 .banner {
     width: 100%;
@@ -93,14 +103,14 @@ a {
     background-color: #FFF7E2;
     background-image: url(../../image/image3.jpg);
     background-repeat: no-repeat;
-    background-position: 80rem;
+    background-position: 71rem;
     margin-bottom: 3rem;
 
 }
 
 .banner-font {
     margin-top: 4rem;
-    margin-left: 28rem;
+    margin-left: 23rem;
     float: left;
 }
 

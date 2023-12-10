@@ -48,6 +48,18 @@ public class TbBoardService {
 		}
 	}
 
+	// 게시글 카테고리별
+	public Page<TbBoard> boardFilter(int page, String filter){
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createdAt"));
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		if (filter == null || filter.isEmpty()) {
+			return this.tbBoardRepository.findAll(pageable);
+		} else {
+			return this.tbBoardRepository.findByCategory(filter, pageable);
+		}
+	}
+
 	// 게시글 생성
 	@Transactional
 	public void boardCreate(String bdTitle, String bdCategory, String bdContent, TbUser tbUser
@@ -96,7 +108,12 @@ public class TbBoardService {
 	public TbBoard boardDetail(Long dbIdx) {
 		Optional<TbBoard> b = this.tbBoardRepository.findById(dbIdx);
 		if (b.isPresent()) {
-			return b.get();
+			TbBoard tbBoard = b.get();
+			//조회수 증가
+			tbBoard.setBdViews(tbBoard.getBdViews()+1);
+			tbBoardRepository.save(tbBoard);
+			return tbBoard;
+
 		} else {
 			throw new DataNotFound("없는 게시글입니다.");
 		}

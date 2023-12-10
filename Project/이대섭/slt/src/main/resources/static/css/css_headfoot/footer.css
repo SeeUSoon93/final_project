@@ -23,6 +23,7 @@ footer
 .footer {
     background-color: #1a1a1a;
     height: 6rem;
+    margin-top: 100px;
 }
 
 .footer-group {

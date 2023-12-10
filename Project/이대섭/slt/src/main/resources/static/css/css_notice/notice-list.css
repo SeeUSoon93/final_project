@@ -16,7 +16,7 @@
     position: relative;
 }
 
-.que:first-child {
+#Accordion_wrap:first-child {
     border-top: 2px solid #000000;
 }
 
@@ -126,10 +126,13 @@
 }
 
 
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
+
 /* footer 하단 고정 */
 #footer-container {
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }
 

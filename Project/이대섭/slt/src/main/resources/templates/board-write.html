@@ -12,53 +12,55 @@
 <body>
     <div id="header-container"></div>
 
-    <div class="banner">
-        <div class="banner-font">
-            <h2>커뮤니티</h2>
-            <P>커뮤니티 글 작성하기</P>
+    <div class="conbody">
+        <div class="banner">
+            <div class="banner-font">
+                <h2>커뮤니티</h2>
+                <P>커뮤니티 글 작성하기</P>
+            </div>
         </div>
-    </div>
-    <div class="board-contents">
-        <div class="bc-write">
-            <form class="board-form" th:action="@{/board/create}" method="post">
-                <div class="board-write-wrap">
-                    <div class="board-write">
-                        <div class="board-title">
-                            <input type="text" name="bdTitle" placeholder="제목을 입력하세요.">
-                        </div>
-                        <div class="board-nick">
-                            <input type="text" name="board-writer" placeholder="닉네임을 입력하세요." th:value="${#authentication.principal != null ? #authentication.principal.username : ''}"
-								readonly>
-                            <div class="category">
-                                <h4>카테고리</h4>
-                                <label id="free" class="radio-button">
-                                    <input type="radio" name="bdCategory" value="Category 1">
-                                    <div class="radio-circle"></div>
-                                    <span class="radio-label">자 유</span>
-                                </label>
-                                <label class="radio-button">
-                                    <input type="radio" name="bdCategory" value="Category 2">
-                                    <div class="radio-circle"></div>
-                                    <span class="radio-label">건 의</span>
-                                </label>
+        <div class="board-contents">
+            <div class="bc-write">
+                <form class="board-form" th:action="@{/board/create}" method="post">
+                    <div class="board-write-wrap">
+                        <div class="board-write">
+                            <div class="board-title">
+                                <input type="text" name="bdTitle" placeholder="제목을 입력하세요.">
+                            </div>
+                            <div class="board-nick">
+                                <input type="text" name="board-writer" placeholder="닉네임을 입력하세요." th:value="${#authentication.principal != null ? #authentication.principal.username : ''}"
+                                       readonly>
+                                <div class="category">
+                                    <h4>카테고리</h4>
+                                    <label id="free" class="radio-button">
+                                        <input type="radio" name="bdCategory" value="Category 1">
+                                        <div class="radio-circle"></div>
+                                        <span class="radio-label">자 유</span>
+                                    </label>
+                                    <label class="radio-button">
+                                        <input type="radio" name="bdCategory" value="Category 2">
+                                        <div class="radio-circle"></div>
+                                        <span class="radio-label">건 의</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="board-content">
+                            <textarea name="bdContent" placeholder="내용을 입력하세요." onkeydown="resize(this)"
+                                      onkeyup="resize(this)"></textarea>
                             </div>
                         </div>
-                        <div class="board-content">
-                            <textarea name="bdContent" placeholder="내용을 입력하세요." onkeydown="resize(this)"
-                                onkeyup="resize(this)"></textarea>
-                        </div>
                     </div>
-                </div>
-                <div class="bw_button">
-					<input class="bw_list" type="button" value="목 록" th:onclick="|window.location.href='/board/main'|">
-                    <input class="bw_write" type="submit" value="등 록">
-                    <input class="bw_clean" type="reset" value="초기화">
-                </div>
-            </form>
+                    <div class="bw_button">
+                        <input class="bw_list" type="button" value="목 록" th:onclick="|window.location.href='/board/main'|">
+                        <input class="bw_write" type="submit" value="등 록">
+                        <input class="bw_clean" type="reset" value="초기화">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!--<div id="footer-container"></div>-->
+    <div id="footer-container"></div>
 
     <script>
         // textarea 내의 글자수가 고정값보다 넘어갔을떄 늘리게하기  

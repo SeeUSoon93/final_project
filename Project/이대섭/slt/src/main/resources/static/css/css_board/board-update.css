@@ -31,6 +31,7 @@ a {
 }
 
 .board-title {
+    height3.5
     padding: 15px;
 }
 
@@ -42,6 +43,7 @@ input[type="text"] {
 }
 
 .board-nick {
+    height: 3.5rem;
     padding: 15px;
     border-top: 1.2px dashed #b6b6b6;
     border-bottom: 1px solid #000;
@@ -107,10 +109,13 @@ input[type="text"] {
     cursor: pointer;
 }
 
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
+
 /* footer 하단 고정 */
 #footer-container {
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }
 
@@ -121,14 +126,14 @@ input[type="text"] {
     background-color: #F1E5FD;
     background-image: url(../../image/image2.jpg);
     background-repeat: no-repeat;
-    background-position: 80rem;
+    background-position: 71rem;
     margin-bottom: 3rem;
 
 }
 
 .banner-font {
     margin-top: 4rem;
-    margin-left: 28rem;
+    margin-left: 23rem;
     float: left;
 }
 
