@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,38 +11,40 @@
 <!-- header -->
 <div id="header-container"></div>
 
-<!-- banner -->
-<div class="banner">
-    <div class="banner-font">
-        <h2>수어사전</h2>
-        <p>상세보기</p>
-    </div>
-</div>
-
-<!-- main -->
-<div class="dict-box">
-    <div class="dict-container">
-        <div class="dict-head">
-            <div class="head-inner">
-                <a th:href="@{/dic/main}">
-                    <div class="head-icon"><i class="fa-solid fa-house"></i></div>
-                </a>
-                <div class="head-icon"><i class="fa-solid fa-chevron-right"></i></div>
-                <div class="head-text" th:text="${slang.slangCategory}"></div>
-            </div>
+<div class="conbody">
+    <!-- banner -->
+    <div class="banner">
+        <div class="banner-font">
+            <h2>수어사전</h2>
+            <p>상세보기</p>
         </div>
-        <div class="dict-contents">
-            <div class="dict-video">
-                <video controls width="1000">
-                    <source th:src="${slang.slangVideo}" type="video/mp4">
-                </video>
+    </div>
+
+    <!-- main -->
+    <div class="dict-box">
+        <div class="dict-container">
+            <div class="dict-head">
+                <div class="head-inner">
+                    <a th:href="@{/dic/main}">
+                        <div class="head-icon"><i class="fa-solid fa-house"></i></div>
+                    </a>
+                    <div class="head-icon"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="head-text" th:text="${slang.slangCategory}"></div>
+                </div>
             </div>
-            <div class="dict-details">
-                <span class="details-text">한국어 대응 표현&nbsp&nbsp</span>
-                <span class="details-word" th:text="${slang.slangText}"></span>
-            </div>
-            <div class="dict-list">
-                <button class="listBtn" onclick="location.href='/dic/main'">목 록</button>
+            <div class="dict-contents">
+                <div class="dict-video">
+                    <video controls width="1000">
+                        <source th:src="${slang.slangVideo}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dict-details">
+                    <span class="details-text">한국어 대응 표현&nbsp&nbsp</span>
+                    <span class="details-word" th:text="${slang.slangText}"></span>
+                </div>
+                <div class="dict-list">
+                    <button class="listBtn" onclick="location.href='/dic/main'">목 록</button>
+                </div>
             </div>
         </div>
     </div>
@@ -50,5 +52,7 @@
 
 <!-- footer -->
 <div id="footer-container"></div>
+
+<script src="/js/js_headfoot/headFoot.js"></script>
 </body>
 </html>

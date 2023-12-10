@@ -24,7 +24,7 @@
         <div class="board-contents">
             <div class="tableset">
                 <div class="textset textset-sub">
-                    <form th:action="@{/board/filter}">
+                    <form th:action="@{/board/search}">
                         <div class="radio-inputs">
                             <label class="radio" onclick="filters('')">
                                 <input type="radio" name="filter" checked="" value="">
@@ -114,16 +114,16 @@
                     <nav class="pagiset-group">
                         <li class="pagiset-ctrl" th:style="${!paging.hasPrevious} ? 'display:none;' : '' ">
                             <a th:href="@{|?page=1|}" class="pagiset-link pagiset-first">
-								<span class="visually-hidden">
-									<i class="fa-solid fa-angles-left"></i>
-								</span>
+                        <span class="visually-hidden">
+                           <i class="fa-solid fa-angles-left"></i>
+                        </span>
                             </a>
                         </li>
                         <li class="pagiset-ctrl" th:style="${!paging.hasPrevious} ? 'display:none;' : '' ">
                             <a th:href="@{|?page=${paging.number-1}|}" class="pagiset-link pagiset-prev">
-								<span class="visually-hidden">
-									<i class="fa-solid fa-angle-left"></i>
-								</span>
+                        <span class="visually-hidden">
+                           <i class="fa-solid fa-angle-left"></i>
+                        </span>
                             </a>
                         </li>
                         <li class="pagiset-list" th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
@@ -132,16 +132,16 @@
                         </li>
                         <li class="pagiset-ctrl" th:style="${!paging.hasNext} ? 'display:none;' : '' ">
                             <a class="pagiset-link pagiset-next" th:href="@{|?page=${paging.number+1}|}">
-								<span class="visually-hidden">
-									<i class="fa-solid fa-angle-right"></i>
-								</span>
+                        <span class="visually-hidden">
+                           <i class="fa-solid fa-angle-right"></i>
+                        </span>
                             </a>
                         </li>
                         <li class="pagiset-ctrl" th:style="${!paging.hasNext} ? 'display:none;' : '' ">
                             <a th:href="@{|?page=int(paging/10)|}" class="pagiset-link pagiset-last">
-								<span class="visually-hidden">
-									<i class="fa-solid fa-angles-right"></i>
-								</span>
+                        <span class="visually-hidden">
+                           <i class="fa-solid fa-angles-right"></i>
+                        </span>
                             </a>
                         </li>
                     </nav>
@@ -160,7 +160,7 @@
         console.log("함수 실행 됐니?");
         $.ajax({
             type: "GET",
-            url: "/board/filter",
+            url: "/board/filterCa",
             data: {filter: filter},
             success: function (response) {
                 console.log("함수 성공 됐니?");

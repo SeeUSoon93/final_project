@@ -4,10 +4,16 @@ from typing import List
 from predict import predict_method
 import numpy as np
 import cv2
+import mediapipe as mp
 from fastapi.middleware.cors import CORSMiddleware
 import openai
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, WebSocket
+from starlette.websockets import WebSocketDisconnect
+from collections import Counter
+import asyncio
+
 # source venv/bin/activate
 # uvicorn main:app --reload --host 0.0.0.0 --port 9091
 # uvicorn main:app --reload --host 0.0.0.0 --port 9090 --ssl-keyfile=./localhost-key.pem --ssl-certfile=./localhost.pem
@@ -24,6 +30,8 @@ app.add_middleware(
 )
 
 predictions = [] # 예측값을 저장할 리스트
+temporary_predictions = [] #임시
+most_common_prediction = None
 predicted_mapping = {'belly' : '배', 'child' : '아이', 'down' : '쓰러지다', 'lost' : '잃어버리다', 'plz' : '부탁하다', 'report' : '신고하다', 'sick' : '아프다', 'toilet' : '화장실', 'wallet' : '지갑', 'where' : '어디'}
 
 @app.get("/main")
@@ -39,9 +47,17 @@ async def predict(image: UploadFile = File(...)):
     
     # 이미지를 모델에 입력하여 예측
     prediction = predict_method(img)
-    predictions.append(prediction)
+    temporary_predictions.append(prediction)
 
-    return {"message": prediction}
+    if len(temporary_predictions) == 3:
+        most_common_prediction = Counter(temporary_predictions).most_common(1)[0][0]
+        predictions.append(most_common_prediction)
+        temporary_predictions.clear()
+        
+    else:
+        most_common_prediction = len(temporary_predictions)
+    
+    return {"message": most_common_prediction}
 
 @app.get("/stop")
 def get_predictions():

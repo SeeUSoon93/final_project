@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
    <meta charset="UTF-8">
@@ -92,7 +92,7 @@
                for (var i = 0; i < langList.length; i++) {
                   slangListHtml += `<div class="item">
                         <div class="image-box">
-                            <a href="/dic/${langList[i].slangIdx}">
+                            <a href="/dic/detail/${langList[i].slangIdx}">
                                 <img src="${langList[i].slangThumb}" alt="${langList[i].slangText}">
                             </a>
                         </div>

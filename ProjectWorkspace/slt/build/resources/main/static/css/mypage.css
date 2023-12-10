@@ -95,15 +95,15 @@
 }
 
 #my-img > img{
-	width: 100%;
-	height: 100%;
+   width: 100%;
+   height: 100%;
     border-radius: 50%;
     background-color: #ebe9e9;
     /* #f7f7fb */
 }
 
 .my-info {
-	height: 100px;
+   height: 100px;
     display: flex;
     margin-top: 45px;
     padding: 24px 10px;
@@ -112,7 +112,7 @@
 }
 
 .my-info p {
-	margin: 8px;
+   margin: 8px;
 }
 
 #user{
@@ -154,7 +154,7 @@
 }
 
 .my-num {
-	margin-left: 16px;
+   margin-left: 16px;
 }
 
 /* info */
@@ -169,16 +169,21 @@
 }
 
 h3 {
-	font-size: 1.8rem;
-	margin-bottom: 20px;
-	margin-left: 10px;
+   font-size: 1.8rem;
+   margin-bottom: 20px;
+   margin-left: 10px;
 } 
+
+.info-tbody {
+    height: 45px;
+}
 
 .info-detail,
 .comnt-detail,
 .comnt-views {
     display: flex;
     align-items: center;
+    height: 40px;
     /* background-color: pink; */
 }
 
@@ -187,18 +192,11 @@ h3 {
     width: 3rem;
     font-size: 1.3rem;
     text-align: center;
-    /* background-color: red; */
-}
-
-.info-views{
-    display: flex;
-    /* background-color: coral; */
 }
 
 #info-icon2,
 #info-view,
 #info-like{
-    margin-top: .625rem;
     font-size: .8rem;
 }
 
@@ -230,6 +228,8 @@ h3 {
 .like-datetime{
     display: flex;
     align-items: center;
+    height: 30px;
+    border-bottom: 1px solid #e1e1e1;
     /* background-color: pink; */
 }
 
@@ -269,7 +269,7 @@ h3 {
 }
 
 #comnt-num p {
-	margin-right: 6px;
+   margin-right: 6px;
 }
 
 /* comnt-views */
@@ -283,6 +283,16 @@ h3 {
 /* like */
 
 
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
+
+/* footer 하단 고정 */
+#footer-container {
+    width: 100%;
+}
+
 /* banner */
 .banner {
     width: 100%;
@@ -290,21 +300,21 @@ h3 {
     background-color: #D8F9EE;
     background-image: url(/image/image5.jpg);
     background-repeat: no-repeat;
-    background-position: 80rem;
+    background-position: 71rem;
     margin-bottom: 3rem;
 }
 
 .banner-font {
     margin-top: 3rem;
-    margin-left: 28rem;
+    margin-left: 23rem;
     float: left;
 }
 
 h2 {
-	margin-top: 30px;
+   margin-top: 30px;
     font-size: 2.5rem;
 }
 
 .noboardlist {
-	padding-left: 10px;
+   padding-left: 10px;
 }

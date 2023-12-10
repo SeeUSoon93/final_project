@@ -51,13 +51,13 @@ document.getElementById('startRecord').addEventListener('click', () => {
 
   recordingStatus.style.display = 'block'; // 녹화중 문구 표시
 
-  // 2초마다 이미지 캡쳐 및 전송
+  // 이미지 캡쳐 및 전송
   intervalId = setInterval(() => {
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     canvas.toBlob(blob => {
       sendImageToServer(blob); // 이미지 전송 함수 호출
     }, 'image/jpeg');
-  }, 2500);
+  }, 600);
   console.log(recordedBlobs);
 });
 
@@ -82,7 +82,7 @@ function sendImageToServer(blob) {
   let formData = new FormData();
   formData.append('image', blob);
 
-  fetch('http://localhost:9091/upload', { //FastAPI url 적기
+  fetch('http://localhost:9091/upload', {
     method: 'POST',
     body: formData
   })

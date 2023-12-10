@@ -153,12 +153,13 @@ h3 {
 }
 
 
-
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
 
 /* footer 하단 고정 */
 #footer-container {
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }
 

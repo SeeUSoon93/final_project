@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -7,12 +7,12 @@
     <title>수어랑말해랑-수어사전</title>
     <link rel="stylesheet" href="/css/css_translation/sl-translation.css">
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
-      
+
 </head>
 
 <body>
-    <div id="header-container"></div>
-
+<div id="header-container"></div>
+<div class="conbody">
     <div class="banner">
         <div class="banner-font">
             <h2>수어번역</h2>
@@ -30,7 +30,7 @@
                     </label>
                     <label class="radio" onclick="filterPosts('predict-cam')">
                         <input type="radio" name="radio">
-                        <span class="name">녹 화</span>
+                        <span class="name">번 역</span>
                     </label>
                 </div>
             </div>
@@ -44,9 +44,9 @@
                 <div id="recordingStatus" style="display: none;">녹화중...</div>
                 <video id="webcam" autoplay playsinline></video>
                 <div class="record">
-	                <button id="startRecord">시 작</button>
-	                <button id="stopRecord">종 료</button>					
-				</div>
+                    <button id="startRecord">시 작</button>
+                    <button id="stopRecord">종 료</button>
+                </div>
                 <canvas id="canvas" style="display: none;"></canvas>
             </div>
 
@@ -81,13 +81,13 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+</div>
 
-    <!--<div id="footer-container"></div>--> 
-    <script src="/js/js_headfoot/headFoot.js"></script>
-    <script src="/js/js_sl-translation/sl-translation.js"></script>  
+<div id="footer-container"></div>
+<script src="/js/js_headfoot/headFoot.js"></script>
+<script src="/js/js_sl-translation/sl-translation.js"></script>
 </body>
 
 </html>

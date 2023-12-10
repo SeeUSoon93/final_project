@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -12,38 +12,41 @@
 <body>
     <div id="header-container"></div>
 
-    <div class="banner">
-        <div class="banner-font">
-            <h2>공지사항</h2>
-            <P>공지사항 글 작성하기</P>
+    <div class="conbody">
+        <div class="banner">
+            <div class="banner-font">
+                <h2>공지사항</h2>
+                <P>공지사항 글 작성하기</P>
+            </div>
         </div>
-    </div>
-    <div class="nw-contents">
-        <div class="notice-write">
-            <form class="notice-form" th:action="@{/notice/create}" method="post">
-                <div class="board-write-wrap">
-                    <div class="board-write">
-                        <div class="notice-title">
-                            <input type="text" name="bdTitle" placeholder="제목을 입력하세요.">
-                        </div>
-                        <div class="notice-nick">
-                            <input type="text" name="notice-writer" placeholder="닉네임을 입력하세요." th:value="${#authentication.principal != null ? #authentication.principal.username : ''}"
-								readonly>
-                        </div>
-                        <div class="notice-content">
+        <div class="nw-contents">
+            <div class="notice-write">
+                <form class="notice-form" th:action="@{/notice/create}" method="post">
+                    <div class="board-write-wrap">
+                        <div class="board-write">
+                            <div class="notice-title">
+                                <input type="text" name="bdTitle" placeholder="제목을 입력하세요.">
+                            </div>
+                            <div class="notice-nick">
+                                <input type="text" name="notice-writer" placeholder="닉네임을 입력하세요." th:value="${#authentication.principal != null ? #authentication.principal.username : ''}"
+                                       readonly>
+                            </div>
+                            <div class="notice-content">
                             <textarea name="bdContent" placeholder="내용을 입력하세요." onkeydown="resize(this)"
-                                onkeyup="resize(this)"></textarea>
+                                      onkeyup="resize(this)"></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="nw_button">
-					<input class="nw_list" type="button" value="목 록" th:onclick="|window.location.href='/notice/main'|">
-                    <input class="nw_write" type="submit" value="등 록">
-                    <input class="nw_clean" type="reset" value="초기화">
-                </div>
-            </form>
+                    <div class="nw_button">
+                        <input class="nw_list" type="button" value="목 록" th:onclick="|window.location.href='/notice/main'|">
+                        <input class="nw_write" type="submit" value="등 록">
+                        <input class="nw_clean" type="reset" value="초기화">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
     <div id="footer-container"></div>
 
     <script>
@@ -88,7 +91,7 @@
 			});
 		});
     </script>
-   <!-- <script src="/js/js_headfoot/headFoot.js"></script>-->
+   <<script src="/js/js_headfoot/headFoot.js"></script>
 </body>
 
 </html>

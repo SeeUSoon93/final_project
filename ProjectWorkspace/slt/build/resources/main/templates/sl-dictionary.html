@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
    <meta charset="UTF-8">
@@ -13,57 +13,59 @@
 <body>
    <div id="header-container"></div>
 
-   <div class="banner">
-      <div class="banner-font">
-         <h2>수어사전</h2>
-         <P>수어랑말해랑 수어사전</P>
+   <div class="conbody">
+      <div class="banner">
+         <div class="banner-font">
+            <h2>수어사전</h2>
+            <P>수어랑말해랑 수어사전</P>
+         </div>
       </div>
-   </div>
 
-   <div class="sl-dictionary">
-      <div class="dictionary-head">
-         <div class="catesearch">
-            <form th:action="@{/dic/search}">
-               <div class="radio-inputs">
-                  <label class="radio" onclick="filter('')">
-                     <input type="radio" name="category" checked="" value="">
-                     <span class="name">전 체</span>
-                  </label>
-                  <label class="radio" onclick="filter('daily')" >
-                     <input type="radio" name="category" value="daily">
-                     <span class="name">일 상</span>
-                  </label>
-                  <label class="radio" onclick="filter('pro')" >
-                     <input type="radio" name="category" value="pro">
-                     <span class="name">전 문</span>
-                  </label>
-               </div>
-               <div class="search">
-                  <div class="search-box">
-                     <div class="search-field">
-                        <input name="kw" placeholder="Search" class="input" type="text">
-                        <div class="search-box-icon">
-                           <button class="btn-icon-content">
-                              <i class="fa-solid fa-magnifying-glass"></i>
-                           </button>
+      <div class="sl-dictionary">
+         <div class="dictionary-head">
+            <div class="catesearch">
+               <form th:action="@{/dic/search}">
+                  <div class="radio-inputs">
+                     <label class="radio" onclick="filter('')">
+                        <input type="radio" name="category" checked="" value="">
+                        <span class="name">전 체</span>
+                     </label>
+                     <label class="radio" onclick="filter('daily')" >
+                        <input type="radio" name="category" value="daily">
+                        <span class="name">일 상</span>
+                     </label>
+                     <label class="radio" onclick="filter('pro')" >
+                        <input type="radio" name="category" value="pro">
+                        <span class="name">전 문</span>
+                     </label>
+                  </div>
+                  <div class="search">
+                     <div class="search-box">
+                        <div class="search-field">
+                           <input name="kw" placeholder="Search" class="input" type="text">
+                           <div class="search-box-icon">
+                              <button class="btn-icon-content">
+                                 <i class="fa-solid fa-magnifying-glass"></i>
+                              </button>
+                           </div>
                         </div>
                      </div>
                   </div>
-               </div>
-            </form>
-         </div>
+               </form>
+            </div>
 
-         <div class="dictionary-content">
-            <div class="dictionary-group">
-               <div class="group">
-                  <div class="item" th:each="slang, loop : ${langList}">
-                     <div class="image-box">
-                        <a th:href="@{|/dic/detail/${slang.slangIdx}|}">
-                           <img th:src="${slang.slangThumb}" alt="${slang.slangText}">
-                        </a>
-                     </div>
-                     <div class="text-box">
-                        <p th:text="${slang.slangText}"></p>
+            <div class="dictionary-content">
+               <div class="dictionary-group">
+                  <div class="group">
+                     <div class="item" th:each="slang, loop : ${langList}">
+                        <div class="image-box">
+                           <a th:href="@{|/dic/detail/${slang.slangIdx}|}">
+                              <img th:src="${slang.slangThumb}" alt="${slang.slangText}">
+                           </a>
+                        </div>
+                        <div class="text-box">
+                           <p th:text="${slang.slangText}"></p>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -72,7 +74,7 @@
       </div>
    </div>
 
-   <!-- <div id="footer-container"></div> -->
+   <div id="footer-container"></div>
 
    <script src="/js/js_headfoot/headFoot.js"></script>
    <script src="/js/js_dictionary/sl-dictionary.js"></script>
@@ -90,7 +92,7 @@
                for (var i = 0; i < langList.length; i++) {
                   slangListHtml += `<div class="item">
                         <div class="image-box">
-                            <a href="/dic/${langList[i].slangIdx}">
+                            <a href="/dic/detail/${langList[i].slangIdx}">
                                 <img src="${langList[i].slangThumb}" alt="${langList[i].slangText}">
                             </a>
                         </div>

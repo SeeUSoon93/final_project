@@ -76,17 +76,42 @@ a {
     float: right;
 }
 
+.like-button {
+	border: none;
+	background-color: transparent;
+}
+
+
 #heart {
     width: 50px;
     cursor: pointer;
     color: #FF5353;
 }
 .bt_wrap {
-    width: 204px;
+    width: 205px;
     margin-top: 10px;
     margin-bottom: 30px;
-    margin-left: 390px;
+    margin-left: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    white-space: nowrap;
+    gap: 10px;
+    }
+
+.upde {
+	float: left;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	white-space: nowrap;
+	gap: 20px;
 }
+
+#list {
+	float: left;
+}
+
 
 .bt_wrap button {
     padding: 0.6rem 1rem;
@@ -140,11 +165,13 @@ button[type="submit"] {
     box-shadow: 2px 2px 2px #999;
 }
 
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
 
 /* footer 하단 고정 */
 #footer-container {
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }
 
@@ -155,14 +182,14 @@ button[type="submit"] {
     background-color: #F1E5FD;
     background-image: url(../../image/image2.jpg);
     background-repeat: no-repeat;
-    background-position: 80rem;
+    background-position: 71rem;
     margin-bottom: 3rem;
-    
+
 }
 
 .banner-font {
     margin-top: 4rem;
-    margin-left: 28rem;
+    margin-left: 23rem;
     float: left;
 }
 

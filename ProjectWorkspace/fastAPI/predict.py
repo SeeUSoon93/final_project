@@ -11,6 +11,11 @@ import catboost as cb
 from catboost import CatBoostClassifier
 
 
+mp_hands = mp.solutions.hands
+hands = mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5, min_tracking_confidence=0.5)
+mp_pose = mp.solutions.pose
+pose = mp_pose.Pose()
+
 # 손가락 각도 계산 함수
 def calculate_angles(hand_landmarks, image_shape):
     joint = np.zeros((21, 3))
@@ -53,12 +58,6 @@ def calculate_pose_angles(pose_landmarks, image_shape):
 def predict_method(img):
     cb_model = CatBoostClassifier()
     cb_model.load_model('cb_model.cbm')
-
-    mp_hands = mp.solutions.hands
-    mp_drawing = mp.solutions.drawing_utils
-    hands = mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-    mp_pose = mp.solutions.pose
-    pose = mp_pose.Pose()
 
     img = cv2.flip(img, 1)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)

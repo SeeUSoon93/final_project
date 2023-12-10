@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.soon.slt.repository.TbLikeRepository;
 import org.slf4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +36,7 @@ public class TbBoardService {
 
 	private final TbBoardRepository tbBoardRepository;
 	private final TbUserRepository tbUserRepository;
+	private final TbLikeRepository tbLikeRepository;
 
 	// 검색 목록 리스트 조회
 	public Page<TbBoard> searchList(int page, String category, String kw) {
@@ -137,14 +139,21 @@ public class TbBoardService {
 // 게시글 추천
 	@Transactional
 	public boolean boardLike(TbBoard tbBoard, TbUser tbUser) {
+
 		// 좋아요가 눌렸을 때 중복 체크를 하고, 중복되지 않으면 좋아요를 추가하고 게시글을 저장
 		if (tbBoard.getBdLikes().contains(tbUser)) {
+			List<TbLikes> tbLikesList = this.tbLikeRepository.findByUserBoard(tbUser,tbBoard);
 			tbBoard.getBdLikes().remove(tbUser);
+			this.tbLikeRepository.delete(tbLikesList.get(0));
 		} else {
+			TbLikes tbLikes = new TbLikes();
+			tbLikes.setTbBoard(tbBoard);
+			tbLikes.setTbUser(tbUser);
 			tbBoard.getBdLikes().add(tbUser);
+			this.tbLikeRepository.save(tbLikes);
 		}
-		this.tbBoardRepository.save(tbBoard);
 
+		this.tbBoardRepository.save(tbBoard);
 		// 여기서 return 값 설정
 		// 만약 사용자가 이미 좋아요를 눌렀다면 contains는 true를 반환하게 되는데, 여기에 ! 연산자를 사용하여 false로 바꾸어주고,
 		// 그 반대의 경우에는 true로 바꾸어줍니다.

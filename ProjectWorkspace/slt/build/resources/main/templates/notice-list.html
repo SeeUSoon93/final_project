@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8">
@@ -13,18 +13,19 @@
 <body>
 	<div id="header-container"></div>
 
-	<div class="banner">
-		<div class="banner-font">
-			<h2>공지사항</h2>
-			<P>공지사항 전체목록</P>
+	<div class="conbody">
+		<div class="banner">
+			<div class="banner-font">
+				<h2>공지사항</h2>
+				<P>공지사항 전체목록</P>
+			</div>
 		</div>
-	</div>
-	<div class="notice-box">
-		<div class="notice-contents">
-			<div id="Accordion_wrap" th:each="board,loop : ${boardList}">
-				<div class="que">
+		<div class="notice-box">
+			<div class="notice-contents">
+				<div id="Accordion_wrap" th:each="board,loop : ${boardList}">
+					<div class="que">
 					<span class="nt-group">
-						
+
 						<div class="checkBtn">
 							<input type="checkbox">
 							<p>1</p>
@@ -39,19 +40,20 @@
 							<span th:text="${#temporals.format(board.createdAt, 'yy-MM-dd')}"></span>
 						</div>
 					</span>
-					<div class="arrow-wrap">
+						<div class="arrow-wrap">
 						<span class="arrow-top">
 							<i class="fa-solid fa-chevron-up"></i>
 						</span>
-						<span class="arrow-bottom">
+							<span class="arrow-bottom">
 							<i class="fa-solid fa-chevron-down"></i>
 						</span>
+						</div>
 					</div>
-				</div>
-				<div class="anw">
+					<div class="anw">
 					<span>
 						<div class="notice-content" th:text="${board.bdContent}"></div>
 					</span>
+					</div>
 				</div>
 			</div>
 		</div>
