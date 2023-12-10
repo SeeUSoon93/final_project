@@ -49,11 +49,14 @@ thead tr {
 }
 
 tbody {
-    height: 40px;
+    height: auto;
     text-align: center;
 }
 
-
+tbody tr td {
+    height: 45px;
+    border-bottom: 1px solid #eee;
+}
 
 
 
@@ -103,7 +106,7 @@ tbody {
 }
 
 .pagiset-list {
-    width: 15%;
+    width: 3%;
     height: 2rem;
     float: left;
 }
@@ -113,7 +116,9 @@ tbody {
 }
 
 
-/* 카테고리 버튼 클릭시 카테고리별로 목록 보이게 */
+*/
+/* 카테고리 버튼 클릭시 카테고리별로 목록 보이게 *//*
+
 .radio-inputs {
     position: relative;
     display: flex;
@@ -158,7 +163,9 @@ tbody {
 }
 
 
+
 /* 검색 */
+
 .search {
     width: 28%;
     float: right;
@@ -192,7 +199,9 @@ tbody {
     border-color: #447486;
 }
 
+
 /*Section input*/
+
 .search-field {
     position: relative;
     width: 100%;
@@ -238,7 +247,8 @@ tbody {
         color: #999999;
     }
 
-    /*Search button*/
+/*Search button*/
+
     .search-box-icon {
         width: 52px;
         height: 35px;
@@ -275,15 +285,19 @@ tbody {
 
 
 
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
 
-    /* footer 하단 고정 */
-    #footer-container {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-    }
+/* footer 하단 고정 */
 
-    /* banner */
+#footer-container {
+    width: 100%;
+}
+
+/* banner */
+
     .banner {
         width: 100%;
         height: 12rem;
@@ -307,3 +321,33 @@ tbody {
     .banner p {
         font-size: 1.2rem;
     }
+
+
+/* 노트북 */
+@media screen and (max-width: 1546px) {
+    .banner {
+            width: 100%;
+            height: 12rem;
+            background-color: #F1E5FD;
+            background-image: url(../../image/image2.jpg);
+            background-repeat: no-repeat;
+            background-position: 71rem;
+            margin-bottom: 3rem;
+        }
+
+        .banner-font {
+            margin-top: 4rem;
+            margin-left: 23rem;
+            float: left;
+        }
+
+        h2 {
+            font-size: 3rem;
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+        }
+
+
+}

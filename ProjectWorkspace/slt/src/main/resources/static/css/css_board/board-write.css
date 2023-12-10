@@ -181,11 +181,13 @@ h4 {
     cursor: pointer;
 }
 
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
 
 /* footer 하단 고정 */
 #footer-container {
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }
 
@@ -196,14 +198,14 @@ h4 {
     background-color: #F1E5FD;
     background-image: url(../../image/image2.jpg);
     background-repeat: no-repeat;
-    background-position: 80rem;
+    background-position: 71rem;
     margin-bottom: 3rem;
 
 }
 
 .banner-font {
     margin-top: 4rem;
-    margin-left: 28rem;
+    margin-left: 23rem;
     float: left;
 }
 

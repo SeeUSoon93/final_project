@@ -38,9 +38,6 @@ a {
     padding: 5.5rem 1.6rem;
 }
 
-#wrap {
-    min-height: 100%;
-}
 
 .main-form {
     display: flex;
@@ -76,7 +73,7 @@ a {
 
 .contents-subtit {
     font-weight: 700;
-    
+
 }
 
 .contents-subtit2 {
@@ -151,10 +148,12 @@ b {
     font-size: 1.3rem;
 }
 
+#wrap {
+    min-height: 661px;
+    height: 100%;
+}
 
 /* footer 하단 고정 */
 #footer-container {
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }

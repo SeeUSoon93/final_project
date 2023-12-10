@@ -174,11 +174,16 @@ h3 {
 	margin-left: 10px;
 } 
 
+.info-tbody {
+    height: 45px;
+}
+
 .info-detail,
 .comnt-detail,
 .comnt-views {
     display: flex;
     align-items: center;
+    height: 40px;
     /* background-color: pink; */
 }
 
@@ -187,18 +192,11 @@ h3 {
     width: 3rem;
     font-size: 1.3rem;
     text-align: center;
-    /* background-color: red; */
-}
-
-.info-views{
-    display: flex;
-    /* background-color: coral; */
 }
 
 #info-icon2,
 #info-view,
 #info-like{
-    margin-top: .625rem;
     font-size: .8rem;
 }
 
@@ -230,6 +228,8 @@ h3 {
 .like-datetime{
     display: flex;
     align-items: center;
+    height: 30px;
+    border-bottom: 1px solid #e1e1e1;
     /* background-color: pink; */
 }
 
@@ -282,6 +282,16 @@ h3 {
 
 /* like */
 
+
+.conbody {
+    min-height: 771px;
+    height: 100%;
+}
+
+/* footer 하단 고정 */
+#footer-container {
+    width: 100%;
+}
 
 /* banner */
 .banner {
