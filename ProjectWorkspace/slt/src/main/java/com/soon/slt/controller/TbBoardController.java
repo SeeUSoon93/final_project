@@ -70,6 +70,18 @@ public class TbBoardController {
         return "board-list";
     }
 
+    // 게시글 카테고리별
+    @GetMapping("/filter")
+    @ResponseBody
+    public Page<TbBoard> boardFilter(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                                     @RequestParam(value = "filter", defaultValue = "") String filter) {
+        System.out.println("컨트롤러 안에 들어왔니?");
+        Page<TbBoard> paging = this.tbBoardService.boardFilter(page, filter);
+        System.out.println("서비스 갔다 왔니?"+paging);
+        model.addAttribute("paging", paging.getContent());
+        return paging;
+    }
+
     // 게시글 생성하는 페이지로 이동
     @GetMapping("/create")
     public String boardCreate(TbBoardForm tbBoardForm) {

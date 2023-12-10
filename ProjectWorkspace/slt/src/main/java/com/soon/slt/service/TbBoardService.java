@@ -53,10 +53,11 @@ public class TbBoardService {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("createdAt"));
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		System.out.print("서비스에 왔니?");
 		if (filter == null || filter.isEmpty()) {
-			return this.tbBoardRepository.findAll(pageable);
+			return this.tbBoardRepository.findAllCategory(pageable);
 		} else {
-			return this.tbBoardRepository.findByCategory(filter, pageable);
+			return this.tbBoardRepository.findByFilter(filter, pageable);
 		}
 	}
 

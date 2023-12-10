@@ -41,7 +41,7 @@ public class TbBoard {
 	public int bdViews;
 
 	@ManyToMany
-	private Set<TbUser> bdLikes = new HashSet<>(); // 좋아요 기본값 0으로 설정
+	Set<TbUser> bdLikes = new HashSet<>(); // 좋아요 기본값 0으로 설정
 
 	public LocalDateTime createdAt;
 

@@ -6,6 +6,21 @@ let context = canvas.getContext('2d');
 let recordingStatus = document.getElementById('recordingStatus');
 let intervalId;
 
+function filterPosts(selId){
+  var videoBox = document.getElementsByClassName('video-box');
+  for (var i = 0 ; i < videoBox.length; i++){
+    videoBox[i].style.display = 'none';
+  }
+  var selElement = document.getElementById(selId);
+  if(selElement){
+    selElement.style.display = 'block';
+  }
+}
+
+window.onload = function(){
+  filterPosts('predict-video');
+}
+
 // 웹캠 접근 및 비디오 스트림 설정
 navigator.mediaDevices.getUserMedia({ video: true, audio: false })
   .then((stream) => {

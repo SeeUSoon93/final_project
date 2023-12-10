@@ -6,6 +6,7 @@
     <title>수어랑말해랑-커뮤니티</title>
     <link rel="stylesheet" href="/css/css_board/board-list.css">
     <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -24,15 +25,15 @@
             <div class="textset textset-sub">
                 <form th:action="@{/board/filter}">
                     <div class="radio-inputs">
-                        <label class="radio" onclick="filterPosts('')">
+                        <label class="radio" onclick="filters('')">
                             <input type="radio" name="filter" checked="" value="">
                             <span class="name">전 체</span>
                         </label>
-                        <label class="radio" onclick="filterPosts('Category 1')">
+                        <label class="radio" onclick="filters('Category 1')">
                             <input type="radio" name="filter" value="Category 1">
                             <span class="name">자 유</span>
                         </label>
-                        <label class="radio" onclick="filterPosts('Category 2')">
+                        <label class="radio" onclick="filters('Category 2')">
                             <input type="radio" name="filter" value="Category 2">
                             <span class="name">건 의</span>
                         </label>
@@ -154,17 +155,20 @@
 <!-- <script src="/js/js_board/board-list.js"></script> -->
 <script>
     // 카테고리 별 리스트 출력
-    function filter(filter) {
+    function filters(filter) {
+        console.log("함수 실행 됐니?");
         $.ajax({
             type: "GET",
             url: "/board/filter",
             data: {filter: filter},
             success: function (response) {
-                var paging = response.content; // langList.content로 실제 데이터에 접근
+                console.log("함수 성공 됐니?");
+                var paging = response.content;
                 var pagingListHtml = '';
 
                 for (var i = 0; i < paging.length; i++) {
-                    pagingListHtml += '<td>' + i + '</td>' +
+                    pagingListHtml += '<tr>' +
+                        '<td>' + i + '</td>' +
                         '<td>';
                     if (paging[i].bdCategory === 'Category 1') {
                         pagingListHtml += '자유';
@@ -188,7 +192,8 @@
                         '</td>' +
                         '<td>' +
                         (paging[i].bdLikes ? paging[i].bdLikes.length : 0) +
-                        '</td>';
+                        '</td>' +
+                        '</tr>';
                 }
                 $(".group").html(pagingListHtml);
             },
