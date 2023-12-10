@@ -6,12 +6,14 @@ import numpy as np
 import cv2
 from fastapi.middleware.cors import CORSMiddleware
 import openai
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 # source venv/bin/activate
 # uvicorn main:app --reload --host 0.0.0.0 --port 9091
 # uvicorn main:app --reload --host 0.0.0.0 --port 9090 --ssl-keyfile=./localhost-key.pem --ssl-certfile=./localhost.pem
 
 app = FastAPI()
-
+app.mount("/static", StaticFiles(directory="static"), name="static")
 # 모든 출처와 모든 헤더, 메소드를 허용하도록 CORS 설정
 app.add_middleware(
     CORSMiddleware,
@@ -24,13 +26,17 @@ app.add_middleware(
 predictions = [] # 예측값을 저장할 리스트
 predicted_mapping = {'belly' : '배', 'child' : '아이', 'down' : '쓰러지다', 'lost' : '잃어버리다', 'plz' : '부탁하다', 'report' : '신고하다', 'sick' : '아프다', 'toilet' : '화장실', 'wallet' : '지갑', 'where' : '어디'}
 
+@app.get("/main")
+def gomain():
+    return FileResponse('static/test.html')
+
 @app.post("/upload")
 async def predict(image: UploadFile = File(...)):
     # 이미지 파일을 읽어 NumPy 배열로 변환
     image_data = await image.read()
     nparr = np.frombuffer(image_data, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    img = cv2.flip(img, 1)
+    
     # 이미지를 모델에 입력하여 예측
     prediction = predict_method(img)
     predictions.append(prediction)
