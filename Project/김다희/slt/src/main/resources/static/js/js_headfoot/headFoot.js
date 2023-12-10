@@ -20,7 +20,7 @@ function loadHTML(url, containerId) {
 }
 
 // Load header.html into #header-container
-loadHTML('header', 'header-container');
+loadHTML('/header', 'header-container');
 
 // Load footer.html into #footer-container
-loadHTML('footer', 'footer-container');
+loadHTML('/footer', 'footer-container');

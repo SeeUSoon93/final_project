@@ -20,18 +20,33 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TbSLangDicService {
-	
+
 	private final TbSignlangRepository tbSignlangRepository;
-	
-	// 수어사전 검색 조회
-	public Page<TbSignlang> getSignlang(int page, String kw) {
+
+	// 수어사전 카테고리별 리스트 출력
+	public Page<TbSignlang> getSignlang(int page, String category) {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("slangIdx"));
-
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.tbSignlangRepository.findAllByKeyword(kw, pageable);
+		Pageable pageable = PageRequest.of(page, 9, Sort.by(sorts));
+		if(category == null || category.isEmpty()) {
+			return this.tbSignlangRepository.findAll(pageable);
+		}else {
+			return this.tbSignlangRepository.findAllByCategory(category, pageable);
+		}
 	}
-	
+
+	// 수어사전 검색
+	public Page<TbSignlang> searching(int page, String kw, String category) {
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("slangIdx"));
+		Pageable pageable = PageRequest.of(page, 9, Sort.by(sorts));
+		if(category == null || category.isEmpty()) {
+			return this.tbSignlangRepository.findAllByOnlyKeyword(kw, pageable);
+		}else {
+			return this.tbSignlangRepository.findAllByCaKeyword(kw, category, pageable);
+		}
+	}
+
 	// 수어 게시글 상세 조회
 	public TbSignlang langDetail(Long slangIdx) {
 		Optional<TbSignlang> b = this.tbSignlangRepository.findById(slangIdx);
@@ -41,8 +56,8 @@ public class TbSLangDicService {
 			throw new DataNotFound("없는 게시글입니다.");
 		}
 	}
-	
-	
-	
+
+
+
 
 }
