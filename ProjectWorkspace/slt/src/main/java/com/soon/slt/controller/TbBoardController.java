@@ -166,29 +166,26 @@ public class TbBoardController {
         this.tbBoardService.boardUpdate(tbBoard, tbBoardForm.getBdTitle(), tbBoardForm.getBdCategory(), tbBoardForm.getBdContent());
         return String.format("redirect:/board/detail/%s", bdIdx);
     }
+    
+    
+ // 게시글 좋아요
+ 	@PreAuthorize("isAuthenticated()")
+ 	@GetMapping("/like")
+ 	@ResponseBody
+ 	public ResponseEntity<Integer> boardLike(Principal principal, @RequestParam("bdIdx") Long bdIdx) {
+ 		try {
+ 			TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
+ 			TbUser tbUser = this.tbUserService.getUser(principal.getName());
 
-    // 게시글 좋아요
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/like")
-    @ResponseBody
-    public ResponseEntity<String> boardLike(Principal principal, @RequestParam("bdIdx") Long bdIdx) {
-        try {
-            TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
-            TbUser tbUser = this.tbUserService.getUser(principal.getName());
+ 			// 좋아요 토글 수행
+ 			boolean liked = this.tbBoardService.boardLike(tbBoard, tbUser);
 
-            // 좋아요 토글 수행
-            boolean liked = this.tbBoardService.boardLike(tbBoard, tbUser);
-
-            //this.tbBoardService.boardLikes(tbBoard, tbUser);
-            if (liked) {
-                return ResponseEntity.ok("Liked");
-            } else {
-                return ResponseEntity.ok("Unliked");
-            }
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
-        }
-    }
+ 			// 좋아요 갯수 반환
+ 			return ResponseEntity.ok(tbBoard.getBdLikes().size());
+ 		} catch (Exception e) {
+ 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(-1);
+ 		}
+ 	}
 }
 
 

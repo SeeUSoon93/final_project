@@ -60,6 +60,7 @@ def predict_method(img):
     mp_pose = mp.solutions.pose
     pose = mp_pose.Pose()
 
+    img = cv2.flip(img, 1)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     result = hands.process(img)
     pose_result = pose.process(img)

@@ -47,7 +47,6 @@
 											<button type="button" class="like-button" th:attr="onclick='likeButton(\'' + ${tbBoard.bdIdx} + '\')'">
 										<i class="fa-solid fa-heart"></i>
 										<span id="likeCount" th:text="${tbBoard.bdLikes.size()}"></span>
-                                            </button>
 									</div>
                                 </dlv>
                             </div>
@@ -80,8 +79,7 @@
                         <!-- 댓글 시스템 끝 -->
                         </div>
                     </div>
-               </div>
-            </table>
+                </table>
             </form>
         </div>
     </div>
@@ -94,44 +92,46 @@
 				type:"GET",
 				url:"/board/like",
 				data : {"bdIdx" : bdIdx},				
-				success:function (response) {
-					console.log("check")
-					if (response === "Liked") {
-						 updateLikeCount(1);
-	            } else if (response === "Unliked") {
-	                updateLikeCount(-1);
-	            } else {
-	                alert("좋아요 토글 비동기 요청 중 오류 발생");
-	            }
+				success: function (response) {
+					console.log("서버 응답 : ", response)
+					// 서버에서 실제 좋아요 갯수를 반환
+					var newLikeCount = parseInt(response);
+					// 현재 좋아요 갯수 업데이트
+					updateLikeCount(newLikeCount);
 				},
 				error:function(){
-					alert("좋아요 비동기 요청 중 오류 발생");
+					alert("로그인이 필요합니다.");
+
 				}
 			});
-		}
-		
-		function updateLikeCount(delta) {
-			// bdIdx 에 해당하는 좋아요 갯수 업데이트
-			var likeCountElement = document.getElementById('likeCount');
-			var currentCount = parseInt(likeCountElement.innerText);
-			// Math.max 함수를 사용하여 currentCount + delta 값과 0 중에서 더 큰 값을 선택하여 likeCountElement의 텍스트 내용으로 설정
-			likeCountElement.innerText = Math.max(currentCount + delta, 0);
-		}
-<!--			1차-->
+						}
 
-		let bdIdx  ;
-		var content = $('#comment-text').val();
-		
-		console.log("보드아이디엑스:", bdIdx);
-	
-		function resize(obj) {
-			obj.style.height = "1rem";
-			obj.style.height = (0.75 + obj.scrollHeight / 16) + "rem";
-		}
+			function updateLikeCount(newCount) {
+				// bdIdx 에 해당하는 좋아요 갯수 업데이트
+				var likeCountElement = document.getElementById('likeCount');
+				var currentCount = parseInt(likeCountElement.innerText);
+				
+				 // 새로 받아온 좋아요 갯수와 현재 갯수의 차이를 계산하여 업데이트
+				    var delta = newCount - currentCount;
+				    likeCountElement.innerText = newCount;
+				// Math.max 함수를 사용하여 currentCount + delta 값과 0 중에서 더 큰 값을 선택하여 likeCountElement의 텍스트 내용으로 설정
+				 	/*likeCountElement.innerText = Math.max(currentCount + delta, 0);*/
+			}
+			<!--			1차-->
 
-		// 입력한 댓글 내용 가져오고, json형식으로 서버에 전송
-		function addComment() {
-			$.ajax({
+			let bdIdx;
+			var content = $('#comment-text').val();
+
+			console.log("보드아이디엑스:", bdIdx);
+
+			function resize(obj) {
+				obj.style.height = "1rem";
+				obj.style.height = (0.75 + obj.scrollHeight / 16) + "rem";
+			}
+
+						// 입력한 댓글 내용 가져오고, json형식으로 서버에 전송
+						function addComment() {
+							$.ajax({
 				type: 'post',
 				url: '/comment/create',
 				contentType: 'application/json',
@@ -192,7 +192,7 @@
 			loadComments();
 		});
 
-<!--2차-->
+	<!--2차-->
 		// 백엔드에서 전달한 댓글 생성 시간 (타임스탬프 형태)
 		var commentTimestamp = $('#comment-time').data('comment-time'); // 예시 시간 (밀리초)
 		var currentTime = new Date();
