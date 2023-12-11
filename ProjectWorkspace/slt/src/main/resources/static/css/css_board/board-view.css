@@ -16,6 +16,10 @@ a {
     text-decoration: none;
 }
 
+.aa {
+    height: 860px;
+}
+
 
 /* 게시글 상세보기 */
 .bv-contents {
@@ -61,7 +65,6 @@ a {
 #content {
     min-height: 290px;
     margin: 2.5rem 0 1rem 0;
-    word-break:break-all;
 }
 
 #writer {
@@ -124,13 +127,9 @@ a {
 }
 
 /* 댓글 */
-#comment-form {
-    display: flex;
-    align-items: center;
-}
-
 #comment-text {
     width: 90%;
+    height: 57px;
     padding: 12px;
     resize: none;
     box-sizing: border-box;
@@ -149,20 +148,67 @@ button[type="submit"] {
 }
 
 .comments {
-    padding-top: 30px;
+    width: 100%;
+    margin-top: 100px;
 }
 
 #comment-form button[type="submit"] {
     background-color: #477489;
-    padding: 21px;
     border: none;
-    font-size: 1.5rem;
     border-radius: 0.3rem;
     color: #fff;
 }
 
 #comment-form button:active {
     box-shadow: 2px 2px 2px #999;
+}
+
+#comments-container {
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+    margin-top: 24px;
+}
+
+.comnt-table {
+    border-bottom: 1px solid #d5d5d5;
+}
+
+.comnt-table:first-child {
+    border-top: 2px solid #bdbdbd;
+}
+
+.comnt-header {
+    height: 30px;
+}
+
+.comnt-id {
+    width: 92%;
+    float: left;
+    font-size: 18px;
+    padding: 12px 0 0 8px;
+    font-weight: 600;
+}
+
+.comnt-date {
+    width: 93px;
+    float: right;
+    padding: 15px 8px 0 0;
+    font-size: 14px;
+    text-align: right;
+    color: #7d7d7d;
+}
+
+.comnt-contents {
+    width: 100%;
+    min-height: 34px;
+    height: auto;
+}
+
+.comnt-read {
+    width: 100%;
+    display: flex;
+    padding: 6px 0 12px 13px;
 }
 
 .conbody {
