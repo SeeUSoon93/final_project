@@ -40,19 +40,24 @@ public class TbCommentController {
 
 	
 	// 댓글 생성 //Mono<Comment>
-	@PostMapping("/create")
-	public TbComment createComment(@RequestBody CommentRequest request, Principal principal) {
-		if (principal == null) {
-		    throw new DataNotFound("로그인이 필요합니다.");
-		}
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/create/{bdIdx}")
+	public String createComment(Model model, @PathVariable("bdIdx")Long bdIdx, Principal principal,
+			@Valid TbCommentForm commentForm, BindingResult bindingResult) {
+		System.out.println("댓글 생성 컨트롤러");
+		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
 		TbUser tbUser = this.tbUserService.getUser(principal.getName());
-		TbBoard tbBoard = this.tbBoardService.boardDetail(request.getBdIdx());
-		return tbCommentService.addComment(tbBoard, tbUser, request.getContent());
+		if(bindingResult.hasErrors()) {
+			model.addAttribute(tbBoard);
+			return "board-view";
+		}
+		this.tbCommentService.addComment(tbBoard, commentForm.getCmtContent(),  tbUser);
+		return "redirect:/board/detail/"+bdIdx;
 	}
 	
 	// 댓글 불러오기 //Flux<Comment>
 	@GetMapping("/get")
-	public List<TbComment> getAllComments(@RequestBody String bdIdx) {
+	public List<TbComment> getAllComments(@RequestBody Long bdIdx) {
 		return tbCommentService.getAllComments(bdIdx);
 	}
 	

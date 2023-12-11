@@ -15,5 +15,5 @@ public interface TbCommentRepository extends JpaRepository<TbComment, Long>{
 	@Query("select distinct c "
 			+ "from TbComment c "
 			+ "where c.tbBoard.bdIdx = :bdIdx")
-	List<TbComment> findByboard(@Param("bdIdx") String bdIdx);
+	List<TbComment> findByboard(@Param("bdIdx") Long bdIdx);
 }

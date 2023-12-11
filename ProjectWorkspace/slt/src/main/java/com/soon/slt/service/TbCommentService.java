@@ -10,8 +10,10 @@ import com.soon.slt.exception;
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbComment;
 import com.soon.slt.entity.TbUser;
+import com.soon.slt.form.TbCommentForm;
 import com.soon.slt.repository.TbCommentRepository;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -30,17 +32,18 @@ public class TbCommentService {
 	 */
 	
 	// 댓글 생성
-	public TbComment addComment(TbBoard tbBoard, TbUser tbUser, String comment){
+	public TbComment addComment(TbBoard tbBoard, String string, TbUser tbUser){
+		System.out.println("댓글 생성 컨트롤러");
 		TbComment c = new TbComment();
 		c.setTbBoard(tbBoard);
 		c.setTbUser(tbUser);
-		c.setCmtContent(comment);
+		c.setCmtContent(string);
 		c.setCreatedAt(LocalDateTime.now());
 		return tbCommentRepository.save(c);
 	}
 	
 	// 댓글 불러오기
-	public List<TbComment> getAllComments(String bdIdx) {
+	public List<TbComment> getAllComments(Long bdIdx) {
 		return tbCommentRepository.findByboard(bdIdx);
 	}
 	

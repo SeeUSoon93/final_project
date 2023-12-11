@@ -24,9 +24,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.soon.slt.entity.TbBoard;
+import com.soon.slt.entity.TbComment;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.form.TbBoardForm;
 import com.soon.slt.service.TbBoardService;
+import com.soon.slt.service.TbCommentService;
 import com.soon.slt.service.TbUserService;
 
 import jakarta.validation.Valid;
@@ -39,6 +41,7 @@ public class TbBoardController {
 
     private final TbBoardService tbBoardService;
     private final TbUserService tbUserService;
+    private final TbCommentService tbCommentService;
 
     // Footer 와 Header 활성화
     @GetMapping("footer")
@@ -136,6 +139,8 @@ public class TbBoardController {
             String userName = principal.getName();
             isAuthor = tbBoard.getTbUser().getUserEmail().equals(userName);
         }
+        List<TbComment> commentList = this.tbCommentService.getAllComments(bdIdx);
+        model.addAttribute("commentList", commentList);
         model.addAttribute("isAuthor", isAuthor);
         return "board-view";
     }
