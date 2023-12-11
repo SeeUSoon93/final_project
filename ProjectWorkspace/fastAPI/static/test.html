@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수어랑말해랑-수어사전</title>
-    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
-
-</head>
-
+<html>
 <body>
-    <div class="video-box">
-        <div id="recordingStatus" style="display: none;">녹화중...</div>
-        <video id="webcam" autoplay playsinline></video>
-        <div class="record">
-            <button id="startRecord">시 작</button>
-            <button id="stopRecord">종 료</button>
-        </div>
-        <canvas id="canvas" style="display: none;"></canvas>
-    </div>
-    <script src="/static/test.js"></script>
-</body>
 
+<canvas id="canvas" width="640" height="480"></canvas>
+
+<script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var img = new Image();
+
+    var socket = new WebSocket("ws://localhost:9091/stream");
+    socket.onmessage = function(e) {
+        var arrayBuffer = e.data;
+        var blob = new Blob([arrayBuffer], {type: "image/jpeg"});
+        img.onload = function() {
+            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+        img.src = URL.createObjectURL(blob);
+    };
+</script>
+
+</body>
 </html>
