@@ -40,11 +40,9 @@ public class TbCommentController {
 
 	
 	// 댓글 생성 //Mono<Comment>
-	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{bdIdx}")
 	public String createComment(Model model, @PathVariable("bdIdx")Long bdIdx, Principal principal,
 			@Valid TbCommentForm commentForm, BindingResult bindingResult) {
-		System.out.println("댓글 생성 컨트롤러");
 		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
 		TbUser tbUser = this.tbUserService.getUser(principal.getName());
 		if(bindingResult.hasErrors()) {

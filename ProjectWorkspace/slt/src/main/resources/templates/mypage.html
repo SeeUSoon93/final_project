@@ -103,8 +103,7 @@
                         <td th:text="${#lists.size(boardList.tbLikesList)}" id="info-like"></td>
                     </tr>
                     <tr class="info-datetime">
-                        <td th:text="${#temporals.format(boardList.createdAt, 'yy-MM-dd')}" id="info-date">
-                            <p>&nbsp&nbsp|&nbsp&nbsp</p>
+                        <td th:text="${#temporals.format(boardList.createdAt, 'yy-MM-dd&nbsp')}" id="info-date">
                         </td>
                         <td th:text="${#temporals.format(boardList.createdAt, 'HH:mm:ss')}" id="info-time">
                         </td>
@@ -136,7 +135,7 @@
                         </td>
                     </tr>
                     <tr class="like-datetime">
-                        <td th:text="${#temporals.format(likeList.createdAt, 'yy-MM-dd')}" id="info-date">
+                        <td th:text="${#temporals.format(likeList.createdAt, 'yy-MM-dd ')}" id="info-date">
                             <p>&nbsp&nbsp|&nbsp&nbsp</p>
                         </td>
                         <td th:text="${#temporals.format(likeList.createdAt, 'HH:mm:ss')}" id="info-time">

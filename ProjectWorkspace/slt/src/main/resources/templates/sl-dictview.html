@@ -29,7 +29,10 @@
                         <div class="head-icon"><i class="fa-solid fa-house"></i></div>
                     </a>
                     <div class="head-icon"><i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="head-text" th:text="${slang.slangCategory}"></div>
+                    <div class="head-text">
+                        <span th:if="${slang.slangCategory == 'daily'}">일상용어</span>
+                        <span th:if="${slang.slangCategory == 'pro'}">전문용어</span>
+                    </div>
                 </div>
             </div>
             <div class="dict-contents">

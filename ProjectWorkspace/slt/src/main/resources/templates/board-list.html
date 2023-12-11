@@ -113,13 +113,6 @@
                 <ul class="pagination" id="pagination">
                     <nav class="pagiset-group">
                         <li class="pagiset-ctrl" th:style="${!paging.hasPrevious} ? 'display:none;' : '' ">
-                            <a th:href="@{|?page=1|}" class="pagiset-link pagiset-first">
-                        <span class="visually-hidden">
-                           <i class="fa-solid fa-angles-left"></i>
-                        </span>
-                            </a>
-                        </li>
-                        <li class="pagiset-ctrl" th:style="${!paging.hasPrevious} ? 'display:none;' : '' ">
                             <a th:href="@{|?page=${paging.number-1}|}" class="pagiset-link pagiset-prev">
                         <span class="visually-hidden">
                            <i class="fa-solid fa-angle-left"></i>
@@ -134,13 +127,6 @@
                             <a class="pagiset-link pagiset-next" th:href="@{|?page=${paging.number+1}|}">
                         <span class="visually-hidden">
                            <i class="fa-solid fa-angle-right"></i>
-                        </span>
-                            </a>
-                        </li>
-                        <li class="pagiset-ctrl" th:style="${!paging.hasNext} ? 'display:none;' : '' ">
-                            <a th:href="@{|?page=int(paging/10)|}" class="pagiset-link pagiset-last">
-                        <span class="visually-hidden">
-                           <i class="fa-solid fa-angles-right"></i>
                         </span>
                             </a>
                         </li>
