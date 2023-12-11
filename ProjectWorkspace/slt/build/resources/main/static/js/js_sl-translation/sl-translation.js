@@ -57,7 +57,7 @@ document.getElementById('startRecord').addEventListener('click', () => {
     canvas.toBlob(blob => {
       sendImageToServer(blob); // 이미지 전송 함수 호출
     }, 'image/jpeg');
-  }, 600);
+  }, 10);
   console.log(recordedBlobs);
 });
 
