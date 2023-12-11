@@ -16,8 +16,9 @@ import asyncio
 import catboost as cb
 from catboost import CatBoostClassifier
 import time
+from collections import Counter
 # source venv/bin/activate
-# -m uvicorn mainapp --reload --host 0.0.0.0 --prrt 9091
+# python -m uvicorn main:app --reload --host 0.0.0.0 --port 9091
 # uvicorn main:app --reload --host 0.0.0.0 --port 9091
 # uvicorn main:app --reload --host 0.0.0.0 --port 9090 --ssl-keyfile=./localhost-key.pem --ssl-certfile=./localhost.pem
 
@@ -34,7 +35,6 @@ app.add_middleware(
 
 
 predictions = [] # 예측값을 저장할 리스트
-temporary_predictions = [] #임시
 predicted_mapping = {'child' : '아이', 'down' : '쓰러지다', 'lost' : '잃어버리다', 'report' : '신고하다', 'sick' : '아프다', 'toilet' : '화장실', 'wallet' : '지갑', 'where' : '어디'}
 
 # 스트리밍 테스트
@@ -52,6 +52,7 @@ async def video_stream(websocket: WebSocket):
     cb_model.load_model('cb_model.cbm')
     cap = cv2.VideoCapture(0)
 
+    temporary_predictions = [] #임시
     start_time = time.time()
     
     if not cap.isOpened():
@@ -114,7 +115,14 @@ async def video_stream(websocket: WebSocket):
         # 예측된 라벨을 화면에 표시
         cv2.putText(img, text=str(predicted_label[0]), org=(50, 50),
                     fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(0, 0,0), thickness=2)
-        predictions.append(predicted_label[0][0])
+        temporary_predictions.append(predicted_label[0][0])
+
+        if len(temporary_predictions) >= 11:  # 2초동안 처리하는 이미지 수
+            frequency = Counter(temporary_predictions)
+            most_common_string = frequency.most_common(1)[0][0]
+            temporary_predictions = []
+            predictions.append(most_common_string)
+
         # 손 랜드마크 그리기
         if result.multi_hand_landmarks:
             for res in result.multi_hand_landmarks:
@@ -126,9 +134,6 @@ async def video_stream(websocket: WebSocket):
         # 프레임 속도 조절을 위한 대기
         await asyncio.sleep(0.1)
 
-        if time.time() - start_time >= 2:  # 2초가 지나면
-            print(len(predictions))  # 예측값의 수를 출력
-            break  # 루프 중단
 
 @app.get("/stop")
 def get_predictions():
@@ -137,20 +142,8 @@ def get_predictions():
     for word in predictions:
         predicted_text.append(predicted_mapping.get(word))
 
-    api_key = "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"
-    openai.api_key = api_key
-
     input_text = ", ".join(predicted_text)
-
-    response = openai.Completion.create(
-        model="text-davinci-003",  # GPT-4 모델 선택
-        prompt="자 너는 수어 동작을 번역한 한글 단어들을 조합해서 올바른 문장으로 만들어주는 통역사야. 여기 주어진 ', '로 구분된 단어들은 수어 동작을 번역한 단어야. 이걸 적절하게 바꿔야 하는데 예를 들면, '아이, 쓰러지다, 신고'가 들어왔다면 '아이가 쓰러졌어요. 신고 해주세요'라고 바꿔야 해. 근데 번역이 순간 잘못되서 전달될 수도 있어. 그럼 그 단어는 제거하거나 바꿔야해. 예를 들어서 '아이, 화장실, 신고' 이런식으로 들어온다면 화장실은 문맥에 맞지 않잖아. 그러니까 잘못 번역된거라고 인지하고 적당한 단어로 바꿔야 해. 예측값은 총 8개 단어이기 때문에 '아이, 쓰러지다, 잃어버리다, 신고, 아프다, 화장실, 지갑, 어디' 이중에서 문맥에 맞는 단어로 바꾼다음에 문장으로 변형해주면 좋겠어: " + input_text,
-        max_tokens=60,
-        temperature=0.7,
-        n=1,
-    )
-    corrected_text = response.choices[0].text.strip()
 
     predictions.clear() # 다음 요청을 위해 리스트 초기화    
     
-    return JSONResponse(content={"text": response})
+    return JSONResponse(content={"text":input_text})

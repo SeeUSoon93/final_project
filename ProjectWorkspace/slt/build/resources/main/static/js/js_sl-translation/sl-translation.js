@@ -39,10 +39,20 @@ document.getElementById('startRecord').addEventListener('click', () => {
   }
 });
 
-document.getElementById('stopRecord').addEventListener('click', () => {
+document.getElementById('stopRecord').addEventListener('click', async () => {
   if (streaming) {
     socket.close();
     streaming = false;
-    recordingStatus.style.display = 'none';
+    document.getElementById('recordingStatus').style.display = 'none';
+  
+  try {
+    const response = await fetch('http://localhost:9091/stop');
+    const data = await response.json();
+    console.log(data); // 콘솔에 응답 데이터 출력
+    document.getElementById('output').textContent = data.text; // 번역된 텍스트를 표시
+    document.getElementById('original').textContent = data.text2; // 원본 텍스트를 표시
+  } catch (error) {
+    console.error('Error fetching the predictions:', error);
   }
+}
 });

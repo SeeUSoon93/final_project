@@ -82,6 +82,10 @@ video {
     object-fit: cover;
 }
 
+#webcam{
+    width: 80%;
+    height: 720.5px;
+}
 
 
 /* 자주 찾는 질문 */

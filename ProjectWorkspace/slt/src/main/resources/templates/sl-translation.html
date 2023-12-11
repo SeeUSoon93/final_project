@@ -47,10 +47,12 @@
             <!-- 여기는 웹캠 화면 -->
             <div id="predict-cam" class="video-box">
                 <div id="recordingStatus" style="display: none;">녹화중...</div>
-                <canvas id="webcam" width="80%" height="720.5"></canvas>                
+                <canvas id="webcam"></canvas>                
                 <div class="record">
                     <button id="startRecord">시 작</button>
                     <button id="stopRecord">종 료</button>
+                    <div id="output">번역된 텍스트가 여기에 표시됩니다.</div>
+                    <div id="original">원본 텍스트가 여기에 표시됩니다.</div>
                 </div>                
             </div>
 
