@@ -96,7 +96,7 @@
                         <td th:text="${#temporals.format(board.createdAt, 'yy-MM-dd')}">
                         </td>
                         <td>
-                            <span th:text="${bdLikes != null ? bdLikes.size() : 0}"></span>
+                            <span th:text="${board.tbLikesList.size() != null ? #lists.size(board.bdLikes) : 0}"></span>
                         </td>
                     </tr>
 
