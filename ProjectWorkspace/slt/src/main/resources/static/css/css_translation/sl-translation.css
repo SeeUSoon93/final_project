@@ -85,6 +85,9 @@ video {
 #webcam{
     width: 80%;
     height: 720.5px;
+    display: flex;
+    margin: 0 auto;
+    background-color: black;
 }
 
 
@@ -157,6 +160,31 @@ h3 {
     color: #fff;
     background-color: #477489;
 }
+
+.camtext {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+#output {
+	padding-bottom: 30px;
+	font-size: 30px;
+	color: #477489;
+	
+}
+
+.fa-solid {
+	padding-bottom: 30px;
+	display: flex;
+	width: 20px;
+	color: #477489;
+}
+
+
+
+
+
 
 
 .conbody {
