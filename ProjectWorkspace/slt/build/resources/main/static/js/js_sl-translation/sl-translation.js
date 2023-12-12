@@ -45,15 +45,12 @@ document.getElementById('stopRecord').addEventListener('click', async () => {
 		socket.close();
 		streaming = false;
 		document.getElementById('recordingStatus').style.display = 'none';
-
+		filterPosts('ps-video');
 		try {
-      // 녹화를 중지한 후 'ps-video' 뷰로 전환합니다.
-			filterPosts('ps-video');
-
 			const response = await fetch('http://localhost:9091/stop');
 			const data = await response.json();
 			console.log(data); // 콘솔에 응답 데이터 출력
-			document.getElementById('output').textContent = data.text; // 번역된 텍스트를 표시
+			document.getElementById('output2').textContent = data.text; // 번역된 텍스트를 표시
 			
 		} catch (error) {
 			console.error('에러 발생:', error);

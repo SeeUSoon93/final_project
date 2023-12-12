@@ -75,7 +75,7 @@ a {
 
 video {
     width: 80%;
-    height: 720.5px;
+    height: 600px;
     display: flex;
     margin: 0 auto;
     border: 1px solid #447489;
@@ -84,7 +84,7 @@ video {
 
 #webcam{
     width: 80%;
-    height: 720.5px;
+    height: 600px;
     display: flex;
     margin: 0 auto;
     background-color: black;
@@ -92,7 +92,7 @@ video {
 
 #ps-video video {
     width: 80%;
-    height: 720.5px;
+    height: 600px;
     display: flex;
     margin: 0 auto;
     border: 1px solid #447489;
