@@ -24,6 +24,7 @@ window.onload = function() {
 
 // 녹화 시작 버튼 이벤트
 document.getElementById('startRecord').addEventListener('click', () => {
+  filterPosts('predict-cam');
 	if (!streaming) {
 		socket = new WebSocket("ws://localhost:9091/stream");
 		socket.onmessage = function(e) {

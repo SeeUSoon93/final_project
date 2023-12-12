@@ -17,6 +17,10 @@ import catboost as cb
 from catboost import CatBoostClassifier
 import time
 from collections import Counter
+from numpy import dot
+from numpy.linalg import norm
+import urllib.request
+from sentence_transformers import SentenceTransformer
 # source venv/bin/activate
 # python -m uvicorn main:app --reload --host 0.0.0.0 --port 9091
 # uvicorn main:app --reload --host 0.0.0.0 --port 9091
@@ -44,12 +48,14 @@ hands = mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5, min_tracki
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 
+cb_model = CatBoostClassifier()
+cb_model.load_model('cb_model.cbm')
+model = SentenceTransformer('sentence_model')
 
 @app.websocket("/stream")
 async def video_stream(websocket: WebSocket):
     await websocket.accept()
-    cb_model = CatBoostClassifier()
-    cb_model.load_model('cb_model.cbm')
+
     cap = cv2.VideoCapture(0)
 
     temporary_predictions = [] #임시
