@@ -6,6 +6,7 @@ let canvas = document.getElementById('canvas');
 let intervalId;
 let socket;
 let streaming = false;
+var img = new Image();
 
 function filterPosts(selId) {
 	var videoBox = document.getElementsByClassName('video-box');
@@ -30,11 +31,13 @@ document.getElementById('startRecord').addEventListener('click', () => {
 		socket.onmessage = function(e) {
 			var arrayBuffer = e.data;
 			var blob = new Blob([arrayBuffer], { type: "image/jpeg" });
-			var img = new Image();
+			var objectURL = URL.createObjectURL(blob);
+
 			img.onload = function() {
 				webcamContext.drawImage(img, 0, 0, webcamCanvas.width, webcamCanvas.height);
+				URL.revokeObjectURL(objectURL);
 			}
-			img.src = URL.createObjectURL(blob);
+			img.src = objectURL;
 		};
 		streaming = true;
 	}

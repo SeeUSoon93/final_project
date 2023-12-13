@@ -21,7 +21,6 @@ from collections import Counter
 from numpy import dot
 from numpy.linalg import norm
 import urllib.request
-from sentence_transformers import SentenceTransformer
 # source venv/bin/activate
 # python -m uvicorn main:app --reload --host 0.0.0.0 --port 9091
 # uvicorn main:app --reload --host 0.0.0.0 --port 9091
@@ -53,13 +52,12 @@ pose = mp_pose.Pose()
 
 pre_model = CatBoostClassifier()
 pre_model.load_model('cb_model.cbm')
-
+        
 @app.websocket("/stream")
 async def video_stream(websocket: WebSocket):
     await websocket.accept()
 
     cap = cv2.VideoCapture(0)
-
     temporary_predictions = [] #임시
     start_time = time.time()    
     
@@ -136,25 +134,27 @@ async def video_stream(websocket: WebSocket):
             for res in result.multi_hand_landmarks:
                 mp_drawing.draw_landmarks(img, res, mp_hands.HAND_CONNECTIONS)
         
-        _, buffer = cv2.imencode('.jpg', img,[int(cv2.IMWRITE_JPEG_QUALITY), 100])
+        _, buffer = cv2.imencode('.jpg', img)
         await websocket.send_bytes(buffer.tobytes())
 
         # 프레임 속도 조절을 위한 대기
         await asyncio.sleep(0.1)
 
-
 # 정지버튼 요청
-sen_data = pd.read_csv('sen_data.csv')
-sen_model = SentenceTransformer('sentence_model')
-sen_data['embedding'] = sen_data.apply(lambda row: sen_model.encode(row.Q), axis = 1)
-def cos_sim(A, B):
-  return dot(A, B)/(norm(A)*norm(B))
-
-def return_answer(question):
-    embedding = sen_model.encode(question)
-    sen_data['score'] = sen_data.apply(lambda x: cos_sim(x['embedding'], embedding), axis=1)
-    return sen_data.loc[sen_data['score'].idxmax()]['A']
-
+def create_sentence(key_list):
+    if '아이' in key_list and '쓰러지다' in key_list:
+        return "아이가 쓰러졌어요. 신고해주세요"
+    elif '화장실' in key_list and '어디'in key_list :
+        return "화장실이 어디에요?"
+    elif '지갑' in key_list and '잃어버리다' in key_list:
+        return "지갑을 잃어버렸어요."
+    elif '아이' in key_list and '잃어버리다' in key_list:
+        return "아이가 사라졌어요. 신고해주세요"
+    elif '아이' in key_list and '아프다' in key_list:
+        return "아이가 아파요."
+    else:
+        return "다시 한번 시도해주세요."
+    
 @app.get("/stop")
 def get_predictions():
     
@@ -162,9 +162,7 @@ def get_predictions():
     for word in predictions:
         predicted_text.append(predicted_mapping.get(word))
 
-    input_text = " ".join(predicted_text)
-
-    trans_sentence = return_answer(input_text)
+    trans_sentence = create_sentence(predicted_text)
 
     predictions.clear() # 다음 요청을 위해 리스트 초기화    
     
