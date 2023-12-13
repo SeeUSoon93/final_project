@@ -5,6 +5,7 @@ from predict import predict_method, calculate_angles, calculate_pose_angles
 import numpy as np
 import cv2
 import mediapipe as mp
+import pandas as pd
 from fastapi.middleware.cors import CORSMiddleware
 import openai
 from fastapi.responses import FileResponse
@@ -17,6 +18,10 @@ import catboost as cb
 from catboost import CatBoostClassifier
 import time
 from collections import Counter
+from numpy import dot
+from numpy.linalg import norm
+import urllib.request
+from sentence_transformers import SentenceTransformer
 # source venv/bin/activate
 # python -m uvicorn main:app --reload --host 0.0.0.0 --port 9091
 # uvicorn main:app --reload --host 0.0.0.0 --port 9091
@@ -25,9 +30,11 @@ from collections import Counter
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 # 모든 출처와 모든 헤더, 메소드를 허용하도록 CORS 설정
+origins = ["http://localhost:9090",
+           "http://localhost:9091"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -44,16 +51,17 @@ hands = mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5, min_tracki
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 
+pre_model = CatBoostClassifier()
+pre_model.load_model('cb_model.cbm')
 
 @app.websocket("/stream")
 async def video_stream(websocket: WebSocket):
     await websocket.accept()
-    cb_model = CatBoostClassifier()
-    cb_model.load_model('cb_model.cbm')
+
     cap = cv2.VideoCapture(0)
 
     temporary_predictions = [] #임시
-    start_time = time.time()
+    start_time = time.time()    
     
     if not cap.isOpened():
         print("Cannot open camera")
@@ -110,7 +118,7 @@ async def video_stream(websocket: WebSocket):
             break
 
         data = data.reshape(1,-1)
-        predicted_label = cb_model.predict(data)
+        predicted_label = pre_model.predict(data)
         
         # 예측된 라벨을 화면에 표시
         cv2.putText(img, text=str(predicted_label[0]), org=(50, 50),
@@ -128,12 +136,24 @@ async def video_stream(websocket: WebSocket):
             for res in result.multi_hand_landmarks:
                 mp_drawing.draw_landmarks(img, res, mp_hands.HAND_CONNECTIONS)
         
-        _, buffer = cv2.imencode('.jpg', img)
+        _, buffer = cv2.imencode('.jpg', img,[int(cv2.IMWRITE_JPEG_QUALITY), 100])
         await websocket.send_bytes(buffer.tobytes())
 
         # 프레임 속도 조절을 위한 대기
         await asyncio.sleep(0.1)
 
+
+# 정지버튼 요청
+sen_data = pd.read_csv('sen_data.csv')
+sen_model = SentenceTransformer('sentence_model')
+sen_data['embedding'] = sen_data.apply(lambda row: sen_model.encode(row.Q), axis = 1)
+def cos_sim(A, B):
+  return dot(A, B)/(norm(A)*norm(B))
+
+def return_answer(question):
+    embedding = sen_model.encode(question)
+    sen_data['score'] = sen_data.apply(lambda x: cos_sim(x['embedding'], embedding), axis=1)
+    return sen_data.loc[sen_data['score'].idxmax()]['A']
 
 @app.get("/stop")
 def get_predictions():
@@ -142,8 +162,10 @@ def get_predictions():
     for word in predictions:
         predicted_text.append(predicted_mapping.get(word))
 
-    input_text = ", ".join(predicted_text)
+    input_text = " ".join(predicted_text)
+
+    trans_sentence = return_answer(input_text)
 
     predictions.clear() # 다음 요청을 위해 리스트 초기화    
     
-    return JSONResponse(content={"text":input_text})
+    return JSONResponse(content={"text":trans_sentence})

@@ -47,22 +47,23 @@
 
 				<!-- 여기는 웹캠 화면 -->
 				<div id="predict-cam" class="video-box">
-					<div class="camtext">
-						<i class="fa-solid fa-quote-left"></i>
-						<div id="output">번역된 텍스트가 여기에 표시됩니다.</div>
-						<i class="fa-solid fa-quote-right"></i>
-					</div>
 					<div id="recordingStatus" style="display: none;">녹화중...</div>
 					<canvas id="webcam"></canvas>
-					<div class="record">
-						<button id="startRecord">시 작</button>
-						<button id="stopRecord">종 료</button>
+				</div>
+				<div id="ps-video" class="video-box">
+					<div id="output" class="camtext">
+						<i class="fa-solid fa-quote-left quote"></i>
+							<div id="output2"></div>
+						<i class="fa-solid fa-quote-right quote"></i>
 					</div>
-					<video autoplay class="video-box">
-						<source src="your_video_source.mp4" type="video/mp4">
+					<video autoplay>
+						<source src="/gif/anne.mp4" type="video/mp4">
 					</video>
 				</div>
-
+				<div class="record">
+					<button id="startRecord">시 작</button>
+					<button id="stopRecord">종 료</button>
+				</div>
 			</div>
 		</div>
 	</div>

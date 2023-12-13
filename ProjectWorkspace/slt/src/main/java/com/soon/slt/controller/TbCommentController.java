@@ -43,6 +43,8 @@ public class TbCommentController {
 	@PostMapping("/create/{bdIdx}")
 	public String createComment(Model model, @PathVariable("bdIdx")Long bdIdx, Principal principal,
 			@Valid TbCommentForm commentForm, BindingResult bindingResult) {
+		if(principal == null){
+			return "redirect:/tbUser/login";		}
 		TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
 		TbUser tbUser = this.tbUserService.getUser(principal.getName());
 		if(bindingResult.hasErrors()) {

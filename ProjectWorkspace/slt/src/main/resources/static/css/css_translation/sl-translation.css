@@ -75,7 +75,7 @@ a {
 
 video {
     width: 80%;
-    height: 720.5px;
+    height: 600px;
     display: flex;
     margin: 0 auto;
     border: 1px solid #447489;
@@ -84,10 +84,19 @@ video {
 
 #webcam{
     width: 80%;
-    height: 720.5px;
+    height: 600px;
     display: flex;
     margin: 0 auto;
     background-color: black;
+}
+
+#ps-video video {
+    width: 80%;
+    height: 600px;
+    display: flex;
+    margin: 0 auto;
+    border: 1px solid #447489;
+    object-fit: cover;
 }
 
 
@@ -165,20 +174,22 @@ h3 {
 	display: flex;
 	justify-content: center;
 	width: 100%;
+	padding-bottom: 30px;
+    font-size: 30px;
+    color: #477489;
 }
 
-#output {
-	padding-bottom: 30px;
-	font-size: 30px;
-	color: #477489;
-	
+.camtext p {
+    min-width: 500px;
+    width: auto;
+    text-align: center;
 }
 
-.fa-solid {
+.quote {
 	padding-bottom: 30px;
-	display: flex;
-	width: 20px;
+	width: 30px;
 	color: #477489;
+	text-algin: center;
 }
 
 

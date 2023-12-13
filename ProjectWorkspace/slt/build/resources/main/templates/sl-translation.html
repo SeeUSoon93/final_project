@@ -2,98 +2,75 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수어랑말해랑-수어사전</title>
-    <link rel="stylesheet" href="/css/css_translation/sl-translation.css">
-    <script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
-    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>수어랑말해랑-수어사전</title>
+	<link rel="stylesheet" href="/css/css_translation/sl-translation.css">
+	<script src="https://kit.fontawesome.com/08f5f8a0fd.js" crossorigin="anonymous"></script>
+	<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-<div id="header-container"></div>
-<div class="conbody">
-    <div class="banner">
-        <div class="banner-font">
-            <h2>수어번역</h2>
-            <P>수어랑말해랑 수어번역</P>
-        </div>  
-    </div>
+	<div id="header-container"></div>
+	<div class="conbody">
+		<div class="banner">
+			<div class="banner-font">
+				<h2>수어번역</h2>
+				<P>수어랑말해랑 수어번역</P>
+			</div>
+		</div>
 
-    <div class="sl-translation">
-        <div class="translation-contents">
-            <div class="radio-box">
-                <div class="radio-inputs">
-                    <label class="radio" onclick="filterPosts('predict-video')">
-                        <input type="radio" name="radio" checked="">
-                        <span class="name">안 내</span>
-                    </label>
-                    <label class="radio" onclick="filterPosts('predict-cam')">
-                        <input type="radio" name="radio">
-                        <span class="name">번 역</span>
-                    </label>
-                </div>
-            </div>
+		<div class="sl-translation">
+			<div class="translation-contents">
+				<div class="radio-box">
+					<div class="radio-inputs">
+						<label class="radio" onclick="filterPosts('predict-video')">
+							<input type="radio" name="radio" checked="">
+							<span class="name">안 내</span>
+						</label>
+						<label class="radio" onclick="filterPosts('predict-cam')">
+							<input type="radio" name="radio">
+							<span class="name">번 역</span>
+						</label>
+					</div>
+				</div>
 
-            <div id="predict-video" class="video-box">
-                <video autoplay loop="10000">
-                    <source src="/gif/help.mp4" type="video/mp4">
-                </video>
-            </div>
+				<div id="predict-video" class="video-box">
+					<video autoplay loop="10000">
+						<source src="/gif/help.mp4" type="video/mp4">
+					</video>
+				</div>
 
-            <!-- 여기는 웹캠 화면 -->
-            <div id="predict-cam" class="video-box">
-                <div id="recordingStatus" style="display: none;">녹화중...</div>
-                <canvas id="webcam"></canvas>                
-                <div class="record">
-                    <button id="startRecord">시 작</button>
-                    <button id="stopRecord">종 료</button>
-                    <div id="output">번역된 텍스트가 여기에 표시됩니다.</div>
-                    <div id="original">원본 텍스트가 여기에 표시됩니다.</div>
-                </div>                
-            </div>
+				<!-- 여기는 웹캠 화면 -->
+				<div id="predict-cam" class="video-box">
+					<div id="recordingStatus" style="display: none;">녹화중...</div>
+					<canvas id="webcam"></canvas>
+				</div>
+				<div id="ps-video" class="video-box">
+					<div id="output" class="camtext">
+						<i class="fa-solid fa-quote-left quote"></i>
+							<div id="output2"></div>
+						<i class="fa-solid fa-quote-right quote"></i>
+					</div>
+					<video autoplay>
+						<source src="/gif/anne.mp4" type="video/mp4">
+					</video>
+				</div>
+				<div class="record">
+					<button id="startRecord">시 작</button>
+					<button id="stopRecord">종 료</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-            <div class="dictionary-content">
-                <div class="dictionary-group">
-                    <div class="group">
-                        <h3>자주 찾는 질문</h3>
-                        <div class="item">
-                            <div class="image-box">
-                                <img src="/image/sign.jpg" alt="Image1">
-                            </div>
-                            <div class="text-box">
-                                <p>의미 1</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="image-box">
-                                썸네일
-                            </div>
-                            <div class="text-box">
-                                <p>의미 1</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="image-box">
-                                썸네일
-                            </div>
-                            <div class="text-box">
-                                <p>의미 1</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="footer-container"></div>
-<script src="/js/js_headfoot/headFoot.js"></script>
-<script src="/js/js_sl-translation/sl-translation.js"></script>
+	<div id="footer-container"></div>
+	<script src="/js/js_headfoot/headFoot.js"></script>
+	<script src="/js/js_sl-translation/sl-translation.js"></script>
 </body>
 
 </html>
