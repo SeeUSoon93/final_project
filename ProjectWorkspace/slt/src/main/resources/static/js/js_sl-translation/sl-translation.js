@@ -52,7 +52,7 @@ document.getElementById('stopRecord').addEventListener('click', async () => {
 		try {
 			const response = await fetch('http://localhost:9091/stop');
 			const data = await response.json();
-			console.log(data); // 콘솔에 응답 데이터 출력
+			console.log(data);
 			document.getElementById('output2').textContent = data.text; // 번역된 텍스트를 표시
 			
 		} catch (error) {
