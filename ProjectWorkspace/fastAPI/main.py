@@ -16,7 +16,6 @@ import asyncio
 # uvicorn main:app --reload --host 0.0.0.0 --port 9091
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
 
 origins = ["http://localhost:9090",
            "http://localhost:9091"]
