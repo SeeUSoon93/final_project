@@ -38,14 +38,7 @@ def calculate_pose_angles(pose_landmarks, image_shape):
 
     return arm_angles
 
-mp_hands = mp.solutions.hands
-mp_drawing = mp.solutions.drawing_utils
-hands = mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-mp_pose = mp.solutions.pose
-pose = mp_pose.Pose()
 
-pre_model = CatBoostClassifier()
-pre_model.load_model('cb_model.cbm')
 
 def predict_method(img):
     img = cv2.flip(img, 1)
@@ -92,7 +85,7 @@ def predict_method(img):
     data = np.concatenate((right_hand_angles, right_hand_coords, left_hand_angles, left_hand_coords, arm_angles, landmark_data))
     data = data.reshape(1,-1)      
     predicted_label = pre_model.predict(data)
-    cv2.putText(img, text=str(predicted_label[0]), org=(50, 50),
+    cv2.putText(img, text=str(predicted_label[0][0]), org=(50, 50),
                     fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(0, 0,0), thickness=2)
     
     cv2.destroyAllWindows()
