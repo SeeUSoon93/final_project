@@ -1,20 +1,7 @@
-import os
-import tempfile
-import numpy as np
-import pandas as pd
 import cv2
+import numpy as np
 import mediapipe as mp
-import matplotlib.pyplot as plt
-import pickle
-import math
-import catboost as cb
 from catboost import CatBoostClassifier
-
-
-mp_hands = mp.solutions.hands
-hands = mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-mp_pose = mp.solutions.pose
-pose = mp_pose.Pose()
 
 # 손가락 각도 계산 함수
 def calculate_angles(hand_landmarks, image_shape):
@@ -22,17 +9,14 @@ def calculate_angles(hand_landmarks, image_shape):
     for j, lm in enumerate(hand_landmarks.landmark):
         joint[j] = [lm.x * image_shape[1], lm.y * image_shape[0], lm.z]
         
-    # 벡터 계산
     v1 = joint[[0,1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,0,17,18,19],:]
     v2 = joint[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],:]
     v = v2 - v1
     v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]
 
-    # 각도 계산
     angle = np.arccos(np.einsum('nt,nt->n', v[[0,1,2,4,5,6,8,9,10,12,13,14,16,17,18],:], v[[1,2,3,5,6,7,9,10,11,13,14,15,17,18,19],:]))
     angle = np.degrees(angle)
     
-    # NaN 값이 있을 경우 0으로 대체
     angle = np.nan_to_num(angle)
     
     return angle, joint.flatten()
@@ -43,8 +27,8 @@ def calculate_pose_angles(pose_landmarks, image_shape):
         joint[j] = [lm.x * image_shape[1], lm.y * image_shape[0], lm.z]
 
     # 팔 각도 계산: 어깨(11, 12), 팔꿈치(13, 14), 손목(15, 16) 랜드마크 사용
-    v1 = joint[[11, 13, 12, 14], :]  # 어깨와 팔꿈치
-    v2 = joint[[13, 15, 14, 16], :]  # 팔꿈치와 손목
+    v1 = joint[[11, 13, 12, 14], :]
+    v2 = joint[[13, 15, 14, 16], :]
     v = v2 - v1
     v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]
 
@@ -55,10 +39,8 @@ def calculate_pose_angles(pose_landmarks, image_shape):
     return arm_angles
 
 
-def predict_method(img):
-    cb_model = CatBoostClassifier()
-    cb_model.load_model('cb_model.cbm')
 
+def predict_method(img):
     img = cv2.flip(img, 1)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     result = hands.process(img)
@@ -73,6 +55,8 @@ def predict_method(img):
     left_hand_coords = np.zeros(63)  
 
     if pose_result.pose_landmarks:
+        mp.solutions.drawing_utils.draw_landmarks(
+            img, pose_result.pose_landmarks, mp_pose.POSE_CONNECTIONS)
         arm_angles = calculate_pose_angles(pose_result.pose_landmarks, img.shape)
         landmark_data = []
         for idx in [11, 13, 15, 12, 14, 16]:
@@ -82,10 +66,11 @@ def predict_method(img):
             landmark_data = np.zeros(18)
 
     if result.multi_hand_landmarks:
-        for i, hand_landmarks in enumerate(result.multi_hand_landmarks):
-            if i>= 2:
-                for j, lm in enumerate(res.landmark):
-                    break
+         for res in result.multi_hand_landmarks:
+            mp_drawing.draw_landmarks(img, res, mp_hands.HAND_CONNECTIONS)
+            for i, hand_landmarks in enumerate(result.multi_hand_landmarks):
+                 if i>= 2:
+                      break
 
             hand_type = result.multi_handedness[i].classification[0].label
             angles, joint_coords = calculate_angles(hand_landmarks, img.shape)
@@ -99,8 +84,24 @@ def predict_method(img):
 
     data = np.concatenate((right_hand_angles, right_hand_coords, left_hand_angles, left_hand_coords, arm_angles, landmark_data))
     data = data.reshape(1,-1)      
-    predicted_label = cb_model.predict(data)
-
+    predicted_label = pre_model.predict(data)
+    cv2.putText(img, text=str(predicted_label[0][0]), org=(50, 50),
+                    fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(0, 0,0), thickness=2)
+    
     cv2.destroyAllWindows()
 
-    return predicted_label[0][0]
+    return predicted_label[0][0], img
+
+def create_sentence(key_list):
+    if '아이' in key_list and '쓰러지다' in key_list:
+        return "아이가 쓰러졌어요. 신고해주세요"
+    elif '화장실' in key_list and '어디'in key_list :
+        return "화장실이 어디에요?"
+    elif '지갑' in key_list and '잃어버리다' in key_list:
+        return "지갑을 잃어버렸어요."
+    elif '아이' in key_list and '잃어버리다' in key_list:
+        return "아이가 사라졌어요. 신고해주세요"
+    elif '아이' in key_list and '아프다' in key_list:
+        return "아이가 아파요."
+    else:
+        return "다시 한번 시도해주세요."
