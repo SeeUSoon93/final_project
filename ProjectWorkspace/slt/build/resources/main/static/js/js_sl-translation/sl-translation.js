@@ -6,6 +6,7 @@ let canvas = document.getElementById('canvas');
 let intervalId;
 let socket;
 let streaming = false;
+var img = new Image();
 
 function filterPosts(selId) {
 	var videoBox = document.getElementsByClassName('video-box');
@@ -30,11 +31,13 @@ document.getElementById('startRecord').addEventListener('click', () => {
 		socket.onmessage = function(e) {
 			var arrayBuffer = e.data;
 			var blob = new Blob([arrayBuffer], { type: "image/jpeg" });
-			var img = new Image();
+			var objectURL = URL.createObjectURL(blob);
+
 			img.onload = function() {
 				webcamContext.drawImage(img, 0, 0, webcamCanvas.width, webcamCanvas.height);
+				URL.revokeObjectURL(objectURL);
 			}
-			img.src = URL.createObjectURL(blob);
+			img.src = objectURL;
 		};
 		streaming = true;
 	}
@@ -49,7 +52,7 @@ document.getElementById('stopRecord').addEventListener('click', async () => {
 		try {
 			const response = await fetch('http://localhost:9091/stop');
 			const data = await response.json();
-			console.log(data); // 콘솔에 응답 데이터 출력
+			console.log(data);
 			document.getElementById('output2').textContent = data.text; // 번역된 텍스트를 표시
 			
 		} catch (error) {

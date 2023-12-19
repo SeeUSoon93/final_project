@@ -6,12 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.soon.slt.entity.TbSignlang;
-import com.soon.slt.repository.TbSignlangRepository;
 import com.soon.slt.service.TbSLangDicService;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @RequestMapping("/dic")
 @Controller
@@ -39,13 +36,6 @@ public class TbSLangDicController {
 		return "sl-dictionary";
 	}
 
-//	@GetMapping("/list")
-//	public Page<TbSignlang> lang(Model model, @RequestParam(value = "page", defaultValue = "0")int page,
-//								 @RequestParam(value="category", defaultValue = "") String category) {
-//		Page<TbSignlang> langList = this.tbSLangDicService.getSignlang(page, category);
-//		return langList;
-//	}
-
 	@GetMapping("/list")
 	@ResponseBody
 	public Page<TbSignlang> lang(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
@@ -59,7 +49,6 @@ public class TbSLangDicController {
 	@GetMapping("/detail/{slangIdx}")
 	public String langDetail(Model model, @PathVariable("slangIdx") Long slangIdx) {
 		TbSignlang slang = this.tbSLangDicService.langDetail(slangIdx);
-		// 나머지 데이터 뷰로 전달
 		model.addAttribute("slang",slang);
 		return "sl-dictview";
 	}

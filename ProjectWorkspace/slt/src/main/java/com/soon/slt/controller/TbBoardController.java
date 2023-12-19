@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -78,9 +75,7 @@ public class TbBoardController {
     @ResponseBody
     public Page<TbBoard> boardFilter(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
                                      @RequestParam(value = "filter", defaultValue = "") String filter) {
-        System.out.println("컨트롤러 안에 들어왔니?");
         Page<TbBoard> paging = this.tbBoardService.boardFilter(page, filter);
-        System.out.println("서비스 갔다 왔니?"+paging);
         model.addAttribute("paging", paging.getContent());
         return paging;
     }
@@ -95,7 +90,6 @@ public class TbBoardController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String boardCreate(@Valid TbBoardForm tbBoardForm, BindingResult bindingResult, Principal principal,
-                              //@RequestPart("files") List<MultipartFile> files,
                               RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             System.out.println("에러");
@@ -114,7 +108,6 @@ public class TbBoardController {
         }
         System.out.println("잘됨");
         return "redirect:/board/main";
-        // return "board-list2";
     }
 
     // 게시글 삭제
@@ -181,10 +174,8 @@ public class TbBoardController {
  		try {
  			TbBoard tbBoard = this.tbBoardService.boardDetail(bdIdx);
  			TbUser tbUser = this.tbUserService.getUser(principal.getName());
-
  			// 좋아요 토글 수행
  			boolean liked = this.tbBoardService.boardLike(tbBoard, tbUser);
-
  			// 좋아요 갯수 반환
  			return ResponseEntity.ok(tbBoard.getBdLikes().size());
  		} catch (Exception e) {

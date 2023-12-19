@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.soon.slt.CommentRequest;
-import com.soon.slt.DataNotFound;
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbComment;
 import com.soon.slt.entity.TbUser;
@@ -36,9 +34,7 @@ public class TbCommentController {
 	private final TbBoardService tbBoardService;
 	private final TbUserService tbUserService;
 	private final TbCommentService tbCommentService;
-	
 
-	
 	// 댓글 생성 //Mono<Comment>
 	@PostMapping("/create/{bdIdx}")
 	public String createComment(Model model, @PathVariable("bdIdx")Long bdIdx, Principal principal,

@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbComment;
-import com.soon.slt.entity.TbUser;
 
 public interface TbCommentRepository extends JpaRepository<TbComment, Long>{
 	

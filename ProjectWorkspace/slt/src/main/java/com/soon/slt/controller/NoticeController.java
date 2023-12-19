@@ -1,10 +1,8 @@
 package com.soon.slt.controller;
 
-import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -14,18 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.soon.slt.entity.TbBoard;
 import com.soon.slt.entity.TbUser;
 import com.soon.slt.form.NoticeForm;
-import com.soon.slt.form.TbBoardForm;
 import com.soon.slt.service.NoticeService;
-import com.soon.slt.service.TbUserSecurityService;
 import com.soon.slt.service.TbUserService;
 
 import jakarta.validation.Valid;
@@ -38,7 +31,6 @@ public class NoticeController {
 
    private final NoticeService noticeService;
    private final TbUserService tbUserService;
-   private final TbUserSecurityService tbUserServiceSecurityService;
    
    
    // Footer 와 Header 활성화
@@ -77,7 +69,6 @@ public class NoticeController {
 		System.out.println("공지사항 생성");
 		TbUser user = this.tbUserService.getUser(principal.getName());
 		this.noticeService.noticeCreate(noticeForm.getBdTitle(), noticeForm.getBdContent(), user);
-		/* return "notice-list"; */
 		return "redirect:/notice/main";
 	}
 	
@@ -91,9 +82,7 @@ public class NoticeController {
 		this.noticeService.boardDelete(bdIdx);
 		return "redirect:/board/main";
 	}
-   
 
-   
    // 공지사항 수정 페이지로 이동
    @GetMapping("/update/{bdIdx}")
    public String noticeUpdate(NoticeForm noticeForm, @PathVariable("bdIdx") Long bdIdx, Principal principal) {
